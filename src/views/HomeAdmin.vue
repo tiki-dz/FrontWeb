@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+import{ref} from 'vue'
+const input = ref('')
+</script>
 
 <template>
   <!-- deviding screen into two columns: sidebar and content -->
@@ -57,23 +60,24 @@
           </el-col>
         </el-row>
         <el-row style="margin-bottom: 20px">
-          <el-col :span="12">
+          <el-col :span="24">
             <!-- body cards  -->
             <el-card>
-              <div class="card card-frame col-4">
-                <div class="card-body">
-                  This is some text within a card body.
+              <template #header>
+                <div class="card-header">
+                  <span>Créer un compte</span>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="12">
-            <el-card>
-              <div class="card card-frame col-4">
-                <div class="card-body">
-                  This is some text within a card body.
-                </div>
-              </div>
+              </template>
+              <el-form
+                ref="ruleFormRef"
+                :model="ruleForm"
+                :rules="rules"
+                label-width="120px"
+                class="demo-ruleForm"
+                :size="formSize"
+              >
+                <el-input v-model="input" placeholder="Please input" />
+              </el-form>
             </el-card>
           </el-col>
         </el-row>
@@ -96,7 +100,7 @@ aside {
   display: flex;
 }
 .header {
-  height: 19vh;
+  height: 15vh;
   background-color: var(--vt-c-orange);
 }
 li {
@@ -116,5 +120,10 @@ a {
 .el-divider {
   margin: 0;
   padding-bottom: 10px;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
