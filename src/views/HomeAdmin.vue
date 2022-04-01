@@ -81,7 +81,7 @@
     </el-col>
   </el-row>
 </template>
-<style>
+<style scoped>
 aside {
   height: 100vh;
   background-color: rgb(255, 251, 248);
