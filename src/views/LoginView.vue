@@ -45,7 +45,7 @@ export default {
               type: "error",
             });
           } else {
-            let x = account.data.data.data.User;
+            let x = account.data.data.token;
             localStorage.setItem("LoggedUser", x);
             ElNotification({
               title: "Logged in successfully",
@@ -217,10 +217,11 @@ span {
   margin-top: 0px;
 }
 #togglePassword {
-  margin-top: -40px;
-  margin-right: 70px;
+  margin-top: -13%;
+  padding: 3%;
+  right: 20%;
   cursor: pointer;
   float: right;
-  padding: 10px;
+  position: relative;
 }
 </style>
