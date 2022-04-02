@@ -11,7 +11,7 @@ export default {
         password: "",
         password2: "",
         email: "",
-        naissance: "",
+        birthDate: "",
         phoneNumber: "",
         sexe: "",
       },
@@ -37,12 +37,12 @@ export default {
           const response = await authService.signup({
             firstName: this.ruleForm.firstName,
             lastName: this.ruleForm.lastName,
-            birthDate: this.ruleForm.birthday,
+            birthDate: this.ruleForm.birthDate,
             sexe: this.ruleForm.sexe,
             email: this.ruleForm.email,
             password: this.ruleForm.password,
             city:'oran',
-            phoneNumber: this.ruleForm.phoneNum,
+            phoneNumber: this.ruleForm.phoneNumber,
           });
           alert("regiter successfull");
           console.log(response.data);
