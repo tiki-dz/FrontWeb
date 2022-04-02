@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       ruleForm: {
-        recherche: "",
+        search: "",
         firstName: "",
         lastName: "",
         password: "",
@@ -13,59 +13,44 @@ export default {
         email: "",
         naissance: "",
         phoneNumber: "",
-        options: [],
+        sexe: "",
       },
 
-      sexe: [
+      sexeopt: [
         {
-          value: "FEMME",
+          value: 0,
           label: "FEMME",
         },
         {
-          value: "HOMME",
+          value: 1,
           label: "HOMME",
         },
       ],
-      options: [
-        {
-          value: "Administrateur",
-          label: "Administrateur",
-        },
-        {
-          value: "Partenaire",
-          label: "Partenaire",
-        },
-        {
-          value: "Client",
-          label: "Client",
-        },
-      ],
+     
     };
   },
 
   methods: {
     async signup() {
       try {
-        if (this.password === this.password2) {
-          const response = await authService.register({
-            firstName: this.firstName,
-            lastName: this.lastName,
-            birthDate: this.birthday,
-            sexe: this.sexe,
-            email: this.email,
-            password: this.password,
-            password2: this.password2,
-            phoneNumber: this.phoneNum,
-            type: this.type,
+        if (this.ruleForm.password == this.ruleForm.password2) {
+          const response = await authService.signup({
+            firstName: this.ruleForm.firstName,
+            lastName: this.ruleForm.lastName,
+            birthDate: this.ruleForm.birthday,
+            sexe: this.ruleForm.sexe,
+            email: this.ruleForm.email,
+            password: this.ruleForm.password,
+            city:'oran',
+            phoneNumber: this.ruleForm.phoneNum,
           });
           alert("regiter successfull");
           console.log(response.data);
         } else {
-          this.error = "problem in confirmation of the password";
+          this.error = "problem in confirmation of the git fepassword";
         }
       } catch (error) {
-        this.error = error.response.data.error;
-        console.log(this.error);
+        console.log(error);
       }
     },
   },
@@ -160,7 +145,7 @@ export default {
 
                     <el-col :span="12">
                       <el-input
-                        v-model="recherche"
+                        v-model="ruleForm.search"
                         placeholder="Chercher un id,nom ou utilisateur"
                       >
                         <template #prefix>
@@ -185,7 +170,7 @@ export default {
               </template>
 
               <el-form
-                ref="ruleFormRef"
+                ref="ruleForm"
                 :size="formSize"
                 :model="ruleForm"
                 status-icon
@@ -197,7 +182,7 @@ export default {
                 <el-row>
                   <el-col class="form" :span="10"
                     ><el-input
-                      v-model="firstName"
+                      v-model="ruleForm.firstName"
                       placeholder="Prenom"
                       required
                     ></el-input>
@@ -205,7 +190,7 @@ export default {
                   ></el-col>
                   <el-col :span="10"
                     ><el-input
-                      v-model="lastName"
+                      v-model="ruleForm.lastName"
                       placeholder="Nom"
                       required
                     ></el-input>
@@ -215,7 +200,10 @@ export default {
                 <br />
                 <el-row>
                   <el-col :span="20"
-                    ><el-input v-model="email" placeholder="email"></el-input
+                    ><el-input
+                      v-model="ruleForm.email"
+                      placeholder="email"
+                    ></el-input
                   ></el-col>
                 </el-row>
                 <br />
@@ -224,7 +212,7 @@ export default {
                     ><el-input
                       id="password"
                       placeholder="mot de passe"
-                      v-model="password"
+                      v-model="ruleForm.password"
                       show-password
                     ></el-input
                   ></el-col>
@@ -232,7 +220,7 @@ export default {
                     ><el-input
                       id="password2"
                       placeholder="confirmer le mot de passe"
-                      v-model="password2"
+                      v-model="ruleForm.password2"
                       show-password
                     ></el-input
                   ></el-col>
@@ -242,7 +230,7 @@ export default {
                   <el-col :span="20"
                     ><el-input
                       id="phoneNumber"
-                      v-model="phoneNumber"
+                      v-model="ruleForm.phoneNumber"
                       placeholder="numero de telephone"
                     ></el-input
                   ></el-col>
@@ -252,7 +240,7 @@ export default {
                   <el-col :span="7"
                     ><el-date-picker
                       id="birthDate"
-                      v-model="birthDate"
+                      v-model="ruleForm.birthDate"
                       type="date"
                       placeholder="date de naissance"
                     >
@@ -262,18 +250,10 @@ export default {
                     ><el-select
                       id="exampleFormControlSelect1"
                       placeholder="sexe"
+                      v-model="ruleForm.sexe"
                     >
                       <el-option
-                        v-for="item in sexe"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option> </el-select
-                  ></el-col>
-                  <el-col style="margin-right: 1%" :span="6"
-                    ><el-select v-model="type">
-                      <el-option
-                        v-for="item in options"
+                        v-for="item in sexeopt"
                         :key="item.value"
                         :label="item.label"
                         :value="item.value"
@@ -284,7 +264,7 @@ export default {
                 <!-- sign up button  -->
                 <el-row>
                   <el-col :span="4"
-                    ><el-button @click="register" type="warning" round
+                    ><el-button @click="signup" round
                       >s'inscrire</el-button
                     ></el-col
                   >

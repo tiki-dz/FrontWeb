@@ -10,6 +10,13 @@ export default defineConfig({
   server: {
     host: "127.0.0.1",
     port: 8090,
+    proxy: {
+      "^/api": {
+        target: "http://localhost:5001",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   plugins: [
     vue(),
