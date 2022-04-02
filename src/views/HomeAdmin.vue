@@ -1,80 +1,75 @@
-<script setup>
-import{ref} from 'vue'
-const input = ref('')
-import { Search } from "@element-plus/icons-vue";
-import { reactive, ref } from "vue";
-const ruleFormRef = ref < import("element-plus/es").FormInstance;
-const ruleForm = reactive({
-  recherche: "",
-  firstName: "",
-  lastName: "",
-  password: "",
-  password2: "",
-  email: "",
-  naissance: "",
-  phoneNumber: "",
-  options: [],
-});
-const firstName = ref("");
-const lastName = ref("");
-const email = ref("");
-const password = ref("");
-const password2 = ref("");
-const birthDate = ref("");
-const phoneNumber = ref("");
-const sexe = [
-  {
-    value: "FEMME",
-    label: "FEMME",
-  },
-  {
-    value: "HOMME",
-    label: "HOMME",
-  },
-];
-const options = [
-  {
-    value: "Administrateur",
-    label: "Administrateur",
-  },
-  {
-    value: "Partenaire",
-    label: "Partenaire",
-  },
-  {
-    value: "Client",
-    label: "Client",
-  },
-];
-    async function register() {
-      /*try {
-        if (this.password === this.password2){
-          /*          const response = await AuthServices.register({
-          firstName: this.firstName,
-          lastName: this.lastName,
-          birthDate: this.birthday,
-          sexe: this.sexe,
-          email: this.email,
-          password: this.password,
-          password2: this.password2,
-          phoneNumber: this.phoneNum,
-          type: this.type,
-          
-        })
-        alert("regiter successfull")
-        console.log(response.data)
-        } else {
-          this.error = 'problem in confirmation of the password'
-        }
-       
-        
-        
-       } catch (error) {
-         this.error = error.response.data.error
-         console.log(this.error)
-     }*/
-     
+<script>
+import authService from "../services/authService";
+//import { Search } from "@element-plus/icons-vue";
+export default {
+  data() {
+    return {
+      ruleForm: {
+        recherche: "",
+        firstName: "",
+        lastName: "",
+        password: "",
+        password2: "",
+        email: "",
+        naissance: "",
+        phoneNumber: "",
+        options: [],
+      },
+
+      sexe: [
+        {
+          value: "FEMME",
+          label: "FEMME",
+        },
+        {
+          value: "HOMME",
+          label: "HOMME",
+        },
+      ],
+      options: [
+        {
+          value: "Administrateur",
+          label: "Administrateur",
+        },
+        {
+          value: "Partenaire",
+          label: "Partenaire",
+        },
+        {
+          value: "Client",
+          label: "Client",
+        },
+      ],
     };
+  },
+
+  methods: {
+    async signup() {
+      try {
+        if (this.password === this.password2) {
+          const response = await authService.register({
+            firstName: this.firstName,
+            lastName: this.lastName,
+            birthDate: this.birthday,
+            sexe: this.sexe,
+            email: this.email,
+            password: this.password,
+            password2: this.password2,
+            phoneNumber: this.phoneNum,
+            type: this.type,
+          });
+          alert("regiter successfull");
+          console.log(response.data);
+        } else {
+          this.error = "problem in confirmation of the password";
+        }
+      } catch (error) {
+        this.error = error.response.data.error;
+        console.log(this.error);
+      }
+    },
+  },
+};
 </script>
 
 <template>
@@ -87,36 +82,53 @@ const options = [
           <img src="../assets/logoo.png" class="logo" />
 
           <el-divider />
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="login">login</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="">Home</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="login">login</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="">Home</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="login">login</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="">Home</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="login">login</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="">Home</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="login">login</router-link>
-          </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="">Home</router-link>
-          </el-card>
+          <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
+            @close="handleClose"
+            @select="handleSelect"
+          >
+            <el-menu-item index="2" class="menuItem">
+              <el-icon class="el-input__icon"><home-filled /></el-icon>
+              <router-link to="login">login</router-link>
+            </el-menu-item>
+
+            <el-menu-item index="2" class="menuItem">
+              <el-icon class="el-input__icon"><home-filled /></el-icon>
+
+              <router-link to="">Home</router-link>
+            </el-menu-item>
+            <el-menu-item index="2">
+              <el-icon class="el-input__icon"><home-filled /></el-icon>
+
+              <router-link to="">Ajouter</router-link>
+            </el-menu-item>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="login">login</router-link>
+            </el-card>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="">Home</router-link>
+            </el-card>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="login">login</router-link>
+            </el-card>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="">Home</router-link>
+            </el-card>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="login">login</router-link>
+            </el-card>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="">Home</router-link>
+            </el-card>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="login">login</router-link>
+            </el-card>
+            <el-card :body-style="{ padding: '10px' }">
+              <router-link to="">Home</router-link>
+            </el-card>
+          </el-menu>
         </el-scrollbar>
       </aside>
     </el-col>
@@ -200,13 +212,13 @@ const options = [
                     <div class="invalid-feedback"></div
                   ></el-col>
                 </el-row>
-<br>
+                <br />
                 <el-row>
                   <el-col :span="20"
                     ><el-input v-model="email" placeholder="email"></el-input
                   ></el-col>
                 </el-row>
-                <br>
+                <br />
                 <el-row>
                   <el-col class="form" :span="10"
                     ><el-input
@@ -225,7 +237,7 @@ const options = [
                     ></el-input
                   ></el-col>
                 </el-row>
-                <br>
+                <br />
                 <el-row>
                   <el-col :span="20"
                     ><el-input
@@ -235,7 +247,7 @@ const options = [
                     ></el-input
                   ></el-col>
                 </el-row>
-                <br>
+                <br />
                 <el-row>
                   <el-col :span="7"
                     ><el-date-picker
@@ -268,15 +280,14 @@ const options = [
                       ></el-option> </el-select
                   ></el-col>
                 </el-row>
-<br><br>
+                <br /><br />
                 <!-- sign up button  -->
                 <el-row>
                   <el-col :span="4"
-                    ><el-button @click="register"  type="warning" round
+                    ><el-button @click="register" type="warning" round
                       >s'inscrire</el-button
                     ></el-col
                   >
-                 
                 </el-row>
               </el-form>
             </el-card>
@@ -341,8 +352,8 @@ a {
   padding-top: 7px;
   float: left;
 }
-.form{
+.form {
   margin-right: 0.3%;
-padding: 0;
+  padding: 0;
 }
 </style>
