@@ -34,6 +34,7 @@ npm run build
 npm run lint
 ```
 
-Routes:
-  "/" for home or dashboard 
+## Routes
+  "/" for home or dashboard  
+  
   "/login" for the login page
