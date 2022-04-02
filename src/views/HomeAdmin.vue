@@ -1,4 +1,27 @@
-<script setup></script>
+<script>
+import { ElNotification } from "element-plus/es";
+
+export default {
+  methods: {
+    logout() {
+      if (localStorage.getItem("LoggedUser")) {
+        localStorage.removeItem("LoggedUser");
+        ElNotification({
+          title: "Get back soon !",
+          message: "We are waiting for you",
+          type: "success",
+        });
+      } else {
+        ElNotification({
+          title: "Warning",
+          message: "Server error",
+          type: "warning",
+        });
+      }
+    },
+  },
+};
+</script>
 
 <template>
   <!-- deviding screen into two columns: sidebar and content -->
@@ -37,9 +60,11 @@
           <el-card :body-style="{ padding: '10px' }">
             <router-link to="login">login</router-link>
           </el-card>
-          <el-card :body-style="{ padding: '10px' }">
-            <router-link to="">Home</router-link>
-          </el-card>
+          <router-link to="login" @click="logout"
+            ><el-card :body-style="{ padding: '10px' }">
+              Sign Out
+            </el-card></router-link
+          >
         </el-scrollbar>
       </aside>
     </el-col>

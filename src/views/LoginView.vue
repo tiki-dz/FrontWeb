@@ -46,14 +46,15 @@ export default {
             });
           } else {
             let x = account.data.data.token;
+            let user = account.data.data.data.User;
             localStorage.setItem("LoggedUser", x);
             ElNotification({
               title: "Logged in successfully",
               message:
                 "Welcome, " +
-                x.firstName.toUpperCase() +
+                user.firstName.toUpperCase() +
                 " " +
-                x.lastName +
+                user.lastName +
                 "!",
               type: "success",
             });
@@ -61,9 +62,9 @@ export default {
           }
         } catch (error) {
           ElNotification({
-            title: "Error to sign in",
-            message: "Please enter valid credentials ",
-            type: "error",
+            title: "Failed to sign in",
+            message: "Server error ",
+            type: "warning",
           });
         }
       }
