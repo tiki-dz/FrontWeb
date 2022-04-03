@@ -26,7 +26,6 @@ export default {
           label: "HOMME",
         },
       ],
-     
     };
   },
 
@@ -41,7 +40,7 @@ export default {
             sexe: this.ruleForm.sexe,
             email: this.ruleForm.email,
             password: this.ruleForm.password,
-            city:'oran',
+            city: "oran",
             phoneNumber: this.ruleForm.phoneNumber,
           });
           alert("regiter successfull");
@@ -243,6 +242,7 @@ export default {
                       v-model="ruleForm.birthDate"
                       type="date"
                       placeholder="date de naissance"
+                      value-format="YYYY/MM/DD"
                     >
                     </el-date-picker
                   ></el-col>
