@@ -1,68 +1,21 @@
 <script>
-import authService from "../services/authService";
-//import { Search } from "@element-plus/icons-vue";
+import ItemView from '../components/ItemView.vue';
 export default {
+  components: { ItemView },
   data() {
     return {
-      ruleForm: {
-        search: "",
-        firstName: "",
-        lastName: "",
-        password: "",
-        password2: "",
-        email: "",
-        birthDate: "",
-        phoneNumber: "",
-        sexe: "",
-      },
-
-      sexeopt: [
-        {
-          value: 0,
-          label: "FEMME",
-        },
-        {
-          value: 1,
-          label: "HOMME",
-        },
-      ],
-    };
-  },
-
-  methods: {
-    async signup() {
-      try {
-        if (this.ruleForm.password == this.ruleForm.password2) {
-          const response = await authService.signup({
-            firstName: this.ruleForm.firstName,
-            lastName: this.ruleForm.lastName,
-            birthDate: this.ruleForm.birthDate,
-            sexe: this.ruleForm.sexe,
-            email: this.ruleForm.email,
-            password: this.ruleForm.password,
-            city: "oran",
-            phoneNumber: this.ruleForm.phoneNumber,
-          });
-          alert("regiter successfull");
-          console.log(response.data);
-        } else {
-          this.error = "problem in confirmation of the git fepassword";
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-  },
-};
+        search: ""
+    }
+}}
 </script>
 
 <template>
   <!-- deviding screen into two columns: sidebar and content -->
   <el-row>
-    <el-col :span="5">
+    <el-col :span="4">
       <!-- side menu  -->
       <aside>
-        <el-scrollbar height="fill">
+        <el-scrollbar height="fill" class="leftCol">
           <img src="../assets/logoo.png" class="logo" />
 
           <el-divider />
@@ -73,50 +26,61 @@ export default {
             @close="handleClose"
             @select="handleSelect"
           >
-            <el-menu-item index="2" class="menuItem">
-              <el-icon class="el-input__icon"><home-filled /></el-icon>
-              <router-link to="login">login</router-link>
-            </el-menu-item>
-
-            <el-menu-item index="2" class="menuItem">
-              <el-icon class="el-input__icon"><home-filled /></el-icon>
-
-              <router-link to="">Home</router-link>
-            </el-menu-item>
-            <el-menu-item index="2">
-              <el-icon class="el-input__icon"><home-filled /></el-icon>
-
-              <router-link to="">Ajouter</router-link>
-            </el-menu-item>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="login">login</router-link>
-            </el-card>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="">Home</router-link>
-            </el-card>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="login">login</router-link>
-            </el-card>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="">Home</router-link>
-            </el-card>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="login">login</router-link>
-            </el-card>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="">Home</router-link>
-            </el-card>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="login">login</router-link>
-            </el-card>
-            <el-card :body-style="{ padding: '10px' }">
-              <router-link to="">Home</router-link>
-            </el-card>
-          </el-menu>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover"
+                ><i class="fa-solid fa-user-lock"></i> &nbsp; Admins
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover">
+                <i class="fa-solid fa-handshake"></i> &nbsp; Partners
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover">
+                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp; &nbsp;Clients
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover"
+                ><i class="fa-solid fa-user-lock"></i> &nbsp; Admins
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover">
+                <i class="fa-solid fa-handshake"></i> &nbsp; Partners
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover">
+                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp; &nbsp;Clients
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover"
+                ><i class="fa-solid fa-user-lock"></i> &nbsp; Admins
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover">
+                <i class="fa-solid fa-handshake"></i> &nbsp; Partners
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover">
+                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp; &nbsp;Clients
+              </el-card>
+            </router-link>
+            <router-link to="">
+              <el-card :body-style="{ padding: '10px' }" shadow="hover">
+                <i class="fa-solid fa-right-from-bracket"></i>&nbsp; &nbsp; Log Out 
+              </el-card>
+            </router-link>
+           </el-menu>
         </el-scrollbar>
       </aside>
     </el-col>
-    <el-col :span="19" class="padding">
+    <el-col :span="20" class="padding">
       <nav>
         <!-- nav bar  -->
         <el-row style="margin-bottom: 10px; margin-top: 10px">
@@ -144,7 +108,7 @@ export default {
 
                     <el-col :span="12">
                       <el-input
-                        v-model="ruleForm.search"
+                        v-model="search"
                         placeholder="Chercher un id,nom ou utilisateur"
                       >
                         <template #prefix>
@@ -158,120 +122,12 @@ export default {
             </el-card>
           </el-col>
         </el-row>
-        <el-row style="margin-bottom: 20px">
+        <el-row >
           <el-col :span="24">
+            <el-scrollbar max-height="80vh">
+            <item-view></item-view>
+            </el-scrollbar>
             <!-- body cards  -->
-            <el-card>
-              <template #header>
-                <div class="card-header">
-                  <span>Créer un compte</span>
-                </div>
-              </template>
-
-              <el-form
-                ref="ruleForm"
-                :size="formSize"
-                :model="ruleForm"
-                status-icon
-                :rules="rules"
-                label-width="120px"
-                class="demo-ruleForm"
-              >
-                <!-- body form  -->
-                <el-row>
-                  <el-col class="form" :span="10"
-                    ><el-input
-                      v-model="ruleForm.firstName"
-                      placeholder="Prenom"
-                      required
-                    ></el-input>
-                    <div class="invalid-feedback"></div
-                  ></el-col>
-                  <el-col :span="10"
-                    ><el-input
-                      v-model="ruleForm.lastName"
-                      placeholder="Nom"
-                      required
-                    ></el-input>
-                    <div class="invalid-feedback"></div
-                  ></el-col>
-                </el-row>
-                <br />
-                <el-row>
-                  <el-col :span="20"
-                    ><el-input
-                      v-model="ruleForm.email"
-                      placeholder="email"
-                    ></el-input
-                  ></el-col>
-                </el-row>
-                <br />
-                <el-row>
-                  <el-col class="form" :span="10"
-                    ><el-input
-                      id="password"
-                      placeholder="mot de passe"
-                      v-model="ruleForm.password"
-                      show-password
-                    ></el-input
-                  ></el-col>
-                  <el-col :span="10"
-                    ><el-input
-                      id="password2"
-                      placeholder="confirmer le mot de passe"
-                      v-model="ruleForm.password2"
-                      show-password
-                    ></el-input
-                  ></el-col>
-                </el-row>
-                <br />
-                <el-row>
-                  <el-col :span="20"
-                    ><el-input
-                      id="phoneNumber"
-                      v-model="ruleForm.phoneNumber"
-                      placeholder="numero de telephone"
-                    ></el-input
-                  ></el-col>
-                </el-row>
-                <br />
-                <el-row>
-                  <el-col :span="7"
-                    ><el-date-picker
-                      id="birthDate"
-                      v-model="ruleForm.birthDate"
-                      type="date"
-                      placeholder="date de naissance"
-                      value-format="YYYY/MM/DD"
-                    >
-                    </el-date-picker
-                  ></el-col>
-                  <el-col :span="7"
-                    ><el-select
-                      id="exampleFormControlSelect1"
-                      placeholder="sexe"
-                      v-model="ruleForm.sexe"
-                    >
-                      <el-option
-                        v-for="item in sexeopt"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option> </el-select
-                  ></el-col>
-                </el-row>
-                <br /><br />
-                <!-- sign up button  -->
-                <el-row>
-                  <el-col :span="4"
-                    ><el-button @click="signup" round
-                      >s'inscrire</el-button
-                    ></el-col
-                  >
-                </el-row>
-              </el-form>
-            </el-card>
-            <template> </template>
           </el-col>
         </el-row>
       </nav>
@@ -289,7 +145,7 @@ aside {
   padding: 0px 10px;
 }
 .logo {
-  width: 60%;
+  width: 40%;
   height: 10%;
   margin: 11% auto;
   display: flex;
@@ -309,7 +165,6 @@ li {
 }
 .el-scrollbar .el-card {
   border-radius: 10px;
-  margin: 4% 10%;
   text-align: center;
 }
 a {
@@ -335,5 +190,8 @@ a {
 .form {
   margin-right: 0.3%;
   padding: 0;
+}
+.leftCol .el-card{
+  margin: 4%;
 }
 </style>
