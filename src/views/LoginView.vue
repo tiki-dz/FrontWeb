@@ -70,109 +70,99 @@ export default {
       }
       console.log(this.v$);
     },
-    togglePassword() {
-      const togglePassword = document.querySelector("#togglePassword");
-      const password = document.querySelector("#password");
-
-      togglePassword.addEventListener("click", function () {
-        // toggle the type attribute
-        const type =
-          password.getAttribute("type") === "password" ? "text" : "password";
-        password.setAttribute("type", type);
-        // toggle the eye slash icon
-        this.classList.toggle("fa-eye-slash");
-      });
-    },
   },
 };
 </script>
 <template>
-  <div class="transparent">
-    <el-card class="head"> </el-card>
-    <el-card class="form">
-      <img src="../assets/logoo.png" class="logoLogin" />
-      <form @submit.prevent="login">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          v-model.trim="form.email"
-          name="email"
-          id="email"
-          placeholder="example@gmail.com"
-        />
-        <span v-if="v$.form.email.$error">Invalid email format !</span>
-        <br />
-        <label for="password">Password</label>
-        <input
-          type="password"
-          v-model="form.password"
-          name="password"
-          id="password"
-          placeholder="*********"
-        />
-        <i class="far fa-eye" id="togglePassword" @click="togglePassword"></i>
-        <span v-if="v$.form.password.$error">Invalid password format !</span>
+  <div class="body">
+    <el-row>
+      <el-col :span="8"></el-col>
+      <el-col :span="8" class="right_col">
+        <div class="transparent">
+          <el-card class="form">
+            <img src="../assets/logoo.png" class="logoLogin" />
+            <p class="welcome">Welcome back, dear ADMIN!</p>
+            <br />
+            <form @submit.prevent="login">
+              <el-input
+                type="email"
+                size="large"
+                v-model.trim="form.email"
+                name="email"
+                id="email"
+                placeholder="Email"
+              />
+              <span v-if="v$.form.email.$error">Invalid email format !</span>
+              <br />
+              <el-input
+                size="large"
+                type="password"
+                v-model="form.password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                show-password
+              />
+              <span v-if="v$.form.password.$error"
+                >Invalid password format !</span
+              >
 
-        <br />
-        <button class="submit">Sign in</button>
-      </form>
-    </el-card>
+              <br />
+              <button class="submit">Sign in</button>
+            </form>
+          </el-card>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <style scoped>
 .transparent {
-  overflow: hidden;
-  height: 100vh;
-}
-.head {
-  background-color: var(--vt-c-orange);
-  height: 30vh;
+  display: table-cell;
+  vertical-align: middle;
+  margin: 2%;
+  z-index: 4;
 }
 .form {
-  background-color: rgba(250, 246, 244, 0.884);
+  background-color: rgba(32, 31, 31, 0.973);
   height: 80vh;
-  width: 40%;
-  position: relative;
+  display: table-cell;
+  vertical-align: middle;
   margin: 0 auto;
-  top: -20vh;
+    box-shadow: 0px 0px 6px 1px rgb(57, 56, 56);
+
   border-radius: 20px;
   padding: 1%;
+  border: none;
   overflow: hidden;
   z-index: 4;
 }
-label {
-  display: block;
-  padding-left: 8%;
-}
-input {
-  width: 80%;
-  padding: 3%;
-  padding-left: 8%;
+.el-input {
+  width: 70%;
   margin: 1% auto;
   border: none;
   display: block;
-  border-radius: 10px;
-  box-shadow: 2px 2px 6px rgb(167, 167, 167);
-  outline: none;
+  --el-input-focus-border-color: rgba(0, 0, 0, 0);
+  box-shadow: 2px 2px 6px rgb(93, 93, 93);
 }
 .submit {
-  padding: 3%;
   display: block;
-  border-radius: 10px;
+  border-radius: 5px;
   margin: 1% auto;
   border: none;
-  box-shadow: 2px 2px 6px rgb(167, 167, 167);
+  box-shadow: 2px 2px 6px rgb(90, 90, 90);
   text-align: center;
-  background: var(--vt-c-orange);
+  background: rgb(224, 112, 6);
   color: white;
   font-size: 13pt;
-  width: 60%;
   cursor: pointer;
   position: relative;
   user-select: none;
   transition-duration: 0.4s;
   -webkit-transition-duration: 0.4s;
+  width: 45%;
+  padding: 3%;
 }
 .submit:hover {
   transition-duration: 0.1s;
@@ -191,10 +181,10 @@ input {
   height: 100%;
   opacity: 0;
   transition: all 0.5s;
-  box-shadow: 0 0 50px 20px rgb(184, 184, 184);
+  box-shadow: 0 0 50px 20px rgb(62, 60, 60);
 }
 .submit:active:after {
-  box-shadow: 0 0 0 0 rgb(184, 184, 184);
+  box-shadow: 0 0 0 0 rgb(88, 86, 86);
   border-radius: 10px;
   left: 0;
   top: 0;
@@ -203,7 +193,7 @@ input {
 }
 
 .logoLogin {
-  width: 35%;
+  width: 25%;
   height: 20%;
   margin: 0 auto;
   display: flex;
@@ -217,12 +207,27 @@ span {
   text-align: right;
   margin-top: 0px;
 }
-#togglePassword {
-  margin-top: -13%;
-  padding: 3%;
-  right: 20%;
-  cursor: pointer;
-  float: right;
-  position: relative;
+.welcome {
+  font-size: 22px;
+  text-align: center;
+  color:white
+}
+.body {
+  background-image: url("../assets/back4.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  z-index: 1;
+
+}
+.el-row{
+    background-color: rgba(153, 152, 132, 0.269);
+    min-height: 100vh;
+    backdrop-filter: blur(2px);
+
+
+}
+.right_col{
+  display: table;
 }
 </style>
