@@ -2,7 +2,7 @@
 import ItemView from "../components/ItemView.vue";
 import AddPartenaire from "../components/AddPartenaire.vue";
 import AddCategorie from "../components/AddCategorie.vue";
-
+import { ElNotification } from "element-plus/es";
 
 export default {
   components: { ItemView, AddPartenaire, AddCategorie },
@@ -12,8 +12,25 @@ export default {
       search: "",
     };
   },
+  methods: {
+    logout() {
+      if (localStorage.getItem("LoggedUser")) {
+        localStorage.removeItem("LoggedUser");
+        ElNotification({
+          title: "Get back soon !",
+          message: "We are waiting for you",
+          type: "success",
+        });
+      } else {
+        ElNotification({
+          title: "Warning",
+          message: "Server error",
+          type: "warning",
+        });
+      }
+    },
+  },
 };
-
 </script>
 
 <template>
@@ -32,6 +49,7 @@ export default {
             @open="handleOpen"
             @close="handleClose"
             @select="handleSelect"
+            router="true"
           >
             <el-menu-item index="1">
               <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
@@ -77,7 +95,7 @@ export default {
               <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
               <span>Event</span>
             </el-menu-item>
-            <el-menu-item index="7" id="deconnexion">
+            <el-menu-item index="7" id="deconnexion" route="login" @click="logout">
               <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
               <span>Deconnexion</span>
             </el-menu-item>
@@ -140,8 +158,7 @@ export default {
     </el-col>
   </el-row>
 </template>
-
-<style>
+<style scoped>
 aside {
   height: 100vh;
   background-color: rgb(255, 251, 248);
