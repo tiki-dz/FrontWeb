@@ -21,6 +21,7 @@ export default {
           message: "We are waiting for you",
           type: "success",
         });
+        this.$router.push({ name: 'login'});
       } else {
         ElNotification({
           title: "Warning",
@@ -49,7 +50,6 @@ export default {
             @open="handleOpen"
             @close="handleClose"
             @select="handleSelect"
-            router="true"
           >
             <el-menu-item index="1">
               <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
@@ -95,7 +95,7 @@ export default {
               <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
               <span>Event</span>
             </el-menu-item>
-            <el-menu-item index="7" id="deconnexion" route="login" @click="logout">
+            <el-menu-item index="7" id="deconnexion" @click="logout">
               <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
               <span>Deconnexion</span>
             </el-menu-item>
