@@ -43,9 +43,13 @@ export default {
             city: "oran",
             phoneNumber: this.ruleForm.phoneNumber,
           });
+                  console.log("1");
+
           alert("regiter successfull");
           console.log(response.data);
         } else {
+                            console.log("12");
+
           this.error = "problem in confirmation of the git fepassword";
         }
       } catch (error) {
@@ -157,16 +161,16 @@ export default {
       <!-- sign up button  -->
       <el-row>
         <el-col :span="4"
-          ><el-button @click="signup" round>s'inscrire</el-button></el-col
+          ><el-button @click="signup">s'inscrire</el-button></el-col
         >
       </el-row>
     </el-form>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
   </el-card>
 </template>
 

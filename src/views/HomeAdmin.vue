@@ -1,12 +1,13 @@
 <script>
-import ItemView from '../components/ItemView.vue';
+import ItemView from "../components/ItemView.vue";
 export default {
   components: { ItemView },
   data() {
     return {
-        search: ""
-    }
-}}
+      search: "",
+    };
+  },
+};
 </script>
 
 <template>
@@ -17,8 +18,8 @@ export default {
       <aside>
         <el-scrollbar height="fill" class="leftCol">
           <img src="../assets/logoo.png" class="logo" />
-
           <el-divider />
+          <!--
           <el-menu
             default-active="2"
             class="el-menu-vertical-demo"
@@ -38,7 +39,8 @@ export default {
             </router-link>
             <router-link to="">
               <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp; &nbsp;Clients
+                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp;
+                &nbsp;Clients
               </el-card>
             </router-link>
             <router-link to="">
@@ -53,7 +55,8 @@ export default {
             </router-link>
             <router-link to="">
               <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp; &nbsp;Clients
+                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp;
+                &nbsp;Clients
               </el-card>
             </router-link>
             <router-link to="">
@@ -68,15 +71,57 @@ export default {
             </router-link>
             <router-link to="">
               <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp; &nbsp;Clients
+                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp;
+                &nbsp;Clients
               </el-card>
             </router-link>
             <router-link to="">
               <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-right-from-bracket"></i>&nbsp; &nbsp; Log Out 
+                <i class="fa-solid fa-right-from-bracket"></i>&nbsp; &nbsp; Log
+                Out
               </el-card>
             </router-link>
-           </el-menu>
+          </el-menu>
+         -->
+          <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
+            @close="handleClose"
+            @select="handleSelect"
+
+          >
+            <el-sub-menu index="1">
+              <template #title>
+                <el-icon><location /></el-icon>
+                <span>Navigator One</span>
+              </template>
+              <el-menu-item-group title="Group One">
+                <el-menu-item index="1-1">item one</el-menu-item>
+                <el-menu-item index="1-2">item one</el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="Group Two">
+                <el-menu-item index="1-3">item three</el-menu-item>
+              </el-menu-item-group>
+              <el-sub-menu index="1-4">
+                <template #title>item four</template>
+                <el-menu-item index="1-4-1">item one</el-menu-item>
+              </el-sub-menu>
+            </el-sub-menu>
+            <el-menu-item index="2">
+              <router-link to="">
+             
+            </router-link>
+            </el-menu-item>
+            <el-menu-item index="3" disabled>
+              <el-icon><document /></el-icon>
+              <span>Navigator Three</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <el-icon><setting /></el-icon>
+              <span>Navigator Four</span>
+            </el-menu-item>
+          </el-menu>
         </el-scrollbar>
       </aside>
     </el-col>
@@ -122,10 +167,10 @@ export default {
             </el-card>
           </el-col>
         </el-row>
-        <el-row >
+        <el-row>
           <el-col :span="24">
             <el-scrollbar max-height="80vh">
-            <item-view></item-view>
+              <item-view></item-view>
             </el-scrollbar>
             <!-- body cards  -->
           </el-col>
@@ -140,7 +185,9 @@ aside {
   height: 100vh;
   background-color: rgb(255, 251, 248);
 }
-
+.el-menu-vertical-demo{
+  background-color: rgb(255, 251, 248);
+}
 .padding .el-col {
   padding: 0px 10px;
 }
@@ -149,9 +196,10 @@ aside {
   height: 10%;
   margin: 11% auto;
   display: flex;
+  padding-top: 10%;
 }
 .header {
-  height: 16vh;
+  height: 14vh;
   background-color: var(--vt-c-orange);
 }
 .menuItem {
@@ -173,7 +221,7 @@ a {
 }
 .el-divider {
   margin: 0;
-  padding-bottom: 10px;
+  padding-bottom: 50px;
 }
 .card-header {
   display: flex;
@@ -191,7 +239,7 @@ a {
   margin-right: 0.3%;
   padding: 0;
 }
-.leftCol .el-card{
+.leftCol .el-card {
   margin: 4%;
 }
 </style>
