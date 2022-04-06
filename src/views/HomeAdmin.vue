@@ -1,17 +1,22 @@
 <script>
 import ItemView from "../components/ItemView.vue";
+import AddPartenaire from "../components/AddPartenaire.vue";
+import AddCategorie from "../components/AddCategorie.vue";
+
+
 export default {
-  components: { ItemView },
+  components: { ItemView, AddPartenaire, AddCategorie },
   data() {
     return {
+      activeTab: "ItemView",
       search: "",
     };
   },
 };
+
 </script>
 
 <template>
-  <!-- deviding screen into two columns: sidebar and content -->
   <el-row>
     <el-col :span="4">
       <!-- side menu  -->
@@ -19,107 +24,62 @@ export default {
         <el-scrollbar height="fill" class="leftCol">
           <img src="../assets/logoo.png" class="logo" />
           <el-divider />
-          <!--
-          <el-menu
-            default-active="2"
-            class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
-            @select="handleSelect"
-          >
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover"
-                ><i class="fa-solid fa-user-lock"></i> &nbsp; Admins
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-handshake"></i> &nbsp; Partners
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp;
-                &nbsp;Clients
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover"
-                ><i class="fa-solid fa-user-lock"></i> &nbsp; Admins
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-handshake"></i> &nbsp; Partners
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp;
-                &nbsp;Clients
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover"
-                ><i class="fa-solid fa-user-lock"></i> &nbsp; Admins
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-handshake"></i> &nbsp; Partners
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-people-group"></i>&nbsp; &nbsp;
-                &nbsp;Clients
-              </el-card>
-            </router-link>
-            <router-link to="">
-              <el-card :body-style="{ padding: '10px' }" shadow="hover">
-                <i class="fa-solid fa-right-from-bracket"></i>&nbsp; &nbsp; Log
-                Out
-              </el-card>
-            </router-link>
-          </el-menu>
-         -->
-          <el-menu
-            default-active="2"
-            class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
-            @select="handleSelect"
 
+          <el-menu
+           active-text-color="#ffd04b"
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
+            @close="handleClose"
+            @select="handleSelect"
           >
-            <el-sub-menu index="1">
+            <el-menu-item index="1">
+              <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
+              <span>Accueil</span>
+            </el-menu-item>
+            <el-sub-menu index="2">
               <template #title>
-                <el-icon><location /></el-icon>
-                <span>Navigator One</span>
+                <i class="fa-solid fa-users-gear"></i>&nbsp;&nbsp;
+                <span> Administrateur</span>
               </template>
-              <el-menu-item-group title="Group One">
-                <el-menu-item index="1-1">item one</el-menu-item>
-                <el-menu-item index="1-2">item one</el-menu-item>
+              <el-menu-item-group>
+                <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
+                  >Ajouter</el-menu-item
+                >
               </el-menu-item-group>
-              <el-menu-item-group title="Group Two">
-                <el-menu-item index="1-3">item three</el-menu-item>
-              </el-menu-item-group>
-              <el-sub-menu index="1-4">
-                <template #title>item four</template>
-                <el-menu-item index="1-4-1">item one</el-menu-item>
-              </el-sub-menu>
             </el-sub-menu>
-            <el-menu-item index="2">
-              <router-link to="">
-             
-            </router-link>
+            <el-sub-menu index="3">
+              <template #title>
+                <i class="fa-solid fa-handshake-simple"></i>&nbsp;&nbsp;
+                <span> Partenaire</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="3-1" @click="activeTab = 'AddPartenaire'"
+                  >Ajouter</el-menu-item
+                >
+              </el-menu-item-group>
+            </el-sub-menu>
+            <el-sub-menu index="4">
+              <template #title>
+                <i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;
+                <span>Client</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="4-1"></el-menu-item>
+              </el-menu-item-group>
+            </el-sub-menu>
+
+            <el-menu-item index="5">
+              <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
+              <span>Categories</span>
             </el-menu-item>
-            <el-menu-item index="3" disabled>
-              <el-icon><document /></el-icon>
-              <span>Navigator Three</span>
+            <el-menu-item index="6">
+              <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
+              <span>Event</span>
             </el-menu-item>
-            <el-menu-item index="4">
-              <el-icon><setting /></el-icon>
-              <span>Navigator Four</span>
+            <el-menu-item index="7" id="deconnexion">
+              <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
+              <span>Deconnexion</span>
             </el-menu-item>
           </el-menu>
         </el-scrollbar>
@@ -161,6 +121,7 @@ export default {
                         </template>
                       </el-input>
                     </el-col>
+                    <el-col :span="4"> </el-col>
                   </el-row>
                 </div>
               </div>
@@ -170,7 +131,7 @@ export default {
         <el-row>
           <el-col :span="24">
             <el-scrollbar max-height="80vh">
-              <item-view></item-view>
+              <component :is="activeTab" />
             </el-scrollbar>
             <!-- body cards  -->
           </el-col>
@@ -185,8 +146,12 @@ aside {
   height: 100vh;
   background-color: rgb(255, 251, 248);
 }
-.el-menu-vertical-demo{
+.el-menu-vertical-demo {
   background-color: rgb(255, 251, 248);
+  height: 100%;
+}
+#deconnexion {
+  margin-bottom: 1%;
 }
 .padding .el-col {
   padding: 0px 10px;
@@ -205,6 +170,10 @@ aside {
 .menuItem {
   text-align: center;
   padding: "10px";
+}
+.el-menu-item-group{
+background-color: rgb(255, 251, 248);
+padding-left: 10%;
 }
 li {
   list-style: none;

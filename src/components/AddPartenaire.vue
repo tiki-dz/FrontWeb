@@ -2,7 +2,7 @@
 import authService from "../services/authService";
 //import { Search } from "@element-plus/icons-vue";
 export default {
-  name:"ItemView",
+  name: "AddPartenaire",
   data() {
     return {
       ruleForm: {
@@ -16,6 +16,10 @@ export default {
         phoneNumber: "",
         sexe: "",
         city: "",
+        orgaName: "",
+        orgaDesc: "",
+        orgaType: "",
+        orgaAddress: "",
       },
 
       sexeopt: [
@@ -26,6 +30,24 @@ export default {
         {
           value: 1,
           label: "HOMME",
+        },
+      ],
+      orgaType: [
+        {
+          value: "Cinema",
+          label: "Cinema",
+        },
+        {
+          value: "Stadium",
+          label: "Stadium",
+        },
+        {
+          value: "Theatre",
+          label: "Theatre",
+        },
+        {
+          value: "Other",
+          label: "Other",
         },
       ],
     };
@@ -44,9 +66,14 @@ export default {
             password: this.ruleForm.password,
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
+            orgaName: this.ruleForm.orgaName,
+            orgaDesc: this.ruleForm.orgaDesc,
+            orgaType: this.ruleForm.orgaType,
+            orgaAddress: this.ruleForm.orgaAddress,
           });
-
+          
           alert("regiter successfull");
+          
           console.log(response.data);
         } else {
           this.error = "problem in confirmation of the git fepassword";
@@ -163,7 +190,48 @@ export default {
           ></el-input>
         </el-col>
       </el-row>
-      <br /><br />
+      <br />
+      <el-row>
+        <el-col class="form" :span="10"
+          ><el-input
+            id="orgaName"
+            placeholder="Nom de l organisation"
+            v-model="ruleForm.porgaName"
+          ></el-input
+        ></el-col>
+        <el-col :span="10"
+          ><el-input
+            id="orgaDesc"
+            placeholder="Description sur l organisation"
+            v-model="ruleForm.orgaDesc"
+          ></el-input
+        ></el-col>
+      </el-row>
+      <br />
+      <el-row>
+        <el-col class="form" :span="4"
+          ><el-select
+            id="exampleFormControlSelect1"
+            placeholder="Categorie"
+            v-model="ruleForm.orgaType"
+          >
+            <el-option
+              v-for="item in orgaType"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option> </el-select
+        ></el-col>
+        <el-col :span="16"
+          ><el-input
+            id="orgaAddress"
+            placeholder="Adress de l organisation"
+            v-model="ruleForm.orgaAddress"
+          ></el-input
+        ></el-col>
+      </el-row>
+      <br />
+      <br />
       <!-- sign up button  -->
       <el-row>
         <el-col :span="4"
