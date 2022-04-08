@@ -130,7 +130,7 @@ export default {
   display: table-cell;
   vertical-align: middle;
   margin: 0 auto;
-    box-shadow: 0px 0px 6px 1px rgb(57, 56, 56);
+  box-shadow: 0px 0px 6px 1px rgb(57, 56, 56);
 
   border-radius: 20px;
   padding: 1%;
@@ -210,7 +210,7 @@ span {
 .welcome {
   font-size: 22px;
   text-align: center;
-  color:white
+  color: white;
 }
 .body {
   background-image: url("../assets/back4.jpg");
@@ -218,16 +218,13 @@ span {
   min-height: 100vh;
   background-repeat: no-repeat;
   z-index: 1;
-
 }
-.el-row{
-    background-color: rgba(153, 152, 132, 0.269);
-    min-height: 100vh;
-    backdrop-filter: blur(2px);
-
-
+.el-row {
+  background-color: rgba(153, 152, 132, 0.269);
+  min-height: 100vh;
+  backdrop-filter: blur(2px);
 }
-.right_col{
+.right_col {
   display: table;
 }
 </style>

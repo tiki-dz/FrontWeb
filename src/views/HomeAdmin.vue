@@ -2,10 +2,13 @@
 import ItemView from "../components/ItemView.vue";
 import AddPartenaire from "../components/AddPartenaire.vue";
 import AddCategorie from "../components/AddCategorie.vue";
+import EventDetail from "../components/EventDetail.vue";
+import EventList from "../components/EventList.vue";
+
 import { ElNotification } from "element-plus/es";
 
 export default {
-  components: { ItemView, AddPartenaire, AddCategorie },
+  components: { ItemView, AddPartenaire, AddCategorie, EventDetail, EventList },
   data() {
     return {
       activeTab: "ItemView",
@@ -21,7 +24,7 @@ export default {
           message: "We are waiting for you",
           type: "success",
         });
-        this.$router.push({ name: 'login'});
+        this.$router.push({ name: "login" });
       } else {
         ElNotification({
           title: "Warning",
@@ -44,7 +47,7 @@ export default {
           <el-divider />
 
           <el-menu
-           active-text-color="#ffd04b"
+            active-text-color="#ffd04b"
             default-active="2"
             class="el-menu-vertical-demo"
             @open="handleOpen"
@@ -91,7 +94,7 @@ export default {
               <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
               <span>Categories</span>
             </el-menu-item>
-            <el-menu-item index="6">
+            <el-menu-item index="6" @click="activeTab = 'EventDetail'">
               <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
               <span>Event</span>
             </el-menu-item>
@@ -188,9 +191,9 @@ aside {
   text-align: center;
   padding: "10px";
 }
-.el-menu-item-group{
-background-color: rgb(255, 251, 248);
-padding-left: 10%;
+.el-menu-item-group {
+  background-color: rgb(255, 251, 248);
+  padding-left: 10%;
 }
 li {
   list-style: none;

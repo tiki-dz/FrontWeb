@@ -2,7 +2,7 @@
 import authService from "../services/authService";
 //import { Search } from "@element-plus/icons-vue";
 export default {
-  name:"ItemView",
+  name: "ItemView",
   data() {
     return {
       ruleForm: {
@@ -167,7 +167,9 @@ export default {
       <!-- sign up button  -->
       <el-row>
         <el-col :span="4"
-          ><el-button @click="signup" type="warning" round>Ajouter</el-button></el-col
+          ><el-button @click="signup" type="warning" round
+            >Ajouter</el-button
+          ></el-col
         >
       </el-row>
     </el-form>

@@ -71,9 +71,9 @@ export default {
             orgaType: this.ruleForm.orgaType,
             orgaAddress: this.ruleForm.orgaAddress,
           });
-          
+
           alert("regiter successfull");
-          
+
           console.log(response.data);
         } else {
           this.error = "problem in confirmation of the git fepassword";
@@ -235,7 +235,9 @@ export default {
       <!-- sign up button  -->
       <el-row>
         <el-col :span="4"
-          ><el-button @click="signup" type="warning" round>Ajouter</el-button></el-col
+          ><el-button @click="signup" type="warning" round
+            >Ajouter</el-button
+          ></el-col
         >
       </el-row>
     </el-form>
@@ -248,4 +250,8 @@ export default {
   </el-card>
 </template>
 
-<style scoped></style>
+<style scoped>
+.el-input {
+  --el-input-focus-border-color: rgba(72, 71, 71, 0.244);
+}
+</style>
