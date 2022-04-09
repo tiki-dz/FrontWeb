@@ -161,15 +161,74 @@
           </el-row>
         </el-col>
         <el-col :span="7">
-          <label for="upload">Image</label>
-          <br />
+          <label for="upload">Event Image</label>
+          <br /><br />
           <el-upload
             name="upload"
             class="upload-demo"
             drag
             :auto-upload="false"
+            v-bind:class="{ hide: eventList.length == 1 }"
             list-type="picture-card"
-            :file-list="fileList"
+            :file-list="eventList"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+            :limit="1"
+            :disabled="!modifying"
+          >
+            <i class="fa-solid fa-upload"></i>
+            <div class="el-upload__text">
+              faire glisser une image ou <em>cliquer pour choisir</em>
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                jpg/png files with a size less than 500kb
+              </div>
+            </template>
+          </el-upload>
+          <el-dialog v-model="dialogVisible">
+            <img w-full :src="dialogImageUrl" alt="Preview Image" />
+          </el-dialog>
+          <br /><br />
+          <label for="upload2">Ticket Image</label>
+          <br /><br />
+          <el-upload
+            name="upload2"
+            class="upload-demo"
+            drag
+            v-bind:class="{ hide: ticketList.length == 1 }"
+            :auto-upload="false"
+            list-type="picture-card"
+            :file-list="ticketList"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+            :limit="1"
+            :disabled="!modifying"
+          >
+            <i class="fa-solid fa-upload"></i>
+            <div class="el-upload__text">
+              faire glisser une image ou <em>cliquer pour choisir</em>
+            </div>
+            <template #tip>
+              <div class="el-upload__tip">
+                jpg/png files with a size less than 500kb
+              </div>
+            </template>
+          </el-upload>
+          <el-dialog v-model="dialogVisible">
+            <img w-full :src="dialogImageUrl" alt="Preview Image" />
+          </el-dialog>
+          <br /><br />
+          <label for="upload3">Other Image</label>
+          <br /><br />
+          <el-upload
+            name="upload3"
+            class="upload-demo"
+            drag
+            :auto-upload="false"
+            v-bind:class="{ hide: otherList.length == 1 }"
+            list-type="picture-card"
+            :file-list="otherList"
             :on-preview="handlePictureCardPreview"
             :on-remove="handleRemove"
             :limit="1"
@@ -241,7 +300,9 @@ export default {
       optionsCategories: [],
       optionsSubCategories: [],
       optionsTags: [],
-      fileList: [],
+      eventList: [],
+      ticketList: [],
+      otherList: [],
       defaultTime1: [new Date()],
       disabledDateF: (time) => {
         return time.getTime() <= Date.now();
@@ -265,7 +326,7 @@ export default {
         let formData = new FormData();
         formData.append("name", this.event.name);
         formData.append("organiser", this.event.organizer);
-        formData.append("desciption", this.event.desc);
+        formData.append("description", this.event.desc);
         formData.append("startDate", this.event.date[0]);
         formData.append("endDate", this.event.date[1]);
         formData.append("ticketNb", this.event.capacity);
@@ -274,9 +335,9 @@ export default {
         formData.append("category", this.event.category);
         formData.append("externalUrls", this.event.urls);
         formData.append("subCategory", JSON.stringify(this.event.subcategory));
-        formData.append("eventImage", this.fileList[0]);
-        formData.append("ticketImage", this.fileList[0]);
-        formData.append("outherImage", this.fileList[0]);
+        formData.append("eventImage", this.eventList[0].raw);
+        formData.append("ticketImage", this.ticketList[0].raw);
+        formData.append("outherImage", this.otherList[0].raw);
         const event = await eventService.Add(formData);
         console.log(this.fileList);
 
@@ -291,7 +352,7 @@ export default {
           this.$router.push("/");
           ElNotification({
             title: "Succes",
-            message: "Event added successfully:" + event.data.message,
+            message: "Event added successfully",
             type: "success",
           });
         }
@@ -411,5 +472,9 @@ label {
   width: 3.9%;
   border: 1px solid rgba(255, 166, 0, 0.393);
   cursor: pointer;
+}
+.hide .el-upload,
+.hide .el-upload__tip {
+  display: none;
 }
 </style>
