@@ -1,14 +1,7 @@
 <script>
-import ItemView from "../components/ItemView.vue";
-import AddPartenaire from "../components/AddPartenaire.vue";
-import AddCategorie from "../components/AddCategorie.vue";
-import EventDetail from "../components/EventDetail.vue";
-import EventList from "../components/EventList.vue";
-
 import { ElNotification } from "element-plus/es";
 
 export default {
-  components: { ItemView, AddPartenaire, AddCategorie, EventDetail, EventList },
   data() {
     return {
       activeTab: "ItemView",
@@ -54,19 +47,23 @@ export default {
             @close="handleClose"
             @select="handleSelect"
           >
-            <el-menu-item index="1">
-              <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
-              <span>Accueil</span>
-            </el-menu-item>
+            <router-link to="/home">
+              <el-menu-item index="1">
+                <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
+                <span>Accueil</span>
+              </el-menu-item>
+            </router-link>
             <el-sub-menu index="2">
               <template #title>
                 <i class="fa-solid fa-users-gear"></i>&nbsp;&nbsp;
                 <span> Administrateur</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
-                  >Ajouter</el-menu-item
-                >
+                <router-link to="/home/AddAdmin">
+                  <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
+                    >Ajouter</el-menu-item
+                  >
+                </router-link>
               </el-menu-item-group>
             </el-sub-menu>
             <el-sub-menu index="3">
@@ -75,29 +72,36 @@ export default {
                 <span> Partenaire</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="3-1" @click="activeTab = 'AddPartenaire'"
-                  >Ajouter</el-menu-item
-                >
+                <router-link to="/home/AddPartner">
+                  <el-menu-item index="3-1" @click="activeTab = 'AddPartenaire'"
+                    >Ajouter</el-menu-item
+                  >
+                </router-link>
               </el-menu-item-group>
             </el-sub-menu>
-            <el-sub-menu index="4">
-              <template #title>
-                <i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;
-                <span>Client</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="4-1"></el-menu-item>
-              </el-menu-item-group>
-            </el-sub-menu>
+            <router-link to="/home/Client">
+              <el-sub-menu index="4">
+                <template #title>
+                  <i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;
+                  <span>Client</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="4-1"></el-menu-item>
+                </el-menu-item-group>
+              </el-sub-menu>
+            </router-link>
 
             <el-menu-item index="5">
               <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
               <span>Categories</span>
             </el-menu-item>
-            <el-menu-item index="6" @click="activeTab = 'EventDetail'">
-              <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
-              <span>Event</span>
-            </el-menu-item>
+            <router-link to="/home/EventList">
+              <el-menu-item index="6">
+                <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
+                <span>Event</span>
+              </el-menu-item>
+            </router-link>
+
             <el-menu-item index="7" id="deconnexion" @click="logout">
               <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
               <span>Deconnexion</span>
@@ -152,7 +156,7 @@ export default {
         <el-row>
           <el-col :span="24">
             <el-scrollbar max-height="80vh">
-              <component :is="activeTab" />
+              <router-view />
             </el-scrollbar>
             <!-- body cards  -->
           </el-col>

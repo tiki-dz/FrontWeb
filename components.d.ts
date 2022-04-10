@@ -23,7 +23,7 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     IconView: typeof import('./src/components/icons/IconView.vue')['default']
-    ItemView: typeof import('./src/components/ItemView.vue')['default']
+    AddAdmin: typeof import('./src/components/AddAdmin.vue')['default']
   }
 }
 
