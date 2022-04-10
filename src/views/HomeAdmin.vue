@@ -8,7 +8,7 @@ export default {
   components: { ItemView, AddPartenaire, AddCategorie },
   data() {
     return {
-      activeTab: "ItemView",
+     activeTab: "ItemView",
       search: "",
     };
   },
@@ -87,10 +87,18 @@ export default {
               </el-menu-item-group>
             </el-sub-menu>
 
-            <el-menu-item index="5">
-              <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
-              <span>Categories</span>
-            </el-menu-item>
+           
+            <el-sub-menu>
+  <template #title>
+                <i class="fa-solid fa-shapes" index="5" @click="activeTab = 'AddCategorie'"></i>&nbsp;&nbsp;
+                <span> Categories</span>
+              </template>
+              <el-menu-item-group>
+                <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
+                  >Sous categories</el-menu-item
+                >
+    </el-menu-item-group>
+</el-sub-menu>
             <el-menu-item index="6">
               <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
               <span>Event</span>
@@ -187,6 +195,10 @@ aside {
 .menuItem {
   text-align: center;
   padding: "10px";
+}
+.el-button{
+  color:#fd7d1bdc;
+  margin: 0 auto;
 }
 .el-menu-item-group{
 background-color: rgb(255, 251, 248);

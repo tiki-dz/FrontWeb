@@ -1,5 +1,7 @@
 <script scope>
 import authService from "../services/authService";
+import { ElNotification } from "element-plus";
+
 //import { Search } from "@element-plus/icons-vue";
 export default {
   name: "AddPartenaire",
@@ -54,7 +56,7 @@ export default {
   },
 
   methods: {
-    async signup() {
+    async signupPartenair() {
       try {
         if (this.ruleForm.password == this.ruleForm.password2) {
           const response = await authService.signup({
@@ -71,12 +73,21 @@ export default {
             orgaType: this.ruleForm.orgaType,
             orgaAddress: this.ruleForm.orgaAddress,
           });
-          
-          alert("regiter successfull");
-          
+
+          ElNotification({
+            title: "Success",
+            message: "Compte cree avec succee",
+            type: "success",
+          });
+
           console.log(response.data);
         } else {
           this.error = "problem in confirmation of the git fepassword";
+          ElNotification({
+            title: "Warning",
+            message: "mot de passe confirmer incorrectement",
+            type: "warning",
+          });
         }
       } catch (error) {
         console.log(error);
@@ -235,7 +246,10 @@ export default {
       <!-- sign up button  -->
       <el-row>
         <el-col :span="4"
-          ><el-button @click="signup" type="warning" round>Ajouter</el-button></el-col
+          ><el-button @click="signup" type="warning" round
+         style="background-color:#fd7d1bdc;
+  margin: 0 auto;"    >Ajouter</el-button
+          ></el-col
         >
       </el-row>
     </el-form>
