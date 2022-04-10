@@ -10,10 +10,11 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 8090,
     proxy: {
-      "^/api": {
+      "/home/api": {
         target: "http://127.0.0.1:5002",
         changeOrigin: true,
         secure: false,
+        rewrite: (path) => path.replace(/^\/home/, '')
       },
     },
   },

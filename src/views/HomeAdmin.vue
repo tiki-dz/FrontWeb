@@ -72,9 +72,16 @@ export default {
                 <span> Partenaire</span>
               </template>
               <el-menu-item-group>
-                <router-link to="/home/AddPartner">
+                <router-link to="/home/AddCategory">
+                  <el-menu-item index="3-1" 
+                    >Ajouter categorie</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+               <el-menu-item-group>
+                <router-link to="/home/SubCategory">
                   <el-menu-item index="3-1" @click="activeTab = 'AddPartenaire'"
-                    >Ajouter</el-menu-item
+                    >Ajouter sous categorie</el-menu-item
                   >
                 </router-link>
               </el-menu-item-group>
@@ -91,10 +98,27 @@ export default {
               </el-sub-menu>
             </router-link>
 
-            <el-menu-item index="5">
-              <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
-              <span>Categories</span>
-            </el-menu-item>
+<el-sub-menu index="5">
+              <template #title>
+                <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
+                <span> Categories</span>
+              </template>
+              <el-menu-item-group>
+                <router-link to="/home/AddCategory">
+                  <el-menu-item index="5-1"
+                    >Ajouter</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+               <el-menu-item-group>
+                <router-link to="/home/subCategory">
+                  <el-menu-item index="6-1"
+                    >Ajouter sub</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+            </el-sub-menu>
+           
             <router-link to="/home/EventList">
               <el-menu-item index="6">
                 <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;

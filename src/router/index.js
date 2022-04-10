@@ -8,6 +8,7 @@ import Category from "../components/CategoryList.vue";
 import AddCategory from "../components/AddCategory.vue";
 import AddAdmin from "../components/AddAdmin.vue";
 import AddPartner from "../components/AddPartner.vue";
+import subCategory from "../components/subCategory.vue";
 
 import Dashboard from "../components/DashBoard.vue";
 
@@ -40,6 +41,8 @@ const router = createRouter({
         { path: "AddAdmin", component: AddAdmin },
         { path: "Category", component: Category },
         { path: "EventList", component: EventList },
+        { path: "subCategory", component: subCategory },
+
         { path: "", component: Dashboard },
       ],
       beforeEnter: CheckLogin,
