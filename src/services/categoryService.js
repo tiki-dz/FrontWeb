@@ -7,6 +7,13 @@ export default {
       },
     });
   },
+  getCategories(credantials) {
+    return Api().get("/admin/category", credantials, {
+      headers: {
+        "x-access-token": localStorage.getItem("LoggedUser"),
+      },
+    });
+  },
   AddSubCategory(credantials) {
     return Api().post("/admin/subCategory", credantials, {
       headers: {

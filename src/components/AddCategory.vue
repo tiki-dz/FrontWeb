@@ -3,27 +3,44 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
+         <router-link to="/home/CategoryList">
+
+        <span id="preced">precedente</span>
+                        </router-link>
         <span>Ajouter categorie</span>
       </div>
     </template>
 
     <!-- Form -->
 
-    <el-form :model="form">
-      
-      <el-form-item label="name" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" />
+    <el-form :model="form" id="app"  method="post" >
+     
+      <el-form-item label="name" :label-width="formLabelWidth" prop="nom"
+       
+      >
+        <el-input v-model="form.name" autocomplete="off" id="name" />
+         <p v-if="form.errors.length" style="font-size: 10px;margin-left:20%;
+color: red;">
+   Donnez un nom a votre categorie
+    <ul>
+      <li v-for="error in errors"
+      :key="error">{{ error }}</li>
+    </ul>
+  </p>
       </el-form-item>
-      <el-form-item label="description" :label-width="formLabelWidth">
-        <el-input v-model="form.description" autocomplete="off" />
+      <el-form-item label="description" :label-width="formLabelWidth" prop="description">
+        <el-input v-model="form.description" autocomplete="off" id="description"/>
       </el-form-item>
       <el-form-item label="icon" :label-width="formLabelWidth">
         <el-input v-model="form.icon" autocomplete="off" />
       </el-form-item>
-      <el-button @click="dialogFormVisible = false">Cancel</el-button>
+     
+            <el-button style="margin-right:1%" @click="reset">reset</el-button>
+
+     
       <el-button
         type="primary"
-        @click="AddCategory"
+        @click="checkForm"
         color="#fd7d1bdc"
         style="color: white"
         >Ajouter</el-button
@@ -32,13 +49,16 @@
   </el-card>
 </template>
 
-<script>
+<script >
 import { ref } from "vue";
+//import  { FormInstance } from 'element-plus';
+
 import categoryService from "../services/categoryService";
 
 // dialogFormVisible = ref(false);
 //const formLabelWidth = "140px";
 export default {
+
   name: "AddCategorie",
   data() {
     return {
@@ -47,23 +67,18 @@ export default {
         name: "",
         description: "",
         icon: "",
-        idSubCategory: "",
+        errors:[],
       },
-      dialogFormVisible: ref(false),
       formLabelWidth: "140px",
 
       search: ref(""),
+
     };
   },
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
-    AddCategory() {
-      this.dialogFormVisible = false
+    
+    
+ AddCategory() {
       try{  const response = categoryService.AddCategory({
         
         name: this.form.name,
@@ -79,6 +94,25 @@ export default {
       }
     
     },
+     checkForm() {
+      this.form.errors = [];
+      if(this.form.name === '') {
+        this.form.errors.push(" nom de categorie est obligatoire.");
+      } else{
+      this.AddCategory;
+
+      }
+    },
+    
+      reset(){
+        this.form.name = '';
+        this.form.description = '';
+                this.form.icon = '';
+
+
+
+      },
+    
   },
 };
 </script>
@@ -92,4 +126,11 @@ export default {
 .el-input {
   width: 300px;
 }
+#preced{
+ 
+  margin-right: 80%;
+  color: #fd7d1bdc;
+
+}
+
 </style>

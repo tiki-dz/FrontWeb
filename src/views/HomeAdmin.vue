@@ -60,7 +60,7 @@ export default {
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddAdmin">
-                  <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
+                  <el-menu-item index="2-1" 
                     >Ajouter</el-menu-item
                   >
                 </router-link>
@@ -99,7 +99,7 @@ export default {
               </template>
               <el-menu-item-group>
                 <router-link to="/home/CategoryList">
-                  <el-menu-item index="5-1"
+                  <el-menu-item index="5-1" @click="getCategories"
                     >Categorie</el-menu-item
                   >
                 </router-link>
