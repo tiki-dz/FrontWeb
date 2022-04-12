@@ -33,7 +33,7 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       children: [
-        { path: "Event", component: EventDetail },
+        { path: "Event", name: "event", component: EventDetail },
         { path: "EventList", component: EventList },
         { path: "AddCategory", component: AddCategory },
         { path: "AddPartner", component: AddPartner },

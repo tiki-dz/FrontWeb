@@ -1,9 +1,10 @@
 <template>
   <el-card>
     <div id="delete"><i class="fa-solid fa-trash-can"> </i></div>
+    <h1>EventName</h1>
     <template #header>
       <div class="card-header">
-        <p style="text-align: left">{{ EventDetail.idEvent }}</p>
+        <p style="text-align: left">Créer un evenemnt</p>
       </div>
     </template>
     <br />
@@ -288,7 +289,7 @@ export default {
         name: "",
         organizer: "",
         desc: "",
-        date: [],
+        date: "",
         capacity: "",
         addr: "",
         tags: [],
@@ -296,7 +297,6 @@ export default {
         category: "",
         subcategory: [],
       },
-      EventDetail: [],
       optionsCategories: [],
       optionsSubCategories: [],
       optionsTags: [],
@@ -311,28 +311,6 @@ export default {
       dialogVisible: false,
       modifying: false,
     };
-  },
-  created() {
-    this.EventDetail = JSON.parse(this.$route.params.event);
-    console.log()
-    this.event.name = this.EventDetail.name;
-    this.event.organizer = this.EventDetail.organiser;
-    this.event.desc = this.EventDetail.description;
-    this.event.date[0] = this.EventDetail.startDate;
-    this.event.date[1] = this.EventDetail.endDate;
-    this.event.capacity = this.EventDetail.ticketNb;
-    this.event.addr = this.EventDetail.address;
-    this.event.urls = this.EventDetail.externalUrls;
-    for (let i = 0; i < this.EventDetail.Tags.length; i++) {
-      this.event.tags.push(this.EventDetail.Tags[i].name);
-    }
-    console.log(this.event.tags)
-    for (let i = 0; i < this.EventDetail.SubCategories.length; i++) {
-      this.event.subcategory.push(this.EventDetail.SubCategories[i].name);
-    }
-    this.event.tags = this.EventDetail.Tags;
-    this.event.category = this.EventDetail.category;
-    this.event.subcategory = this.EventDetail.SubCategories[0].Category.name;
   },
   methods: {
     handleRemove(file, fileList) {

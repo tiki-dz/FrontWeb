@@ -8,7 +8,7 @@
       :span="5"
       :offset="index % 4 > 0 ? 1 : 0"
     >
-      <el-card :body-style="{ padding: '0px' }" style="margin-bottom: 10%">
+      <el-card :body-style="{ padding: '0px' }" style="margin-bottom: 10%" @click="showEvent(event)">
         <template #header>
           <span>{{ event.name }}</span>
         </template>
@@ -66,6 +66,9 @@ export default {
       let events = await eventService.AllEvents(pageNumber);
       this.Allevents = events.data.events;
     },
+    showEvent(event){
+      this.$router.push({ name: 'event', params: { event: JSON.stringify(event)} })
+    }
   },
 };
 </script>

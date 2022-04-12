@@ -8,14 +8,15 @@ export default {
         'Content-Type': 'multipart/form-data'}
   })},
   AllEvents(credantials) {
-    let numPages=credantials
-    let param={ page: numPages , size: 1}
-    return Api().get("/admin/event", credantials , {
-      headers: {
-        'x-access-token': localStorage.getItem("LoggedUser"),
-        'content-type': 'text/json'},
-        params: param 
-  })},
+
+//     var param= new URLSearchParams();
+// param.append('page', '1');
+// param.append('size', '10');
+//     return Api().get("/admin/event", credantials , {
+//         params: param 
+//   })
+ return Api().get("/admin/event?page="+credantials+"&size=10", credantials )
+},
   getCategories(credantials) {
     return Api().get("/admin/category", credantials , {
       headers: {
