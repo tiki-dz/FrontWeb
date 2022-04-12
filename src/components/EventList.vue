@@ -8,7 +8,11 @@
       :span="5"
       :offset="index % 4 > 0 ? 1 : 0"
     >
-      <el-card :body-style="{ padding: '0px' }" style="margin-bottom: 10%" @click="showEvent(event)">
+      <el-card
+        :body-style="{ padding: '0px' }"
+        style="margin-bottom: 10%"
+        @click="showEvent(index)"
+      >
         <template #header>
           <span>{{ event.name }}</span>
         </template>
@@ -21,6 +25,7 @@
                   >{{ event.startDate.split("T")[0] }} &nbsp; 10:00</time
                 >
               </li>
+              <br />
               <li>
                 <time class="time"
                   >{{ event.endDate.split("T")[0] }} &nbsp; 17:00</time
@@ -28,8 +33,9 @@
               </li>
             </ul>
             <ul>
-              <li>FOOT</li>
-              <li>Tennis</li>
+              <li>{{ event.SubCategories[0].Category.name }}</li>
+              <br />
+              <li><i class="fa-solid fa-ticket"> </i> {{ event.ticketNb }}</li>
             </ul>
           </div>
         </div>
@@ -37,13 +43,13 @@
     </el-col>
   </el-row>
   <el-pagination
-    v-model:currentPage="currentPage3"
-    v-model:page-size="pageSize3"
+    v-model:currentPage="currentPage"
+    v-model:page-size="pageSize"
     :small="small"
     :disabled="disabled"
     :background="background"
     layout="prev, pager, next, jumper"
-    :total="1000"
+    :total="pages"
     @current-change="handleCurrentChange"
   />
 </template>
@@ -56,6 +62,8 @@ export default {
     return {
       currentPage: 1,
       Allevents: [],
+      pages: 1,
+      pageSize: 12,
     };
   },
   mounted: function () {
@@ -63,12 +71,21 @@ export default {
   },
   methods: {
     async handleCurrentChange(pageNumber) {
-      let events = await eventService.AllEvents(pageNumber);
+      let events = await eventService.AllEvents({
+        page: pageNumber,
+        size: this.pageSize,
+      });
       this.Allevents = events.data.events;
+      this.pages = events.data.totalPages*12;
+      console.log(this.pages)
+      sessionStorage.setItem("allEvents", JSON.stringify(this.Allevents));
     },
-    showEvent(event){
-      this.$router.push({ name: 'event', params: { event: JSON.stringify(event)} })
-    }
+    showEvent(event) {
+      this.$router.push({
+        name: "event",
+        params: { id: JSON.stringify(event) },
+      });
+    },
   },
 };
 </script>

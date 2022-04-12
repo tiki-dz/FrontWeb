@@ -1,9 +1,11 @@
 <template>
   <el-card>
-    <div id="delete"><i class="fa-solid fa-trash-can"> </i></div>
+    <button id="delete" @click="deleteEvent(EventDetail.idEvent)">
+      <i class="fa-solid fa-trash-can"> </i>
+    </button>
     <template #header>
       <div class="card-header">
-        <p style="text-align: left">{{ EventDetail.idEvent }}</p>
+        <p style="text-align: left">Event ID : {{ EventDetail.idEvent }}</p>
       </div>
     </template>
     <br />
@@ -105,7 +107,7 @@
           <el-row>
             <label for="category">Categorie</label>
             <el-select
-              @click="getCategories"
+              id="categoryId"
               v-model="event.category"
               name="category"
               class="m-2"
@@ -144,7 +146,6 @@
           <el-row>
             <label for="tags">HashTags</label>
             <el-select-v2
-              @click="getTags(event.name)"
               v-model="event.tags"
               name="tags"
               :options="optionsTags"
@@ -162,9 +163,12 @@
         <el-col :span="7">
           <label for="upload">Event Image</label>
           <br /><br />
+          <div class="images">
+            <img id="upload1" src="" alt="" />
+          </div>
           <el-upload
             name="upload"
-            class="upload-demo"
+            class="upload-demo uploads"
             drag
             :auto-upload="false"
             v-bind:class="{ hide: eventList.length == 1 }"
@@ -191,9 +195,12 @@
           <br /><br />
           <label for="upload2">Ticket Image</label>
           <br /><br />
+          <div class="images">
+            <img id="upload2" src="" alt="" />
+          </div>
           <el-upload
             name="upload2"
-            class="upload-demo"
+            class="upload-demo uploads"
             drag
             v-bind:class="{ hide: ticketList.length == 1 }"
             :auto-upload="false"
@@ -220,9 +227,12 @@
           <br /><br />
           <label for="upload3">Other Image</label>
           <br /><br />
+          <div class="images">
+            <img id="upload3" src="" alt="" />
+          </div>
           <el-upload
             name="upload3"
-            class="upload-demo"
+            class="upload-demo uploads"
             drag
             :auto-upload="false"
             v-bind:class="{ hide: otherList.length == 1 }"
@@ -260,7 +270,7 @@
             type="primary"
             v-show="modifying"
             round
-            @click="modifying = false"
+            @click="cancel"
             plain
           >
             <i class="fa-solid fa-ban"></i> &nbsp;Annuler</el-button
@@ -279,7 +289,7 @@
 import eventService from "../services/eventService";
 import { ElNotification } from "element-plus/es";
 import("element-plus/es/components/notification/style/css");
-
+import $ from "jquery";
 export default {
   name: "EventDetail",
   data() {
@@ -296,6 +306,7 @@ export default {
         category: "",
         subcategory: [],
       },
+      eventCopy: {},
       EventDetail: [],
       optionsCategories: [],
       optionsSubCategories: [],
@@ -312,28 +323,6 @@ export default {
       modifying: false,
     };
   },
-  created() {
-    this.EventDetail = JSON.parse(this.$route.params.event);
-    console.log()
-    this.event.name = this.EventDetail.name;
-    this.event.organizer = this.EventDetail.organiser;
-    this.event.desc = this.EventDetail.description;
-    this.event.date[0] = this.EventDetail.startDate;
-    this.event.date[1] = this.EventDetail.endDate;
-    this.event.capacity = this.EventDetail.ticketNb;
-    this.event.addr = this.EventDetail.address;
-    this.event.urls = this.EventDetail.externalUrls;
-    for (let i = 0; i < this.EventDetail.Tags.length; i++) {
-      this.event.tags.push(this.EventDetail.Tags[i].name);
-    }
-    console.log(this.event.tags)
-    for (let i = 0; i < this.EventDetail.SubCategories.length; i++) {
-      this.event.subcategory.push(this.EventDetail.SubCategories[i].name);
-    }
-    this.event.tags = this.EventDetail.Tags;
-    this.event.category = this.EventDetail.category;
-    this.event.subcategory = this.EventDetail.SubCategories[0].Category.name;
-  },
   methods: {
     handleRemove(file, fileList) {
       console.log(fileList);
@@ -344,45 +333,68 @@ export default {
     },
     async save() {
       this.modifying = false;
-      try {
-        let formData = new FormData();
-        formData.append("name", this.event.name);
-        formData.append("organiser", this.event.organizer);
-        formData.append("description", this.event.desc);
-        formData.append("startDate", this.event.date[0]);
-        formData.append("endDate", this.event.date[1]);
-        formData.append("ticketNb", this.event.capacity);
-        formData.append("address", this.event.addr);
-        formData.append("tags", JSON.stringify(this.event.tags));
-        formData.append("category", this.event.category);
-        formData.append("externalUrls", this.event.urls);
-        formData.append("subCategory", JSON.stringify(this.event.subcategory));
-        formData.append("eventImage", this.eventList[0].raw);
-        formData.append("ticketImage", this.ticketList[0].raw);
-        formData.append("outherImage", this.otherList[0].raw);
-        const event = await eventService.Add(formData);
-        console.log(this.fileList);
-
-        console.log(event.data);
-        if (event.data.success == false) {
-          ElNotification({
-            title: "Error",
-            message: "Error to add event:" + event.data.message,
-            type: "error",
+      let equal = JSON.stringify(this.event) === JSON.stringify(this.eventCopy);
+      console.log(equal);
+      if (!equal) {
+        try {
+          let formData = new FormData();
+          formData.append("name", this.event.name);
+          formData.append("organiser", this.event.organizer);
+          formData.append("description", this.event.desc);
+          formData.append("startDate", this.event.date[0]);
+          formData.append("endDate", this.event.date[1]);
+          formData.append("ticketNb", this.event.capacity);
+          formData.append("address", this.event.addr);
+          formData.append("tags", JSON.stringify(this.event.tags));
+          formData.append("category", this.event.category);
+          console.log("this.event.category" + this.event.category);
+          console.log(this.event.category);
+          console.log(this.eventCopy.category);
+          formData.append("externalUrls", this.event.urls);
+          formData.append(
+            "subCategory",
+            JSON.stringify(this.event.subcategory)
+          );
+          if (this.eventList.length) {
+            formData.append("eventImage", this.eventList[0].raw);
+          }
+          if (this.ticketList.length) {
+            formData.append("ticketImage", this.ticketList[0].raw);
+          }
+          if (this.otherList.length) {
+            formData.append("outherImage", this.otherList[0].raw);
+          }
+          const event = await eventService.Update({
+            form: formData,
+            id: this.EventDetail.idEvent,
           });
-        } else {
-          this.$router.push("/");
+          console.log(event.data);
+          if (event.data.success == false) {
+            ElNotification({
+              title: "Error",
+              message: "Error to update event:" + event.data.message,
+              type: "error",
+            });
+          } else {
+            this.$router.push("/home");
+            ElNotification({
+              title: "Succes",
+              message: "Event updated successfully",
+              type: "success",
+            });
+          }
+        } catch (error) {
           ElNotification({
-            title: "Succes",
-            message: "Event added successfully",
-            type: "success",
+            title: "Failed to update event",
+            message: "Server error  " + error,
+            type: "warning",
           });
         }
-      } catch (error) {
+      } else {
         ElNotification({
-          title: "Failed to add event",
-          message: "Server error ",
-          type: "warning",
+          title: "Saved Successfully",
+          message: "No modification ",
+          type: "success",
         });
       }
     },
@@ -422,17 +434,74 @@ export default {
         console.log(this.optionsSubCategories);
       }
     },
-    async getTags(eventName) {
-      if (eventName !== "") {
-        this.optionsTags = [{ value: eventName, label: "#" + eventName }];
-      } else {
+    async deleteEvent(idEvent) {
+      try {
+        
+        let response = await eventService.Delete(idEvent);
+        console.log(response.data);
         ElNotification({
-          title: "Name of event is empty",
-          message: "Please enter an event name to get suggestions ! ",
+          title: "Deleted Successfully",
+          message: "Event Deleted ",
+          type: "success",
+        });
+      } catch (error) {
+        ElNotification({
+          title: "Failed to delete",
+          message: "Server Error ",
           type: "error",
         });
       }
     },
+    cancel() {
+      this.modifying = false;
+      this.event = this.eventCopy;
+    },
+  },
+  created() {
+    console.log(JSON.parse(sessionStorage.getItem("allEvents")));
+    if ($.isEmptyObject(this.$route.params)) {
+      this.EventDetail = JSON.parse(sessionStorage.getItem("allEvents"))[0];
+    } else {
+      this.EventDetail = JSON.parse(sessionStorage.getItem("allEvents"))[
+        JSON.parse(this.$route.params.id)
+      ];
+    }
+
+    console.log(this.EventDetail);
+    this.event.name = this.EventDetail.name;
+    this.event.organizer = this.EventDetail.organiser;
+    this.event.desc = this.EventDetail.description;
+    this.event.date[0] = this.EventDetail.startDate;
+    this.event.date[1] = this.EventDetail.endDate;
+    this.event.capacity = this.EventDetail.ticketNb;
+    this.event.addr = this.EventDetail.address;
+    this.event.urls = this.EventDetail.externalUrls;
+    for (let i = 0; i < this.EventDetail.Tags.length; i++) {
+      this.optionsTags.push({
+        value: this.EventDetail.Tags[i].name,
+        label: "#" + this.EventDetail.Tags[i].name,
+      });
+      this.event.tags.push(this.EventDetail.Tags[i].name);
+    }
+    console.log(this.event.tags);
+    this.getCategories();
+    this.event.category = this.EventDetail.SubCategories[0].CategoryIdCategory;
+    this.getSubCategories(this.EventDetail.SubCategories[0].CategoryIdCategory);
+
+    for (let i = 0; i < this.EventDetail.SubCategories.length; i++) {
+      this.event.subcategory.push(
+        this.EventDetail.SubCategories[i].idSubCategory
+      );
+    }
+
+    this.eventCopy = JSON.parse(JSON.stringify(this.event));
+    let self = this;
+    $(document).ready(function () {
+      $(".uploads").hide();
+      $("#upload1").attr("src", self.EventDetail.eventImage);
+      $("#upload2").attr("src", self.EventDetail.ticketImage);
+      $("#upload3").attr("src", self.EventDetail.outherImage);
+    });
   },
 };
 </script>
@@ -498,5 +567,13 @@ label {
 .hide .el-upload,
 .hide .el-upload__tip {
   display: none;
+}
+.images img {
+  width: 100%;
+  max-height: 20vh;
+}
+.el-select__tags{
+  margin-left: 9%;
+  top:35%
 }
 </style>

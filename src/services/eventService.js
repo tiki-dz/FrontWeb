@@ -8,15 +8,24 @@ export default {
         'Content-Type': 'multipart/form-data'}
   })},
   AllEvents(credantials) {
-
-//     var param= new URLSearchParams();
-// param.append('page', '1');
-// param.append('size', '10');
-//     return Api().get("/admin/event", credantials , {
-//         params: param 
-//   })
- return Api().get("/admin/event?page="+credantials+"&size=10", credantials )
-},
+    let page= credantials.page
+    let size= credantials.size
+  return Api().get("/admin/event?page="+page+"&size="+size, credantials )
+  },
+  Update(credantials) {
+    let id=credantials.id;
+    let form=credantials.form
+    return Api().patch("/admin/event/"+id, form , {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser"),
+        'Content-Type': 'multipart/form-data'}
+  })}, 
+  Delete(credantials) {
+    let id=credantials;
+    return Api().delete("/admin/event/"+id, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser"),
+    }  })},  
   getCategories(credantials) {
     return Api().get("/admin/category", credantials , {
       headers: {
