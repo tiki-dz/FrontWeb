@@ -167,7 +167,10 @@ export default {
       <!-- sign up button  -->
       <el-row>
         <el-col :span="4"
-          ><el-button @click="signup" type="warning" round
+          ><el-button @click="signup" type="primary"
+        
+        color="#fd7d1bdc"
+        style="color: white"
             >Ajouter</el-button
           ></el-col
         >

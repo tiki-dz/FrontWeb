@@ -72,19 +72,13 @@ export default {
                 <span> Partenaire</span>
               </template>
               <el-menu-item-group>
-                <router-link to="/home/AddCategory">
+                <router-link to="/home/AddPartner">
                   <el-menu-item index="3-1" 
-                    >Ajouter categorie</el-menu-item
+                    >Ajouter </el-menu-item
                   >
                 </router-link>
               </el-menu-item-group>
-               <el-menu-item-group>
-                <router-link to="/home/SubCategory">
-                  <el-menu-item index="3-1" @click="activeTab = 'AddPartenaire'"
-                    >Ajouter sous categorie</el-menu-item
-                  >
-                </router-link>
-              </el-menu-item-group>
+              
             </el-sub-menu>
             <router-link to="/home/Client">
               <el-sub-menu index="4">
@@ -104,16 +98,16 @@ export default {
                 <span> Categories</span>
               </template>
               <el-menu-item-group>
-                <router-link to="/home/AddCategory">
+                <router-link to="/home/CategoryList">
                   <el-menu-item index="5-1"
-                    >Ajouter</el-menu-item
+                    >Categorie</el-menu-item
                   >
                 </router-link>
               </el-menu-item-group>
                <el-menu-item-group>
                 <router-link to="/home/subCategory">
                   <el-menu-item index="6-1"
-                    >Ajouter sub</el-menu-item
+                    >Sous categorie</el-menu-item
                   >
                 </router-link>
               </el-menu-item-group>

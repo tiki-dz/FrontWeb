@@ -4,7 +4,7 @@ import LoginView from "../views/LoginView.vue";
 import NotFound from "../views/NotFound.vue";
 import EventDetail from "../components/EventDetail.vue";
 import EventList from "../components/EventList.vue";
-import Category from "../components/CategoryList.vue";
+import CategoryList from "../components/CategoryList.vue";
 import AddCategory from "../components/AddCategory.vue";
 import AddAdmin from "../components/AddAdmin.vue";
 import AddPartner from "../components/AddPartner.vue";
@@ -39,7 +39,7 @@ const router = createRouter({
         { path: "AddCategory", component: AddCategory },
         { path: "AddPartner", component: AddPartner },
         { path: "AddAdmin", component: AddAdmin },
-        { path: "Category", component: Category },
+        { path: "CategoryList", component: CategoryList },
         { path: "EventList", component: EventList },
         { path: "subCategory", component: subCategory },
 
