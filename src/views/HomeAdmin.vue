@@ -92,27 +92,13 @@ export default {
               </el-sub-menu>
             </router-link>
 
-<el-sub-menu index="5">
-              <template #title>
+           <router-link to="/home/CategoryList">
+              <el-menu-item index="5">
                 <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
-                <span> Categories</span>
-              </template>
-              <el-menu-item-group>
-                <router-link to="/home/CategoryList">
-                  <el-menu-item index="5-1" @click="getCategories"
-                    >Categorie</el-menu-item
-                  >
-                </router-link>
-              </el-menu-item-group>
-               <el-menu-item-group>
-                <router-link to="/home/subCategory">
-                  <el-menu-item index="6-1"
-                    >Sous categorie</el-menu-item
-                  >
-                </router-link>
-              </el-menu-item-group>
-            </el-sub-menu>
-           
+                <span>Categories</span>
+              </el-menu-item>
+            </router-link>
+
             <router-link to="/home/EventList">
               <el-menu-item index="6">
                 <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;

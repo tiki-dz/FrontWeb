@@ -4,17 +4,13 @@ export default {
   name: "ItemView",
   data() {
     return {
-      categories: [],
+            subCategories: [],
 
     };
   },
 
   methods: {
-    async getCategories() {
-      let response = await categoryService.getCategories();
-      this.categories = response.data.data.category;
-      console.log(this.categories);
-    },
+   
     handleEdit(index, row) {
       console.log(index, row);
     },
@@ -22,10 +18,13 @@ export default {
       console.log(index, row);
     },
   },
-  created() {
-    this.getCategories();
-  },
-  
+ 
+  async getSubCategories(){
+let response = await categoryService.getSubCategories();
+      this.subCategories = response.data.subcategory;
+      console.log(this.subCategories);
+
+  }
 };
 </script>
 
@@ -33,43 +32,42 @@ export default {
   <el-card>
     <template #header>
       <div class="card-header">
-        <span>Categories</span>
-        <router-link to="/home/AddCategory">
+        <span>Sous categories</span>
+        <router-link to="/home/subCategory">
           <span id="add">Ajouter</span>
         </router-link>
       </div>
     </template>
-    <el-row v-for="categorie in categories" :key="categorie">
+    
+    <el-row v-for="subCategorie in subCategories" :key="subCategorie">
       <el-card id="cardlist">
         <el-row
           ><el-col :span="12"> idCategory</el-col>
-          <el-col :span="12">{{ categorie.idCategory }}</el-col>
+          <el-col :span="12">{{ subCategorie.idCategory }}</el-col>
         </el-row>
 
         <el-divider />
         <el-row
           ><el-col :span="12"> Nom</el-col>
-          <el-col :span="12">{{ categorie.name }}</el-col>
+          <el-col :span="12">{{ subCategorie.name }}</el-col>
         </el-row>
 
         <el-divider />
         <el-row
           ><el-col :span="12"> Description</el-col>
-          <el-col :span="12">{{ categorie.description }}</el-col>
+          <el-col :span="12">{{ subCategorie.description }}</el-col>
         </el-row>
         <el-divider />
 
         <el-row
           ><el-col :span="12"> icon</el-col>
-          <el-col :span="12">{{ categorie.icon }}</el-col>
+          <el-col :span="12">{{ subCategorie.icon }}</el-col>
         </el-row>
         <el-divider/>
         <el-row>
           <el-col :span="16"></el-col>
 <el-col :span="4">
-   <router-link to="/home/SubList">   <el-button type="primary" plain >Détaills</el-button>
-</router-link>
-
+  
           </el-col>
           <el-col :span="4">
 
