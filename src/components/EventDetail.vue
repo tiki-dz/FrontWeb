@@ -165,6 +165,11 @@
           <br /><br />
           <div class="images">
             <img id="upload1" src="" alt="" />
+            <div class="overlay">
+              <button type="button" @click="upload1()" class="icon">
+                <i class="fa fa-edit"></i>
+              </button>
+            </div>
           </div>
           <el-upload
             name="upload"
@@ -197,6 +202,11 @@
           <br /><br />
           <div class="images">
             <img id="upload2" src="" alt="" />
+            <div class="overlay">
+              <button type="button" @click="upload2()" class="icon">
+                <i class="fa fa-edit"></i>
+              </button>
+            </div>
           </div>
           <el-upload
             name="upload2"
@@ -229,6 +239,11 @@
           <br /><br />
           <div class="images">
             <img id="upload3" src="" alt="" />
+            <div class="overlay">
+              <button type="button" @click="upload3()" class="icon">
+                <i class="fa fa-edit"></i>
+              </button>
+            </div>
           </div>
           <el-upload
             name="upload3"
@@ -333,55 +348,115 @@ export default {
     },
     async save() {
       this.modifying = false;
+      let equalTags =
+        JSON.stringify(this.event.tags) === JSON.stringify(this.eventCopy.tags);
+      let equalCategories =
+        JSON.stringify(this.event.subcategory) ===
+        JSON.stringify(this.eventCopy.subcategory);
       let equal = JSON.stringify(this.event) === JSON.stringify(this.eventCopy);
-      console.log(equal);
-      if (!equal) {
+      console.log("equal " + equal);
+      console.log("equaltags " + equalCategories);
+
+      console.log("equalcatgs " + equalTags);
+
+      if (!equal || !equalTags || !equalCategories) {
+        //tags update
         try {
-          let formData = new FormData();
-          formData.append("name", this.event.name);
-          formData.append("organiser", this.event.organizer);
-          formData.append("description", this.event.desc);
-          formData.append("startDate", this.event.date[0]);
-          formData.append("endDate", this.event.date[1]);
-          formData.append("ticketNb", this.event.capacity);
-          formData.append("address", this.event.addr);
-          formData.append("tags", JSON.stringify(this.event.tags));
-          formData.append("category", this.event.category);
-          console.log("this.event.category" + this.event.category);
-          console.log(this.event.category);
-          console.log(this.eventCopy.category);
-          formData.append("externalUrls", this.event.urls);
-          formData.append(
-            "subCategory",
-            JSON.stringify(this.event.subcategory)
-          );
-          if (this.eventList.length) {
-            formData.append("eventImage", this.eventList[0].raw);
-          }
-          if (this.ticketList.length) {
-            formData.append("ticketImage", this.ticketList[0].raw);
-          }
-          if (this.otherList.length) {
-            formData.append("outherImage", this.otherList[0].raw);
-          }
-          const event = await eventService.Update({
-            form: formData,
-            id: this.EventDetail.idEvent,
-          });
-          console.log(event.data);
-          if (event.data.success == false) {
-            ElNotification({
-              title: "Error",
-              message: "Error to update event:" + event.data.message,
-              type: "error",
+          if (!equalTags) {
+            let added = this.event.tags.filter(
+              (x) => !this.eventCopy.tags.includes(x)
+            );
+            console.log("added");
+            console.log(added);
+            let removed = this.eventCopy.tags.filter(
+              (x) => !this.event.tags.includes(x)
+            );
+            console.log("removed");
+            console.log(removed);
+            for (let i = 0; i < added.length; i++) {
+              eventService.addtag({
+                id: JSON.parse(this.EventDetail.idEvent),
+                data: { name: added[i] },
+              });
+            }
+            for (let i = 0; i < removed.length; i++) {
+              eventService.deleteTag({
+                id: JSON.parse(this.EventDetail.idEvent),
+                data: { name: removed[i] },
+              });
+            }
+            //subactegories update
+
+            if (!equalCategories) {
+              let added = this.event.subcategory.filter(
+                (x) => !this.eventCopy.subcategory.includes(x)
+              );
+              console.log(added);
+              let removed = this.eventCopy.subcategory.filter(
+                (x) => !this.event.subcategory.includes(x)
+              );
+              console.log(removed);
+              for (let i = 0; i < added.length; i++) {
+                eventService.addSubCategorie({
+                  id: JSON.parse(this.EventDetail.idEvent),
+                  data: { idSubCategory: added[i] },
+                });
+              }
+              for (let i = 0; i < removed.length; i++) {
+                let formData = new FormData();
+                formData.append("idSubCategory", removed[i]);
+                eventService.deleteSubCategorie({
+                  id: JSON.parse(this.EventDetail.idEvent),
+                  idSubCategory: removed[i],
+                });
+              }
+            }
+            //otherinfos update
+
+            let formData = new FormData();
+            formData.append("name", this.event.name);
+            formData.append("organiser", this.event.organizer);
+            formData.append("description", this.event.desc);
+            formData.append("startDate", this.event.date[0]);
+            formData.append("endDate", this.event.date[1]);
+            formData.append("ticketNb", this.event.capacity);
+            formData.append("address", this.event.addr);
+            formData.append("category", this.event.category);
+            console.log("this.event.category" + this.event.category);
+            console.log(this.event.category);
+            console.log(this.eventCopy.category);
+            formData.append("externalUrls", this.event.urls);
+            formData.append(
+              "subCategory",
+              JSON.stringify(this.event.subcategory)
+            );
+            if (this.eventList.length) {
+              formData.append("eventImage", this.eventList[0].raw);
+            }
+            if (this.ticketList.length) {
+              formData.append("ticketImage", this.ticketList[0].raw);
+            }
+            if (this.otherList.length) {
+              formData.append("outherImage", this.otherList[0].raw);
+            }
+            const event = await eventService.Update({
+              form: formData,
+              id: this.EventDetail.idEvent,
             });
-          } else {
-            this.$router.push("/home");
-            ElNotification({
-              title: "Succes",
-              message: "Event updated successfully",
-              type: "success",
-            });
+            console.log(event.data);
+            if (event.data.success == false) {
+              ElNotification({
+                title: "Error",
+                message: "Error to update event:" + event.data.message,
+                type: "error",
+              });
+            } else {
+              ElNotification({
+                title: "Succes",
+                message: "Event -other infos- updated successfully",
+                type: "success",
+              });
+            }
           }
         } catch (error) {
           ElNotification({
@@ -436,7 +511,6 @@ export default {
     },
     async deleteEvent(idEvent) {
       try {
-        
         let response = await eventService.Delete(idEvent);
         console.log(response.data);
         ElNotification({
@@ -455,6 +529,18 @@ export default {
     cancel() {
       this.modifying = false;
       this.event = this.eventCopy;
+    },
+    upload1() {
+      $(".images:eq(0)").hide();
+      $(".uploads:eq(0)").show();
+    },
+    upload2() {
+      $(".images:eq(1)").hide();
+      $(".uploads:eq(1)").show();
+    },
+    upload3() {
+      $(".images:eq(2)").hide();
+      $(".uploads:eq(2)").show();
     },
   },
   created() {
@@ -568,12 +654,39 @@ label {
 .hide .el-upload__tip {
   display: none;
 }
+.images,
 .images img {
   width: 100%;
   max-height: 20vh;
+  display: block;
 }
-.el-select__tags{
+.el-select__tags {
   margin-left: 9%;
-  top:35%
+  top: 35%;
+}
+.overlay {
+  position: relative;
+  top: -20vh;
+  width: 100%;
+  height: 20vh;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: 0.3s ease;
+  background-color: rgba(108, 101, 101, 0.815);
+}
+
+.overlay:hover {
+  opacity: 1;
+}
+.icon {
+  color: white;
+  font-size: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
 }
 </style>

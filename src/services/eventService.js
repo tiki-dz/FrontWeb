@@ -39,5 +39,33 @@ export default {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},
+  addSubCategorie(credantials) {
+    console.log(credantials)
+    let idEvent=credantials.id
+    return Api().post("/admin/event/"+idEvent+"/subcategory" ,credantials.data, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
+  deleteSubCategorie(credantials) {
+    console.log(credantials)
+    let idEvent=credantials.id
+    return Api().delete("/admin/event/"+idEvent+"/subcategory" ,credantials.data, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
+  addtag(credantials) {
+    console.log(credantials)
+    let idEvent=credantials.id
+    return Api().post("/admin/event/"+idEvent+"/tag" ,credantials.data, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
+  deleteTag(credantials) {
+    console.log(credantials)
+    let idEvent=credantials.id
+    return Api().delete("/admin/event/"+idEvent+"/tag" ,credantials.data, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
   
 }
