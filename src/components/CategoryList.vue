@@ -25,6 +25,23 @@ export default {
   created() {
     this.getCategories();
   },
+  async deleteCtegory(idCategory) {
+      try {
+        let response = await categoryService.deleteCategory(idCategory);
+        console.log(response.data);
+        ElNotification({
+          title: "supprimer avec succees",
+          message: "categorie supprimer ",
+          type: "success",
+        });
+      } catch (error) {
+        ElNotification({
+          title: "impossible de supprimer",
+          message: "Erreur ",
+          type: "error",
+        });
+      }
+    },
   
 };
 </script>
@@ -73,7 +90,7 @@ export default {
           </el-col>
           <el-col :span="4">
 
-    <el-button type="danger" plain >supprimer</el-button>
+    <el-button type="danger" plain @click="deleteCtegory(categorie.idCategory)">supprimer</el-button>
           </el-col>
         </el-row>
       </el-card>
