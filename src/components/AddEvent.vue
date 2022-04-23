@@ -16,8 +16,8 @@
                       >Events</el-breadcrumb-item
                     >
                     <el-breadcrumb-item
-                      ><a href="/home/Event" style="color: aliceblue"
-                        >Event n° {{ EventDetail.idEvent }} Detailed</a
+                      ><a href="/home/AddEvent" style="color: aliceblue"
+                        >Create an event</a
                       ></el-breadcrumb-item
                     ></el-breadcrumb
                   >
@@ -36,11 +36,7 @@
                     </template>
                   </el-input>
                 </el-col>
-                <el-col :span="4">
-                  <button type="button" id="add" @click="addEvent()">
-                    Add Event
-                  </button></el-col
-                >
+                <el-col :span="4"> </el-col>
               </el-row>
             </div>
           </div>
@@ -51,19 +47,10 @@
       <el-col :span="24">
         <el-scrollbar max-height="80vh">
           <el-card>
-            <button id="delete" @click="deleteEvent(EventDetail.idEvent)">
-              <i class="fa-solid fa-trash-can"> </i>
-            </button>
             <template #header>
               <div class="card-header">
-                <p
-                  style="
-                    text-align: center;
-                    font-size: 30px;
-                    font-weight: bolder;
-                  "
-                >
-                  Event ID : {{ EventDetail.idEvent }}
+                <p style="text-align: center; font-size: 30px">
+                  Créer un évenemnt
                 </p>
               </div>
             </template>
@@ -166,7 +153,7 @@
                   <el-row>
                     <label for="category">Categorie</label>
                     <el-select
-                      id="categoryId"
+                      @click="getCategories"
                       v-model="event.category"
                       name="category"
                       class="m-2"
@@ -205,6 +192,7 @@
                   <el-row>
                     <label for="tags">HashTags</label>
                     <el-select-v2
+                      @click="getTags(event.name)"
                       v-model="event.tags"
                       name="tags"
                       :options="optionsTags"
@@ -226,22 +214,9 @@
                 <el-col :span="7">
                   <label for="upload">Event Image</label>
                   <br /><br />
-                  <div class="images">
-                    <img id="upload1" src="" alt="" />
-                    <div class="overlay">
-                      <button
-                        type="button"
-                        :disabled="!modifying"
-                        @click="upload1()"
-                        class="icon"
-                      >
-                        <i class="fa fa-edit"></i>
-                      </button>
-                    </div>
-                  </div>
                   <el-upload
                     name="upload"
-                    class="upload-demo uploads"
+                    class="upload-demo"
                     drag
                     :auto-upload="false"
                     v-bind:class="{ hide: eventList.length == 1 }"
@@ -268,22 +243,9 @@
                   <br /><br />
                   <label for="upload2">Ticket Image</label>
                   <br /><br />
-                  <div class="images">
-                    <img id="upload2" src="" alt="" />
-                    <div class="overlay">
-                      <button
-                        type="button"
-                        :disabled="!modifying"
-                        @click="upload2()"
-                        class="icon"
-                      >
-                        <i class="fa fa-edit"></i>
-                      </button>
-                    </div>
-                  </div>
                   <el-upload
                     name="upload2"
-                    class="upload-demo uploads"
+                    class="upload-demo"
                     drag
                     v-bind:class="{ hide: ticketList.length == 1 }"
                     :auto-upload="false"
@@ -310,22 +272,9 @@
                   <br /><br />
                   <label for="upload3">Other Image</label>
                   <br /><br />
-                  <div class="images">
-                    <img id="upload3" src="" alt="" />
-                    <div class="overlay">
-                      <button
-                        type="button"
-                        :disabled="!modifying"
-                        @click="upload3()"
-                        class="icon"
-                      >
-                        <i class="fa fa-edit"></i>
-                      </button>
-                    </div>
-                  </div>
                   <el-upload
                     name="upload3"
-                    class="upload-demo uploads"
+                    class="upload-demo"
                     drag
                     :auto-upload="false"
                     v-bind:class="{ hide: otherList.length == 1 }"
@@ -358,32 +307,37 @@
                     justify-content: center;
                   "
                 >
+                  <br />
                   <el-button
                     type="primary"
-                    v-show="!modifying"
-                    @click="modifying = true"
+                    v-show="!saved"
                     round
-                  >
-                    <i class="fa-solid fa-pen-to-square"></i> &nbsp;
-                    Modifier</el-button
-                  >
-                  <el-button
-                    type="primary"
-                    v-show="modifying"
-                    round
-                    @click="cancel"
+                    @click="goToEvents()"
                     plain
                   >
                     <i class="fa-solid fa-ban"></i> &nbsp;Annuler</el-button
                   >
+                  <el-button type="primary" v-show="!saved" @click="save" round
+                    ><i class="fa-solid fa-square-check"></i>&nbsp; Créer
+                  </el-button>
                   <el-button
                     type="primary"
-                    v-show="modifying"
-                    @click="save"
+                    v-show="saved"
                     round
-                    ><i class="fa-solid fa-square-check"></i>&nbsp;
-                    Sauvegarder</el-button
+                    @click="goToEvents()"
+                    plain
                   >
+                    <i class="fa-solid fa-ban"></i> &nbsp;Go to
+                    Events</el-button
+                  >
+                  <el-button
+                    type="primary"
+                    v-show="saved"
+                    @click="newOne()"
+                    round
+                    ><i class="fa-solid fa-square-check"></i>&nbsp; Créer un
+                    autre
+                  </el-button>
                 </el-row>
               </el-row>
             </el-form>
@@ -399,7 +353,7 @@
 import eventService from "../services/eventService";
 import { ElNotification } from "element-plus/es";
 import("element-plus/es/components/notification/style/css");
-import $ from "jquery";
+
 export default {
   name: "EventDetail",
   data() {
@@ -408,7 +362,7 @@ export default {
         name: "",
         organizer: "",
         desc: "",
-        date: [],
+        date: "",
         capacity: "",
         addr: "",
         tags: [],
@@ -416,8 +370,6 @@ export default {
         category: "",
         subcategory: [],
       },
-      eventCopy: {},
-      EventDetail: [],
       optionsCategories: [],
       optionsSubCategories: [],
       optionsTags: [],
@@ -430,7 +382,8 @@ export default {
       },
       dialogImageUrl: "",
       dialogVisible: false,
-      modifying: false,
+      modifying: true,
+      saved: false,
     };
   },
   methods: {
@@ -442,161 +395,47 @@ export default {
       this.dialogVisible = true;
     },
     async save() {
-      this.modifying = false;
-      let equalTags =
-        JSON.stringify(this.event.tags) === JSON.stringify(this.eventCopy.tags);
-      let equalCategories =
-        JSON.stringify(this.event.subcategory) ===
-        JSON.stringify(this.eventCopy.subcategory);
-      let equalImages =
-        !this.eventList.length &&
-        !this.ticketList.length &&
-        !this.otherList.length;
+      try {
+        let formData = new FormData();
+        formData.append("name", this.event.name);
+        formData.append("organiser", this.event.organizer);
+        formData.append("description", this.event.desc);
+        formData.append("startDate", this.event.date[0]);
+        formData.append("endDate", this.event.date[1]);
+        formData.append("ticketNb", this.event.capacity);
+        formData.append("address", this.event.addr);
+        formData.append("tags", JSON.stringify(this.event.tags));
+        formData.append("category", this.event.category);
+        formData.append("externalUrls", this.event.urls);
+        formData.append("subCategory", JSON.stringify(this.event.subcategory));
+        formData.append("eventImage", this.eventList[0].raw);
+        formData.append("ticketImage", this.ticketList[0].raw);
+        formData.append("outherImage", this.otherList[0].raw);
+        const event = await eventService.Add(formData);
+        console.log(this.fileList);
 
-      let equal = JSON.stringify(this.event) === JSON.stringify(this.eventCopy);
-      console.log("equal " + equal);
-      console.log("equaltags " + equalCategories);
-      console.log("equalcatgs " + equalTags);
-      console.log("equaleventimg " + !this.eventList.length);
-
-      if (!equal || !equalTags || !equalCategories || !equalImages) {
-        //tags update
-        try {
-          if (!equalTags) {
-            let added = this.event.tags.filter(
-              (x) => !this.eventCopy.tags.includes(x)
-            );
-            console.log("added");
-            console.log(added);
-            let removed = this.eventCopy.tags.filter(
-              (x) => !this.event.tags.includes(x)
-            );
-            console.log("removed");
-            console.log(removed);
-            for (let i = 0; i < added.length; i++) {
-              await eventService.addtag({
-                id: JSON.parse(this.EventDetail.idEvent),
-                data: { name: added[i] },
-              });
-            }
-            for (let i = 0; i < removed.length; i++) {
-              await eventService.deleteTag({
-                id: JSON.parse(this.EventDetail.idEvent),
-                data: { name: removed[i] },
-              });
-            }
-          }
-          //subactegories update
-
-          if (!equalCategories) {
-            let added = this.event.subcategory.filter(
-              (x) => !this.eventCopy.subcategory.includes(x)
-            );
-            console.log(added);
-            let removed = this.eventCopy.subcategory.filter(
-              (x) => !this.event.subcategory.includes(x)
-            );
-            console.log(removed);
-            for (let i = 0; i < added.length; i++) {
-              await eventService.addSubCategorie({
-                id: JSON.parse(this.EventDetail.idEvent),
-                data: { idSubCategory: added[i] },
-              });
-            }
-            for (let i = 0; i < removed.length; i++) {
-              await eventService.deleteSubCategorie({
-                id: JSON.parse(this.EventDetail.idEvent),
-                idSubCategory: removed[i],
-              });
-            }
-          }
-          //update images
-          if (!equalImages) {
-            if (this.eventList.length) {
-              let formData = new FormData();
-              formData.append("image", this.eventList[0].raw);
-              formData.append("imageType", "eventImage");
-              let event = await eventService.updateImage({
-                data: formData,
-                id: this.EventDetail.idEvent,
-              });
-              console.log("event image updated:  " + event);
-            }
-            if (this.ticketList.length) {
-              let formData = new FormData();
-              formData.append("image", this.ticketList[0].raw);
-              formData.append("imageType", "ticketImage");
-              let event = await eventService.updateImage({
-                data: formData,
-                id: this.EventDetail.idEvent,
-              });
-              console.log("ticket image updated:  " + event);
-            }
-            if (this.otherList.length) {
-              let formData = new FormData();
-              formData.append("image", this.otherList[0].raw);
-              formData.append("imageType", "outherImage");
-              let event = await eventService.updateImage({
-                data: formData,
-                id: this.EventDetail.idEvent,
-              });
-              console.log("other image updated:  " + event);
-            }
-          }
-          //otherinfos update
-          if (!equal) {
-            alert("processing");
-            let formData = new FormData();
-            formData.append("name", this.event.name);
-            formData.append("organiser", this.event.organizer);
-            formData.append("description", this.event.desc);
-            formData.append("startDate", this.event.date[0]);
-            formData.append("endDate", this.event.date[1]);
-            formData.append("ticketNb", this.event.capacity);
-            formData.append("address", this.event.addr);
-            formData.append("category", this.event.category);
-            console.log("this.event.category" + this.event.category);
-            console.log(this.event.category);
-            console.log(this.eventCopy.category);
-            formData.append("externalUrls", this.event.urls);
-            formData.append(
-              "subCategory",
-              JSON.stringify(this.event.subcategory)
-            );
-            const event = await eventService.Update({
-              form: formData,
-              id: this.EventDetail.idEvent,
-            });
-            alert("ended ");
-
-            console.log(event.data);
-            if (event.data.success == false) {
-              this.cancel()
-              ElNotification({
-                title: "Error",
-                message: "Error to update event:" + event.data.message,
-                type: "error",
-              });
-            } else {
-              ElNotification({
-                title: "Succes",
-                message: "Event -other infos- updated successfully",
-                type: "success",
-              });
-            }
-          }
-        } catch (error) {
+        console.log(event.data);
+        if (event.data.success == false) {
           ElNotification({
-            title: "Failed to update event",
-            message: "Server error  " + error,
-            type: "warning",
+            title: "Error",
+            message: "Error to add event:" + event.data.message,
+            type: "error",
+          });
+        } else {
+          this.modifying = false;
+          this.saved = true;
+
+          ElNotification({
+            title: "Succes",
+            message: "Event added successfully",
+            type: "success",
           });
         }
-      } else {
+      } catch (error) {
         ElNotification({
-          title: "Saved Successfully",
-          message: "No modification ",
-          type: "success",
+          title: "Failed to add event",
+          message: "Check your inputs ",
+          type: "warning",
         });
       }
     },
@@ -636,87 +475,23 @@ export default {
         console.log(this.optionsSubCategories);
       }
     },
-    async deleteEvent(idEvent) {
-      try {
-        let response = await eventService.Delete(idEvent);
-        sessionStorage.removeItem("currentEvent");
-        this.$router.push("/home/EventList");
-        console.log(response.data);
+    async getTags(eventName) {
+      if (eventName !== "") {
+        this.optionsTags = [{ value: eventName, label: "#" + eventName }];
+      } else {
         ElNotification({
-          title: "Deleted Successfully",
-          message: "Event Deleted ",
-          type: "success",
-        });
-      } catch (error) {
-        ElNotification({
-          title: "Failed to delete",
-          message: "Server Error ",
+          title: "Name of event is empty",
+          message: "Please enter an event name to get suggestions ! ",
           type: "error",
         });
       }
     },
-    cancel() {
-      this.modifying = false;
-      this.event = this.eventCopy;
-      $(".uploads").hide();
-      $(".images").show();
+    newOne() {
+      location.reload();
     },
-    upload1() {
-      $(".images:eq(0)").hide();
-      $(".uploads:eq(0)").show();
+    goToEvents() {
+      this.$router.push("/home/EventList");
     },
-    upload2() {
-      $(".images:eq(1)").hide();
-      $(".uploads:eq(1)").show();
-    },
-    upload3() {
-      $(".images:eq(2)").hide();
-      $(".uploads:eq(2)").show();
-    },
-    addEvent() {
-      this.$router.push("/home/AddEvent");
-    },
-  },
-  created() {
-    if (sessionStorage.getItem("currentEvent") !== null)
-      this.EventDetail = JSON.parse(sessionStorage.getItem("currentEvent"));
-    else this.$router.push("/home/EventList");
-
-    console.log(this.EventDetail);
-    this.event.name = this.EventDetail.name;
-    this.event.organizer = this.EventDetail.organiser;
-    this.event.desc = this.EventDetail.description;
-    this.event.date[0] = this.EventDetail.startDate;
-    this.event.date[1] = this.EventDetail.endDate;
-    this.event.capacity = this.EventDetail.ticketNb;
-    this.event.addr = this.EventDetail.address;
-    this.event.urls = this.EventDetail.externalUrls;
-    for (let i = 0; i < this.EventDetail.Tags.length; i++) {
-      this.optionsTags.push({
-        value: this.EventDetail.Tags[i].name,
-        label: "#" + this.EventDetail.Tags[i].name,
-      });
-      this.event.tags.push(this.EventDetail.Tags[i].name);
-    }
-    console.log(this.event.tags);
-    this.getCategories();
-    this.event.category = this.EventDetail.SubCategories[0].CategoryIdCategory;
-    this.getSubCategories(this.EventDetail.SubCategories[0].CategoryIdCategory);
-
-    for (let i = 0; i < this.EventDetail.SubCategories.length; i++) {
-      this.event.subcategory.push(
-        this.EventDetail.SubCategories[i].idSubCategory
-      );
-    }
-
-    this.eventCopy = JSON.parse(JSON.stringify(this.event));
-    let self = this;
-    $(document).ready(function () {
-      $(".uploads").hide();
-      $("#upload1").attr("src", self.EventDetail.eventImage);
-      $("#upload2").attr("src", self.EventDetail.ticketImage);
-      $("#upload3").attr("src", self.EventDetail.outherImage);
-    });
   },
 };
 </script>
@@ -764,71 +539,21 @@ label {
   margin-left: 10%;
 }
 .el-button {
-  flex: 1;
-  max-width: 40%;
+  min-width: 25%;
 }
 .el-button.is-round {
   padding: 1.7%;
-}
-#delete {
-  border-radius: 50%;
-  background-color: rgba(255, 226, 199, 0.575);
-  float: right;
-  margin-right: 3%;
-  padding: 1% 1%;
-  border: 1px solid rgba(255, 166, 0, 0.393);
-  cursor: pointer;
 }
 .hide .el-upload,
 .hide .el-upload__tip {
   display: none;
 }
-.images,
-.images img {
-  width: 100%;
-  height: 20vh;
-  display: block;
-}
-.el-select__tags {
-  margin-left: 9%;
-  top: 35%;
-}
-.overlay {
-  position: relative;
-  top: -20vh;
-  width: 100%;
-  height: 20vh;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  transition: 0.3s ease;
-  background-color: rgba(108, 101, 101, 0.815);
-}
-
-.overlay:hover {
-  opacity: 1;
-}
-.icon {
-  color: rgba(255, 255, 255, 0.957);
-  background-color: rgba(108, 101, 101, 0);
-  font-size: 40px;
-  position: absolute;
-  border: none;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
 .header {
   height: 14vh;
   background-color: var(--vt-c-orange);
 }
-#add {
-  padding: 5%;
-  border: none;
-  border-radius: 5px;
-  font-weight: bolder;
-  cursor: pointer;
+.el-row .el-button {
+  flex: 1;
+  max-width: 38%;
 }
 </style>

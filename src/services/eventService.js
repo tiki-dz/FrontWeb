@@ -67,5 +67,13 @@ export default {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},
+  updateImage(credantials) {
+    console.log(credantials)
+    let idEvent=credantials.id
+    return Api().put("/admin/event/"+idEvent+"/updateImage" ,credantials.data, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
+  
   
 }

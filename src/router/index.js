@@ -7,8 +7,8 @@ import EventList from "../components/EventList.vue";
 import Category from "../components/CategoryList.vue";
 import AddCategory from "../components/AddCategory.vue";
 import AddAdmin from "../components/AddAdmin.vue";
+import AddEvent from "../components/AddEvent.vue";
 import AddPartner from "../components/AddPartner.vue";
-
 import Dashboard from "../components/DashBoard.vue";
 
 function CheckLogin(to, from, next) {
@@ -22,7 +22,7 @@ function CheckLogin(to, from, next) {
   } else if (to.name == "login" && !isAuthenticated) {
     next();
   } else if (isAuthenticated) {
-    next("/");
+    next("/home");
   } else next("/login");
 }
 const router = createRouter({
@@ -39,7 +39,7 @@ const router = createRouter({
         { path: "AddPartner", component: AddPartner },
         { path: "AddAdmin", component: AddAdmin },
         { path: "Category", component: Category },
-        { path: "EventList", component: EventList },
+        { path: "AddEvent", component: AddEvent },
         { path: "", component: Dashboard },
       ],
       beforeEnter: CheckLogin,
@@ -54,6 +54,10 @@ const router = createRouter({
       path: "/:pathMatch(.*)*",
       name: "notFound",
       component: NotFound,
+    },
+    {
+      path: "/",
+      redirect: "/home",
     },
   ],
 });

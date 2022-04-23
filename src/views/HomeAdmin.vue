@@ -111,57 +111,7 @@ export default {
       </aside>
     </el-col>
     <el-col :span="20" class="padding">
-      <nav>
-        <!-- nav bar  -->
-        <el-row style="margin-bottom: 10px; margin-top: 10px">
-          <!-- total columns is 24 -->
-          <el-col :span="24">
-            <el-card class="header">
-              <div class="card card-frame col-4">
-                <div class="card-body">
-                  <el-row>
-                    <el-col :span="6" class="path">
-                      <el-breadcrumb separator="/">
-                        <el-breadcrumb-item
-                          :to="{ path: '/' }"
-                          style="color: aliceblue"
-                          >Dashboard</el-breadcrumb-item
-                        >
-                        <el-breadcrumb-item
-                          ><a href="/" style="color: aliceblue"
-                            >Cree un compte</a
-                          ></el-breadcrumb-item
-                        ></el-breadcrumb
-                      >
-                    </el-col>
-                    <template> </template>
-
-                    <el-col :span="12">
-                      <el-input
-                        v-model="search"
-                        placeholder="Chercher un id,nom ou utilisateur"
-                      >
-                        <template #prefix>
-                          <el-icon class="el-input__icon"><search /></el-icon>
-                        </template>
-                      </el-input>
-                    </el-col>
-                    <el-col :span="4"> </el-col>
-                  </el-row>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="24">
-            <el-scrollbar max-height="80vh">
-              <router-view />
-            </el-scrollbar>
-            <!-- body cards  -->
-          </el-col>
-        </el-row>
-      </nav>
+      <router-view :key="$route.fullPath"/>
     </el-col>
   </el-row>
 </template>
@@ -186,10 +136,6 @@ aside {
   margin: 11% auto;
   display: flex;
   padding-top: 10%;
-}
-.header {
-  height: 14vh;
-  background-color: var(--vt-c-orange);
 }
 .menuItem {
   text-align: center;
