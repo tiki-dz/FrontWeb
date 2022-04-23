@@ -10,6 +10,27 @@ export default {
   },
 
   methods: {
+    route(id){
+      this.$router.push("/home/subList/"+id)
+    },
+     async deleteCtegory(idCategory) {
+      try {
+        let response = await categoryService.deleteCat(idCategory);
+        console.log(response.data.data);
+        ElNotification({
+          title: "supprimer avec succees",
+          message: "categorie supprimer ",
+          type: "success",
+        });
+      } catch (error) {
+        ElNotification({
+          title: "impossible de supprimer",
+          message: "Erreur ",
+          type: "error",
+        });
+      }
+    },
+  
     async getCategories() {
       let response = await categoryService.getCategories();
       this.categories = response.data.data.category;
@@ -25,24 +46,7 @@ export default {
   created() {
     this.getCategories();
   },
-  async deleteCtegory(idCategory) {
-      try {
-        let response = await categoryService.deleteCategory(idCategory);
-        console.log(response.data);
-        ElNotification({
-          title: "supprimer avec succees",
-          message: "categorie supprimer ",
-          type: "success",
-        });
-      } catch (error) {
-        ElNotification({
-          title: "impossible de supprimer",
-          message: "Erreur ",
-          type: "error",
-        });
-      }
-    },
-  
+ 
 };
 </script>
 
@@ -84,8 +88,8 @@ export default {
         <el-row>
           <el-col :span="16"></el-col>
 <el-col :span="4">
-   <router-link to="/home/SubList">   <el-button type="primary" plain >Détaills</el-button>
-</router-link>
+    <el-button type="primary" plain @click="route(categorie.idCategory)">Détaills</el-button>
+
 
           </el-col>
           <el-col :span="4">

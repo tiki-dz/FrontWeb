@@ -3,7 +3,7 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span>Ajouter categorie</span>
+        <span>Ajouter sous categorie categorie</span>
       </div>
     </template>
 
@@ -36,7 +36,6 @@
 
 <script>
 import { ref } from "vue";
-import categoryService from "../services/categoryService";
 
 // dialogFormVisible = ref(false);
 //const formLabelWidth = "140px";
@@ -64,23 +63,7 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
-    AddCategory() {
-      this.dialogFormVisible = false
-      try{  const response = categoryService.AddSubCategory({
-        idCategory:this.form.idCategory,
-        name: this.form.name,
-        description: this.form.description,
-        icon: this.form.icon,
-      });
-              
-
-      console.log(response.data);
-      }catch(error) {
-        console.log("hgfdsxcvghgfdcv"),
-        console.log(error);
-      }
     
-    },
   },
 };
 </script>

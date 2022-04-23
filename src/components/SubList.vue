@@ -17,14 +17,16 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
+    async getSubCategories(idCategory) {
+      console.log(idCategory);
+      let response = await categoryService.getSubCategories(idCategory);
+        this.subCategories = response.data.data.subCategory;
+        console.log(this.subcategories);
+     
+    },
   },
  
-  async getSubCategories(){
-let response = await categoryService.getSubCategories();
-      this.subCategories = response.data.subcategory;
-      console.log(this.subCategories);
-
-  }
+ 
 };
 </script>
 
@@ -66,9 +68,7 @@ let response = await categoryService.getSubCategories();
         <el-divider/>
         <el-row>
           <el-col :span="16"></el-col>
-<el-col :span="4">
-  
-          </el-col>
+
           <el-col :span="4">
 
     <el-button type="danger" plain >supprimer</el-button>

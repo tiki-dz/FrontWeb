@@ -7,13 +7,12 @@ export default {
       },
     });
   },
-  deletCategory(credantials) {
-    return Api().del("/admin/category/{idCategory}", credantials, {
+  deleteCat(credantials) {
+    let id=credantials;
+    return Api().delete("/admin/category/"+id, {
       headers: {
-        "x-access-token": localStorage.getItem("LoggedUser"),
-      },
-    });
-  },
+        'x-access-token': localStorage.getItem("LoggedUser"),
+    }  })},  
   getCategories(credantials) {
     return Api().get("/admin/category", credantials, {
       headers: {
@@ -21,19 +20,19 @@ export default {
       },
     });
   },
-  SubCategories(credantials) {
-    return Api().post("/admin/subCategory", credantials, {
+  getSubCategories(credantials) {
+    console.log(credantials)
+    let id=credantials;
+    return Api().get("/admin/subCategory/"+id , {
       headers: {
-        "x-access-token": localStorage.getItem("LoggedUser"),
-      },
-    });
-  },
-  AddSubCategory(credantials) {
-    return Api().post("/admin/subCategory", credantials, {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
+  AddSubCategories(credantials) {
+    console.log(credantials)
+    let id=credantials
+    return Api().post("/admin/Category/"+id+"/subCategory/" , {
       headers: {
-        "x-access-token": localStorage.getItem("LoggedUser"),
-      },
-    });
-  },
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })},
   
 };

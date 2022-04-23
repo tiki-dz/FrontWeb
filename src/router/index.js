@@ -43,7 +43,7 @@ const router = createRouter({
         { path: "CategoryList", component: CategoryList },
         { path: "EventList", component: EventList },
         { path: "subCategory", component: subCategory },
-        { path: "SubList", component: SubList },
+        { path: "SubList/:idCategory", component: SubList },
 
         { path: "", component: Dashboard },
       ],

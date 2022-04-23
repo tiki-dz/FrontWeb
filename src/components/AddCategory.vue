@@ -54,7 +54,6 @@ import { ref } from "vue";
 //import  { FormInstance } from 'element-plus';
 
 import categoryService from "../services/categoryService";
-
 // dialogFormVisible = ref(false);
 //const formLabelWidth = "140px";
 export default {
@@ -77,6 +76,7 @@ export default {
   },
   methods: {
     
+   
     
  AddCategory() {
       try{  const response = categoryService.AddCategory({
@@ -100,7 +100,6 @@ export default {
         this.form.errors.push(" nom de categorie est obligatoire.");
       } else{
       this.AddCategory;
-
       }
     },
     
