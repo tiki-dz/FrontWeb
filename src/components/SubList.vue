@@ -92,7 +92,7 @@ export default {
                 <el-col :span="6">{{ subCategorie.description }}</el-col>
                                 <el-col :span="2">{{ subCategorie.icon }}</el-col>
 
-                  <el-col :span="2"> <el-button type="danger" plain >supprimer</el-button></el-col>   
+                  <el-col :span="2"> <el-button type="danger" plain  @click="deleteSousCtegory(subCategorie.idSubCategory)">supprimer</el-button></el-col>   
 
         </el-row>
 
