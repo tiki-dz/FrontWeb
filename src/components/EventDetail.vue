@@ -481,8 +481,8 @@ export default {
             }
             for (let i = 0; i < removed.length; i++) {
               await eventService.deleteTag({
-                id: JSON.parse(this.EventDetail.idEvent),
-                data: { name: removed[i] },
+                idEvent: JSON.parse(this.EventDetail.idEvent),
+                idTag: removed[i],
               });
             }
           }
@@ -497,18 +497,22 @@ export default {
               (x) => !this.event.subcategory.includes(x)
             );
             console.log(removed);
-            for (let i = 0; i < added.length; i++) {
-              await eventService.addSubCategorie({
-                id: JSON.parse(this.EventDetail.idEvent),
-                data: { idSubCategory: added[i] },
-              });
-            }
-            for (let i = 0; i < removed.length; i++) {
-              await eventService.deleteSubCategorie({
-                id: JSON.parse(this.EventDetail.idEvent),
-                idSubCategory: removed[i],
-              });
-            }
+            await Promise.all(
+              added.map(async (addedElemnt) => {
+                await eventService.addSubCategorie({
+                  id: JSON.parse(this.EventDetail.idEvent),
+                  data: { idSubCategory: addedElemnt },
+                });
+              })
+            );
+            await Promise.all(
+              removed.map(async (removedElement) => {
+                await eventService.deleteSubCategorie({
+                  idEvent: JSON.parse(this.EventDetail.idEvent),
+                  idSubCategory: removedElement,
+                });
+              })
+            );
           }
           //update images
           if (!equalImages) {
@@ -545,7 +549,6 @@ export default {
           }
           //otherinfos update
           if (!equal) {
-            alert("processing");
             let formData = new FormData();
             formData.append("name", this.event.name);
             formData.append("organiser", this.event.organizer);
@@ -567,11 +570,9 @@ export default {
               form: formData,
               id: this.EventDetail.idEvent,
             });
-            alert("ended ");
-
             console.log(event.data);
             if (event.data.success == false) {
-              this.cancel()
+              this.cancel();
               ElNotification({
                 title: "Error",
                 message: "Error to update event:" + event.data.message,
@@ -585,6 +586,8 @@ export default {
               });
             }
           }
+          sessionStorage.removeItem("currentEvent");
+          this.$router.push("/home/EventList");
         } catch (error) {
           ElNotification({
             title: "Failed to update event",

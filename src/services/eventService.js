@@ -48,8 +48,9 @@ export default {
   })},
   deleteSubCategorie(credantials) {
     console.log(credantials)
-    let idEvent=credantials.id
-    return Api().delete("/admin/event/"+idEvent+"/subcategory" ,credantials.data, {
+    let idEvent=credantials.idEvent
+    let idSubCategory=credantials.idSubCategory
+    return Api().delete("/admin/event/"+idEvent+"/subcategory/"+idSubCategory, {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},
@@ -62,8 +63,9 @@ export default {
   })},
   deleteTag(credantials) {
     console.log(credantials)
-    let idEvent=credantials.id
-    return Api().delete("/admin/event/"+idEvent+"/tag" ,credantials.data, {
+    let idEvent=credantials.idEvent
+    let idTag=credantials.idTag
+    return Api().delete("/admin/event/"+idEvent+"/tag/"+idTag , {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},
