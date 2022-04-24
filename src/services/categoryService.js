@@ -20,6 +20,8 @@ export default {
       },
     });
   },
+
+
   getSubCategories(credantials) {
     console.log(credantials)
     let id=credantials;
@@ -27,12 +29,20 @@ export default {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},
+
+
+
   AddSubCategories(credantials) {
     console.log(credantials)
-    let id=credantials
-    return Api().post("/admin/Category/"+id+"/subCategory/" , {
+    return Api().post("/admin/subCategory" , credantials,{
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},
+  deleteSousCat(credantials) {
+    let id=credantials;
+    return Api().delete("/admin/subCategory/"+id, {
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser"),
+    }  })},  
   
 };

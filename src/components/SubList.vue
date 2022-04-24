@@ -17,17 +17,25 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
+
+
     async getSubCategories(idCategory) {
+              console.log("aaaaaaaa");
+
       console.log(idCategory);
       let response = await categoryService.getSubCategories(idCategory);
-        this.subCategories = response.data.data.subCategory;
+        this.subCategories = response.data.data.SubCategory;
         console.log(this.subcategories);
      
     },
   },
- 
+ created() {
+    this.getSubCategories();
+  },
  
 };
+
+
 </script>
 
 <template>

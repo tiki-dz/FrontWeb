@@ -22,6 +22,8 @@ export default {
           message: "categorie supprimer ",
           type: "success",
         });
+        location.reload();
+
       } catch (error) {
         ElNotification({
           title: "impossible de supprimer",
@@ -60,45 +62,45 @@ export default {
         </router-link>
       </div>
     </template>
-    <el-row v-for="categorie in categories" :key="categorie">
-      <el-card id="cardlist">
-        <el-row
-          ><el-col :span="12"> idCategory</el-col>
-          <el-col :span="12">{{ categorie.idCategory }}</el-col>
-        </el-row>
-
-        <el-divider />
-        <el-row
-          ><el-col :span="12"> Nom</el-col>
-          <el-col :span="12">{{ categorie.name }}</el-col>
-        </el-row>
-
-        <el-divider />
-        <el-row
-          ><el-col :span="12"> Description</el-col>
-          <el-col :span="12">{{ categorie.description }}</el-col>
-        </el-row>
-        <el-divider />
-
-        <el-row
-          ><el-col :span="12"> icon</el-col>
-          <el-col :span="12">{{ categorie.icon }}</el-col>
-        </el-row>
-        <el-divider/>
+    <el-card id="cardlist">
         <el-row>
-          <el-col :span="16"></el-col>
-<el-col :span="4">
+          <el-col :span="1" id="nom"> id</el-col>
+          <el-col :span="4" id="nom"> Nom</el-col>
+          <el-col :span="7" id="nom"> Description</el-col>
+          <el-col :span="5" id="nom"> icon</el-col>
+          <el-col :span="2" id="nom"> Action</el-col>
+          <el-col :span="5" id="nom"> </el-col>
+
+          
+        </el-row>
+    <el-row v-for="categorie in categories" :key="categorie">
+      
+       
+
+        <el-divider />
+        <el-row 
+          > <el-col :span="1"  >{{ categorie.idCategory }}</el-col>
+          <el-col :span="4" >{{ categorie.name }}</el-col>
+          <el-col :span="7">{{ categorie.description }}</el-col>
+           <el-col :span="5">{{ categorie.icon }}</el-col>
+           <el-col :span="2">
     <el-button type="primary" plain @click="route(categorie.idCategory)">Détaills</el-button>
 
 
           </el-col>
-          <el-col :span="4">
+            <el-col :span="2">
+
+    <el-button type="primary" plain @click="deleteCtegory(categorie.idCategory)">modifier</el-button>
+          </el-col>
+          <el-col :span="3">
 
     <el-button type="danger" plain @click="deleteCtegory(categorie.idCategory)">supprimer</el-button>
           </el-col>
         </el-row>
-      </el-card>
+
+     
     </el-row>
+     </el-card>
 
     <br />
     <br />
@@ -111,7 +113,9 @@ export default {
   color: #fd7d1bdc;
 }
 #cardlist {
-  margin-top: 5%;
   width: 100%;
+}
+#nom{
+   color: #fd7d1bdc;
 }
 </style>

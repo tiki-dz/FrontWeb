@@ -9,23 +9,23 @@
 
     <!-- Form -->
 
-    <el-form :model="form">
+    <el-form :model="forms">
        <el-form-item label="idCategory" :label-width="formLabelWidth">
-        <el-input v-model="form.idCategory" autocomplete="off" />
+        <el-input v-model="forms.idCategory" autocomplete="off" />
       </el-form-item>
       <el-form-item label="name" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" />
+        <el-input v-model="forms.name" autocomplete="off" />
       </el-form-item>
       <el-form-item label="description" :label-width="formLabelWidth">
-        <el-input v-model="form.description" autocomplete="off" />
+        <el-input v-model="forms.description" autocomplete="off" />
       </el-form-item>
       <el-form-item label="icon" :label-width="formLabelWidth">
-        <el-input v-model="form.icon" autocomplete="off" />
+        <el-input v-model="forms.icon" autocomplete="off" />
       </el-form-item>
-      <el-button @click="dialogFormVisible = false">Cancel</el-button>
+      <el-button @click="reset">réinitialiser</el-button>
       <el-button
         type="primary"
-        @click="AddCategory"
+        @click="AddSubCategories"
         color="#fd7d1bdc"
         style="color: white"
         >Ajouter</el-button
@@ -37,18 +37,20 @@
 <script>
 import { ref } from "vue";
 
-// dialogFormVisible = ref(false);
-//const formLabelWidth = "140px";
+import categoryService from "../services/categoryService";
+import { ElNotification } from 'element-plus';
+
+ 
 export default {
-  name: "AddCategorie",
+  name: "AddSubCategorie",
   data() {
     return {
-      form: {
+      forms: {
         
         name: "",
         description: "",
         icon: "",
-        idSubCategory: "",
+        idCategory: "",
       },
       dialogFormVisible: ref(false),
       formLabelWidth: "140px",
@@ -57,6 +59,34 @@ export default {
     };
   },
   methods: {
+    AddSubCategories() {
+      try{  const response = categoryService.AddSubCategories({
+        
+        name: this.forms.name,
+        description: this.forms.description,
+        icon: this.forms.icon,
+        idCategory:this.forms.idCategory,
+      });
+              
+ElNotification({
+          title: "Ajouter  avec succees",
+          message: "categorie ajouter ",
+          type: "success",
+        });
+      console.log(response.data);
+      }catch(error) {
+        console.log(error);
+      }
+    
+    },
+      reset(){
+        this.forms.name = '';
+        this.forms.description = '';
+                this.forms.icon = '';
+this.forms.idCategory='';
+
+
+      },
     handleEdit(index, row) {
       console.log(index, row);
     },

@@ -33,6 +33,7 @@ color: red;">
       </el-form-item>
       <el-form-item label="icon" :label-width="formLabelWidth">
         <el-input v-model="form.icon" autocomplete="off" />
+       
       </el-form-item>
      
             <el-button style="margin-right:1%" @click="reset">reset</el-button>
@@ -51,8 +52,7 @@ color: red;">
 
 <script >
 import { ref } from "vue";
-//import  { FormInstance } from 'element-plus';
-
+import { ElNotification } from 'element-plus';
 import categoryService from "../services/categoryService";
 // dialogFormVisible = ref(false);
 //const formLabelWidth = "140px";
@@ -75,7 +75,9 @@ export default {
     };
   },
   methods: {
-    
+   function() {   
+   ('.icon-picker').iconpicker();
+ },
    
     
  AddCategory() {
@@ -86,10 +88,13 @@ export default {
         icon: this.form.icon,
       });
               
-
+ElNotification({
+          title: "Ajouter  avec succees",
+          message: "categorie ajouter ",
+          type: "success",
+        });
       console.log(response.data);
       }catch(error) {
-        console.log("hgfdsxcvghgfdcv"),
         console.log(error);
       }
     
@@ -98,8 +103,11 @@ export default {
       this.form.errors = [];
       if(this.form.name === '') {
         this.form.errors.push(" nom de categorie est obligatoire.");
+        
       } else{
-      this.AddCategory;
+      this.AddCategory();
+    
+
       }
     },
     
@@ -115,7 +123,9 @@ export default {
   },
 };
 </script>
+
 <style scoped>
+
 .el-button--text {
   margin-right: 15px;
 }
