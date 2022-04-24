@@ -1,5 +1,7 @@
 <script scope>
 import categoryService from "../services/categoryService";
+import { ElNotification } from 'element-plus';
+
 export default {
   name: "ItemView",
   data() {
@@ -23,7 +25,6 @@ export default {
           type: "success",
         });
         location.reload();
-
       } catch (error) {
         ElNotification({
           title: "impossible de supprimer",
@@ -88,10 +89,7 @@ export default {
 
 
           </el-col>
-            <el-col :span="2">
-
-    <el-button type="primary" plain @click="deleteCtegory(categorie.idCategory)">modifier</el-button>
-          </el-col>
+          
           <el-col :span="3">
 
     <el-button type="danger" plain @click="deleteCtegory(categorie.idCategory)">supprimer</el-button>
