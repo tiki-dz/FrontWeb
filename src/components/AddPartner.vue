@@ -74,11 +74,10 @@ export default {
             orgaAddress: this.ruleForm.orgaAddress,
           });
           ElNotification({
-            title: "utilisateur cree avec  succees",
-            message: "utilisateur cree avec  succees ",
+            title: "Succès",
+            message: "Utilisateur créé avec succès ",
             type: "success",
           });
-          alert("regiter successfull");
 
           console.log(response.data);
         } else {
@@ -86,8 +85,8 @@ export default {
         }
       } catch (error) {
         ElNotification({
-          title: "impossible de cree l utilisateur",
-          message: "Erreur ",
+          title: "Echec",
+          message: "Impossible de créer l'utilisateur ",
           type: "error",
         });
         console.log(error);
@@ -131,7 +130,7 @@ export default {
           <el-card>
             <template #header>
               <div class="card-header">
-                <span><h1>Créer un compte de partenaire </h1></span>
+                <span><h1>Créer un compte de partenaire</h1></span>
               </div>
             </template>
 
@@ -286,12 +285,13 @@ export default {
                 "
               >
                 <el-button
-                round
+                  round
                   @click="signup"
                   type="primary"
                   color="#fd7d1bdc"
                   style="color: white"
-                  ><i class="fa-solid fa-user-plus"></i> &nbsp; &nbsp; Ajouter</el-button
+                  ><i class="fa-solid fa-user-plus"></i> &nbsp; &nbsp;
+                  Ajouter</el-button
                 >
               </el-row>
             </el-form>

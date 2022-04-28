@@ -84,7 +84,7 @@ export default {
             <p class="welcome">Bienvenu , ADMIN!</p>
             <br />
             <form @submit.prevent="login" class="login">
-              <el-input 
+              <el-input
                 type="email"
                 size="large"
                 v-model.trim="form.email"
@@ -95,7 +95,6 @@ export default {
               <span v-if="v$.form.email.$error">Email invalide !</span>
               <br />
               <el-input
-              
                 size="large"
                 type="password"
                 v-model="form.password"
@@ -104,8 +103,8 @@ export default {
                 placeholder="Password"
                 show-password
               />
-              <span v-if="v$.form.password.$error"
-                > Mot de pass invalide !</span
+              <span v-if="v$.form.password.$error">
+                Mot de pass invalide !</span
               >
 
               <br />

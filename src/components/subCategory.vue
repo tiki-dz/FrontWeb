@@ -153,7 +153,7 @@ export default {
   },
 };
 </script>
-<style >
+<style>
 .addSub .el-button--text {
   margin-right: 15px;
 }

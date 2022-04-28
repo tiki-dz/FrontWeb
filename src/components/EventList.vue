@@ -50,7 +50,7 @@
                 @click="showEvent(index)"
               >
                 <template #header>
-                  <span v-if="event.name.length<20">{{ event.name }}</span>
+                  <span v-if="event.name.length < 20">{{ event.name }}</span>
                   <span v-else>{{ event.name.substring(0, 19) }} ..</span>
                 </template>
                 <img :src="event.eventImage" class="image" />
@@ -179,7 +179,7 @@ export default {
   background-color: var(--vt-c-orange);
 }
 #add {
- padding: 5%;
+  padding: 5%;
   border: none;
   border-radius: 5px;
   font-weight: bolder;

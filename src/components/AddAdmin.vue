@@ -48,20 +48,18 @@ export default {
             phoneNumber: this.ruleForm.phoneNumber,
           });
           ElNotification({
-            title: "utilisateur cree avec  succees",
-            message: "utilisateur cree avec  succees ",
+            title: "Succès",
+            message: "Utilisateur créé avec succès ",
             type: "success",
           });
-
-          alert("regiter successfull");
           console.log(response.data);
         } else {
           this.error = "problem in confirmation of the git fepassword";
         }
       } catch (error) {
         ElNotification({
-          title: "impossible de cree l utilisateur",
-          message: "Erreur ",
+          title: "Echec",
+          message: "Impossible de créer l'utilisateur ",
           type: "error",
         });
         console.log(error);
@@ -210,21 +208,25 @@ export default {
               </el-row>
               <br />
               <!-- sign up button  -->
-              <el-row style="  width: 100%;
-                    display: flex;
-                    margin-top: 3%;
-                    justify-content: center;">
-                  <el-button
-                    @click="signup"
-                    round
-                    type="primary"
-                    color="#fd7d1bdc"
-                    style="color: white"
-                    ><i class="fa-solid fa-user-plus"></i> &nbsp; &nbsp; Ajouter</el-button
-                  >
+              <el-row
+                style="
+                  width: 100%;
+                  display: flex;
+                  margin-top: 3%;
+                  justify-content: center;
+                "
+              >
+                <el-button
+                  @click="signup"
+                  round
+                  type="primary"
+                  color="#fd7d1bdc"
+                  style="color: white"
+                  ><i class="fa-solid fa-user-plus"></i> &nbsp; &nbsp;
+                  Ajouter</el-button
+                >
               </el-row>
             </el-form>
-
           </el-card>
         </el-scrollbar>
       </el-col>
@@ -235,7 +237,7 @@ export default {
 <style scoped>
 .el-button {
   flex: 1;
-  padding:2%;
+  padding: 2%;
   max-width: 40%;
 }
 </style>

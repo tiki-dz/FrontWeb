@@ -94,7 +94,12 @@ export default {
                   </el-input>
                 </el-col>
                 <el-col :span="4">
-                  <button style="width:100%" type="button" id="add" @click="addCategory()">
+                  <button
+                    style="width: 100%"
+                    type="button"
+                    id="add"
+                    @click="addCategory()"
+                  >
                     Ajouter catégorie
                   </button></el-col
                 >
@@ -107,9 +112,9 @@ export default {
     <el-row>
       <el-col :span="24">
         <el-scrollbar max-height="80vh">
-              <h1>Catégories</h1>
-<br>
-          <el-card style="margin:1%">
+          <h1>Catégories</h1>
+          <br />
+          <el-card style="margin: 1%">
             <template #header>
               <div class="card-header">
                 <el-row>
@@ -160,7 +165,7 @@ export default {
 <style scoped>
 #add {
   color: #fd7d1bdc;
-    cursor: pointer;
+  cursor: pointer;
   box-shadow: 0px 0px 3px rgb(154, 154, 154);
 }
 #cardlist {
@@ -169,7 +174,7 @@ export default {
 #nom {
   color: #fd7d1bdc;
 }
-.categories .el-col{
-text-align: center;
+.categories .el-col {
+  text-align: center;
 }
 </style>

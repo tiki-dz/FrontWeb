@@ -52,9 +52,9 @@
         <el-scrollbar max-height="80vh">
           <el-card>
             <button id="delete" @click="deleteEvent(EventDetail.idEvent)">
-              <i class="fa-solid fa-trash-can">  </i> &nbsp; &nbsp;Supprimer
+              <i class="fa-solid fa-trash-can"> </i> &nbsp; &nbsp;Supprimer
             </button>
-            <br>
+            <br />
             <template #header>
               <div class="card-header">
                 <p
@@ -168,6 +168,7 @@
                     <label for="category">Categorie</label>
                     <el-select
                       id="categoryId"
+                      @change="event.subcategory = []"
                       v-model="event.category"
                       name="category"
                       class="m-2"
@@ -375,7 +376,8 @@
                     @click="cancel"
                     plain
                   >
-                    <i class="fa-solid fa-ban"></i> &nbsp;&nbsp;Annuler</el-button
+                    <i class="fa-solid fa-ban"></i>
+                    &nbsp;&nbsp;Annuler</el-button
                   >
                   <el-button
                     type="primary"

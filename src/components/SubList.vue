@@ -46,12 +46,12 @@ export default {
       console.log(idCategory);
       let response = await categoryService.getSubCategories(idCategory);
       this.subCategories = response.data.data.rows;
-      this.name=this.subCategories[0].Category.name
+      this.name = this.subCategories[0].Category.name;
       console.log(this.subcategories);
     },
-    addSubCategory(){
-      this.$router.push({name: 'subCategory', params: { id: this.url }})
-    }
+    addSubCategory() {
+      this.$router.push({ name: "subCategory", params: { id: this.url } });
+    },
   },
   created() {
     this.url = this.$route.params.idCategory;
@@ -81,7 +81,7 @@ export default {
                       ><router-link
                         :to="'/home/subList/' + url"
                         style="color: aliceblue"
-                        >N° {{ url }} : {{name}}</router-link
+                        >N° {{ url }} : {{ name }}</router-link
                       ></el-breadcrumb-item
                     >
                   </el-breadcrumb>
@@ -117,7 +117,9 @@ export default {
           <el-card>
             <template #header>
               <div class="card-header">
-                <span><h1>Sous catégories de "{{name}} "</h1></span>
+                <span
+                  ><h1>Sous catégories de "{{ name }} "</h1></span
+                >
               </div>
             </template>
             <el-card id="cardlist">
@@ -159,8 +161,8 @@ export default {
 
 <style scoped>
 #add {
-    box-shadow: 0px 0px 3px rgb(154, 154, 154);
-      cursor: pointer;
+  box-shadow: 0px 0px 3px rgb(154, 154, 154);
+  cursor: pointer;
 
   color: #fd7d1bdc;
 }
@@ -170,7 +172,7 @@ export default {
 #nom {
   color: #fd7d1bdc;
 }
-.sublist .el-col{
-text-align: center;
+.sublist .el-col {
+  text-align: center;
 }
 </style>

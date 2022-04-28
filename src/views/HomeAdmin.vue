@@ -110,7 +110,7 @@ export default {
       </aside>
     </el-col>
     <el-col :span="20" class="padding">
-      <router-view :key="$route.fullPath"/>
+      <router-view :key="$route.fullPath" />
     </el-col>
   </el-row>
 </template>
