@@ -116,11 +116,11 @@ export default {
   methods: {
     async handleCurrentChange(pageNumber) {
       let events = await eventService.AllEvents({
-        page: pageNumber,
+        page: pageNumber-1,
         size: this.pageSize,
       });
       this.Allevents = events.data.events;
-      this.pages = events.data.totalPages * 12;
+      this.pages = events.data.totalItems;
       console.log(this.pages);
     },
     showEvent(event) {
