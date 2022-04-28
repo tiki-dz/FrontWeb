@@ -1,6 +1,8 @@
 <script scope>
 import authService from "../services/authService";
 //import { Search } from "@element-plus/icons-vue";
+import { ElNotification } from "element-plus";
+
 export default {
   name: "ItemView",
   data() {
@@ -45,13 +47,23 @@ export default {
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
           });
-
+ ElNotification({
+          title: "utilisateur cree avec  succees",
+          message: "utilisateur cree avec  succees ",
+          type: "success",
+        });
+      
           alert("regiter successfull");
           console.log(response.data);
         } else {
           this.error = "problem in confirmation of the git fepassword";
         }
       } catch (error) {
+         ElNotification({
+          title: "impossible de cree l utilisateur",
+          message: "Erreur ",
+          type: "error",
+        });
         console.log(error);
       }
     },

@@ -1,6 +1,7 @@
 import Api from "@/services/api";
 export default {
   AddCategory(credantials) {
+
     return Api().post("/admin/category", credantials, {
       headers: {
         "x-access-token": localStorage.getItem("LoggedUser"),
@@ -9,18 +10,25 @@ export default {
   },
   deleteCat(credantials) {
     let id = credantials;
-    return Api().delete("/admin/category/" + id, {
+
+    return Api().delete("admin/category/" + id,  {
       headers: {
         "x-access-token": localStorage.getItem("LoggedUser"),
       },
     });
   },
   getCategories(credantials) {
-    return Api().get("/admin/category", credantials, {
-      headers: {
-        "x-access-token": localStorage.getItem("LoggedUser"),
-      },
-    });
+    let page = credantials.page;
+    let size = credantials.size;
+    return Api().get(
+      "/admin/category?page=" + page + "&size=" + size,
+      credantials,
+      {
+        headers: {
+          "x-access-token": localStorage.getItem("LoggedUser"),
+        },
+      }
+    );
   },
   UpdateCategorie(credantials) {
     let id = credantials.id;
@@ -37,31 +45,44 @@ export default {
   getSubCategories(credantials) {
     console.log(credantials);
     let id = credantials;
-    return Api().get("/admin/Category/"+id+"/subCategory/" ,  {
+    return Api().get("/admin/Category/" + id + "/subCategory/", {
       headers: {
         "x-access-token": localStorage.getItem("LoggedUser"),
       },
     });
   },
 
-  AddSubCategories(credantials) {
-    console.log(credantials);
+
+  AddSubCategory(credantials) {
+
     return Api().post("/admin/subCategory", credantials, {
       headers: {
         "x-access-token": localStorage.getItem("LoggedUser"),
       },
     });
   },
-  deleteSousCat(credantials) {
+  /*
+ DeleteSubCat(credantials) {
     let id = credantials;
-    return Api().delete("/admin/subCategory/" + id, {
+    console.log("supressioon");
+    return Api().delete("admin/subCategory/" + id, {
+      headers: {
+        "x-access-token": localStorage.getItem("LoggedUser"),
+      },
+    });
+  },
+  */
+  DeleteSubCat(credantials) {
+    let id = credantials;
+
+    return Api().delete("admin/subCategory/"+id,  {
       headers: {
         "x-access-token": localStorage.getItem("LoggedUser"),
       },
     });
   },
   UpdateSousCategorie(credantials) {
-    let id = credantials.id;
+    let id = credantials.id; 
     let form = credantials.form;
     return Api().patch("/admin/subCategory/" + id, form, {
       headers: {

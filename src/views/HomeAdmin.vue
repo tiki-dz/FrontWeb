@@ -60,9 +60,7 @@ export default {
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddAdmin">
-                  <el-menu-item index="2-1" 
-                    >Ajouter</el-menu-item
-                  >
+                  <el-menu-item index="2-1">Ajouter</el-menu-item>
                 </router-link>
               </el-menu-item-group>
             </el-sub-menu>
@@ -73,12 +71,9 @@ export default {
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddPartner">
-                  <el-menu-item index="3-1" 
-                    >Ajouter </el-menu-item
-                  >
+                  <el-menu-item index="3-1">Ajouter </el-menu-item>
                 </router-link>
               </el-menu-item-group>
-              
             </el-sub-menu>
             <router-link to="/home/Client">
               <el-sub-menu index="4">
@@ -92,7 +87,7 @@ export default {
               </el-sub-menu>
             </router-link>
 
-           <router-link to="/home/CategoryList">
+            <router-link to="/home/CategoryList">
               <el-menu-item index="5">
                 <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
                 <span>Categories</span>

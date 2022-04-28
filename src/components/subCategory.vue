@@ -10,7 +10,7 @@
     <!-- Form -->
 
     <el-form :model="forms">
-       <el-form-item label="idCategory" :label-width="formLabelWidth">
+      <el-form-item label="idCategory" :label-width="formLabelWidth">
         <el-input v-model="forms.idCategory" autocomplete="off" />
       </el-form-item>
       <el-form-item label="name" :label-width="formLabelWidth">
@@ -42,11 +42,10 @@ import { ElNotification } from 'element-plus';
 
  
 export default {
-  name: "AddSubCategorie",
+  name: "AddSubCategory",
   data() {
     return {
       forms: {
-        
         name: "",
         description: "",
         icon: "",
@@ -60,12 +59,11 @@ export default {
   },
   methods: {
     AddSubCategories() {
-      try{  const response = categoryService.AddSubCategories({
-        
+      try{  const response = categoryService.AddSubCategory({
+        idCategory :this.forms.idCategory,
         name: this.forms.name,
         description: this.forms.description,
         icon: this.forms.icon,
-        idCategory:this.forms.idCategory,
       });
               
 ElNotification({
