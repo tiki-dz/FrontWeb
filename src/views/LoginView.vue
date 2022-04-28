@@ -49,9 +49,9 @@ export default {
             let user = account.data.data.data.User;
             localStorage.setItem("LoggedUser", x);
             ElNotification({
-              title: "Logged in successfully",
+              title: "Connecté avec succès",
               message:
-                "Welcome, " +
+                "Bienvenu, " +
                 user.firstName.toUpperCase() +
                 " " +
                 user.lastName +
@@ -62,8 +62,8 @@ export default {
           }
         } catch (error) {
           ElNotification({
-            title: "Failed to sign in",
-            message: "Server error ",
+            title: "Erreur de connexion",
+            message: " Veuillez réessayer ",
             type: "warning",
           });
         }
@@ -81,10 +81,10 @@ export default {
         <div class="transparent">
           <el-card class="form">
             <img src="../assets/logoo.png" class="logoLogin" />
-            <p class="welcome">Welcome back, dear ADMIN!</p>
+            <p class="welcome">Bienvenu , ADMIN!</p>
             <br />
-            <form @submit.prevent="login">
-              <el-input
+            <form @submit.prevent="login" class="login">
+              <el-input 
                 type="email"
                 size="large"
                 v-model.trim="form.email"
@@ -92,9 +92,10 @@ export default {
                 id="email"
                 placeholder="Email"
               />
-              <span v-if="v$.form.email.$error">Invalid email format !</span>
+              <span v-if="v$.form.email.$error">Email invalide !</span>
               <br />
               <el-input
+              
                 size="large"
                 type="password"
                 v-model="form.password"
@@ -104,11 +105,11 @@ export default {
                 show-password
               />
               <span v-if="v$.form.password.$error"
-                >Invalid password format !</span
+                > Mot de pass invalide !</span
               >
 
               <br />
-              <button class="submit">Sign in</button>
+              <button class="submit">Connexion</button>
             </form>
           </el-card>
         </div>
@@ -138,22 +139,23 @@ export default {
   overflow: hidden;
   z-index: 4;
 }
-.el-input {
-  width: 70%;
+.login .el-input {
+  width: 75%;
   margin: 1% auto;
   border: none;
   display: block;
   --el-input-focus-border-color: rgba(0, 0, 0, 0);
-  box-shadow: 2px 2px 6px rgb(93, 93, 93);
+  box-shadow: 2px 2px 6px rgb(104, 104, 104);
+  padding-bottom: 0px;
 }
-.submit {
+.login .submit {
   display: block;
   border-radius: 5px;
   margin: 1% auto;
   border: none;
   box-shadow: 2px 2px 6px rgb(90, 90, 90);
   text-align: center;
-  background: rgb(224, 112, 6);
+  background: rgb(240, 120, 7);
   color: white;
   font-size: 13pt;
   cursor: pointer;
@@ -220,7 +222,7 @@ span {
   z-index: 1;
 }
 .el-row {
-  background-color: rgba(153, 152, 132, 0.269);
+  background-color: rgba(207, 207, 196, 0.142);
   min-height: 100vh;
   backdrop-filter: blur(2px);
 }

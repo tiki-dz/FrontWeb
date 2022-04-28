@@ -23,7 +23,7 @@
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="addEvent()">
-                    Add Event
+                    Ajouter Evenement
                   </button></el-col
                 >
               </el-row>
@@ -35,7 +35,7 @@
     <el-row>
       <el-col :span="24">
         <el-scrollbar max-height="80vh">
-          <h1>Events List</h1>
+          <h1>Evenements</h1>
           <br />
           <el-row style="padding-left: 2%">
             <el-col
@@ -50,7 +50,8 @@
                 @click="showEvent(index)"
               >
                 <template #header>
-                  <span>{{ event.name }}</span>
+                  <span v-if="event.name.length<20">{{ event.name }}</span>
+                  <span v-else>{{ event.name.substring(0, 19) }} ..</span>
                 </template>
                 <img :src="event.eventImage" class="image" />
                 <div style="padding: 14px">
@@ -116,7 +117,7 @@ export default {
   methods: {
     async handleCurrentChange(pageNumber) {
       let events = await eventService.AllEvents({
-        page: pageNumber-1,
+        page: pageNumber - 1,
         size: this.pageSize,
       });
       this.Allevents = events.data.events;
@@ -145,11 +146,6 @@ export default {
 .time {
   font-size: 13px;
   color: rgb(170, 125, 125);
-}
-h1 {
-  font-size: 30px;
-  text-align: center;
-  font-weight: bold;
 }
 .bottom {
   line-height: 12px;
@@ -182,14 +178,13 @@ h1 {
   height: 14vh;
   background-color: var(--vt-c-orange);
 }
-nav .el-input {
-  padding: 0;
-}
 #add {
-  padding: 5%;
+ padding: 5%;
   border: none;
   border-radius: 5px;
   font-weight: bolder;
   cursor: pointer;
+  color: #fd7d1bdc;
+  box-shadow: 0px 0px 3px rgb(154, 154, 154);
 }
 </style>

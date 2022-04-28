@@ -68,3 +68,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+h1 {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+nav .el-input:nth-child(1) {
+  padding: 0;
+}

@@ -4,11 +4,14 @@ import LoginView from "../views/LoginView.vue";
 import NotFound from "../views/NotFound.vue";
 import EventDetail from "../components/EventDetail.vue";
 import EventList from "../components/EventList.vue";
-import Category from "../components/CategoryList.vue";
+import CategoryList from "../components/CategoryList.vue";
 import AddCategory from "../components/AddCategory.vue";
 import AddAdmin from "../components/AddAdmin.vue";
 import AddEvent from "../components/AddEvent.vue";
 import AddPartner from "../components/AddPartner.vue";
+import subCategory from "../components/subCategory.vue";
+import SubList from "../components/SubList.vue";
+
 import Dashboard from "../components/DashBoard.vue";
 
 function CheckLogin(to, from, next) {
@@ -38,8 +41,12 @@ const router = createRouter({
         { path: "AddCategory", component: AddCategory },
         { path: "AddPartner", component: AddPartner },
         { path: "AddAdmin", component: AddAdmin },
-        { path: "Category", component: Category },
         { path: "AddEvent", component: AddEvent },
+        { path: "CategoryList", component: CategoryList },
+        { path: "EventList", component: EventList },
+        { path: "subCategory", name: "subCategory", component: subCategory },
+        { path: "SubList/:idCategory", component: SubList },
+
         { path: "", component: Dashboard },
       ],
       beforeEnter: CheckLogin,

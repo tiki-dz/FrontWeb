@@ -56,26 +56,22 @@ export default {
             <el-sub-menu index="2">
               <template #title>
                 <i class="fa-solid fa-users-gear"></i>&nbsp;&nbsp;
-                <span> Administrateur</span>
+                <span> Administrateurs</span>
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddAdmin">
-                  <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
-                    >Ajouter</el-menu-item
-                  >
+                  <el-menu-item index="2-1">Ajouter</el-menu-item>
                 </router-link>
               </el-menu-item-group>
             </el-sub-menu>
             <el-sub-menu index="3">
               <template #title>
                 <i class="fa-solid fa-handshake-simple"></i>&nbsp;&nbsp;
-                <span> Partenaire</span>
+                <span> Partenaires</span>
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddPartner">
-                  <el-menu-item index="3-1" @click="activeTab = 'AddPartenaire'"
-                    >Ajouter</el-menu-item
-                  >
+                  <el-menu-item index="3-1">Ajouter </el-menu-item>
                 </router-link>
               </el-menu-item-group>
             </el-sub-menu>
@@ -83,7 +79,7 @@ export default {
               <el-sub-menu index="4">
                 <template #title>
                   <i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;
-                  <span>Client</span>
+                  <span>Clients</span>
                 </template>
                 <el-menu-item-group>
                   <el-menu-item index="4-1"></el-menu-item>
@@ -91,20 +87,23 @@ export default {
               </el-sub-menu>
             </router-link>
 
-            <el-menu-item index="5">
-              <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
-              <span>Categories</span>
-            </el-menu-item>
+            <router-link to="/home/CategoryList">
+              <el-menu-item index="5">
+                <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
+                <span>Categories</span>
+              </el-menu-item>
+            </router-link>
+
             <router-link to="/home/EventList">
               <el-menu-item index="6">
                 <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
-                <span>Event</span>
+                <span>Evenements</span>
               </el-menu-item>
             </router-link>
 
             <el-menu-item index="7" id="deconnexion" @click="logout">
               <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
-              <span>Deconnexion</span>
+              <span>Déconnexion</span>
             </el-menu-item>
           </el-menu>
         </el-scrollbar>
@@ -133,9 +132,8 @@ aside {
 .logo {
   width: 40%;
   height: 10%;
-  margin: 11% auto;
+  margin: 16% auto;
   display: flex;
-  padding-top: 10%;
 }
 .menuItem {
   text-align: center;
@@ -160,7 +158,7 @@ a {
 }
 .el-divider {
   margin: 0;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 .card-header {
   display: flex;

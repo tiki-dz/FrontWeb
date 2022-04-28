@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="event">
     <!-- nav bar  -->
     <el-row style="margin-bottom: 10px; margin-top: 10px">
       <!-- total columns is 24 -->
@@ -8,16 +8,16 @@
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path">
+                <el-col :span="7" class="path">
                   <el-breadcrumb separator="/">
                     <el-breadcrumb-item
                       :to="{ path: '/home/EventList' }"
                       style="color: aliceblue"
-                      >Events</el-breadcrumb-item
+                      >Evenements</el-breadcrumb-item
                     >
                     <el-breadcrumb-item
                       ><a href="/home/AddEvent" style="color: aliceblue"
-                        >Create an event</a
+                        >Créer un évenement</a
                       ></el-breadcrumb-item
                     ></el-breadcrumb
                   >
@@ -327,8 +327,8 @@
                     @click="goToEvents()"
                     plain
                   >
-                    <i class="fa-solid fa-ban"></i> &nbsp;Go to
-                    Events</el-button
+                    <i class="fa-solid fa-ban"></i> &nbsp;Allez aux
+                    évenements</el-button
                   >
                   <el-button
                     type="primary"
@@ -401,7 +401,7 @@ export default {
         formData.append("organiser", this.event.organizer);
         formData.append("description", this.event.desc);
         formData.append("price", 1233);
-        formData.append("justForWomen",false);
+        formData.append("justForWomen", false);
         formData.append("startDate", this.event.date[0]);
         formData.append("endDate", this.event.date[1]);
         formData.append("ticketNb", this.event.capacity);
@@ -428,15 +428,15 @@ export default {
           this.saved = true;
 
           ElNotification({
-            title: "Succes",
-            message: "Event added successfully",
+            title: "Succès",
+            message: "Evenement ajouté avec succès",
             type: "success",
           });
         }
       } catch (error) {
         ElNotification({
-          title: "Failed to add event",
-          message: "Check your inputs ",
+          title: "Echec",
+          message: "Verifier les champs ",
           type: "warning",
         });
       }
@@ -554,7 +554,7 @@ label {
   height: 14vh;
   background-color: var(--vt-c-orange);
 }
-.el-row .el-button {
+.event .el-row .el-button {
   flex: 1;
   max-width: 38%;
 }

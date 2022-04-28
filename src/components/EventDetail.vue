@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="event1">
     <!-- nav bar  -->
     <el-row style="margin-bottom: 10px; margin-top: 10px">
       <!-- total columns is 24 -->
@@ -8,16 +8,16 @@
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path">
+                <el-col :span="7" class="path">
                   <el-breadcrumb separator="/">
                     <el-breadcrumb-item
                       :to="{ path: '/home/EventList' }"
                       style="color: aliceblue"
-                      >Events</el-breadcrumb-item
+                      >Evenements</el-breadcrumb-item
                     >
                     <el-breadcrumb-item
                       ><a href="/home/Event" style="color: aliceblue"
-                        >Event n° {{ EventDetail.idEvent }} Detailed</a
+                        >N° {{ EventDetail.idEvent }}</a
                       ></el-breadcrumb-item
                     ></el-breadcrumb
                   >
@@ -38,7 +38,7 @@
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="addEvent()">
-                    Add Event
+                    Ajouter évenement
                   </button></el-col
                 >
               </el-row>
@@ -52,8 +52,9 @@
         <el-scrollbar max-height="80vh">
           <el-card>
             <button id="delete" @click="deleteEvent(EventDetail.idEvent)">
-              <i class="fa-solid fa-trash-can"> </i>
+              <i class="fa-solid fa-trash-can">  </i> &nbsp; &nbsp;Supprimer
             </button>
+            <br>
             <template #header>
               <div class="card-header">
                 <p
@@ -63,7 +64,7 @@
                     font-weight: bolder;
                   "
                 >
-                  Event ID : {{ EventDetail.idEvent }}
+                  Evenement n°: {{ EventDetail.idEvent }}
                 </p>
               </div>
             </template>
@@ -364,7 +365,7 @@
                     @click="modifying = true"
                     round
                   >
-                    <i class="fa-solid fa-pen-to-square"></i> &nbsp;
+                    <i class="fa-solid fa-pen-to-square"></i> &nbsp; &nbsp;
                     Modifier</el-button
                   >
                   <el-button
@@ -374,7 +375,7 @@
                     @click="cancel"
                     plain
                   >
-                    <i class="fa-solid fa-ban"></i> &nbsp;Annuler</el-button
+                    <i class="fa-solid fa-ban"></i> &nbsp;&nbsp;Annuler</el-button
                   >
                   <el-button
                     type="primary"
@@ -574,14 +575,14 @@ export default {
             if (event.data.success == false) {
               this.cancel();
               ElNotification({
-                title: "Error",
-                message: "Error to update event:" + event.data.message,
+                title: "Echec",
+                message: "Echec de mise à jours",
                 type: "error",
               });
             } else {
               ElNotification({
-                title: "Succes",
-                message: "Event -other infos- updated successfully",
+                title: "Succès",
+                message: "Evenement mis à jours ",
                 type: "success",
               });
             }
@@ -590,8 +591,8 @@ export default {
           this.$router.push("/home/EventList");
         } catch (error) {
           ElNotification({
-            title: "Failed to update event",
-            message: "Server error  " + error,
+            title: "Echec",
+            message: "Echec de mise à jours",
             type: "warning",
           });
         }
@@ -766,15 +767,15 @@ label {
 .el-select-v2 {
   margin-left: 10%;
 }
-.el-button {
+.event1 .el-button {
   flex: 1;
   max-width: 40%;
 }
 .el-button.is-round {
-  padding: 1.7%;
+  padding: 2%;
 }
 #delete {
-  border-radius: 50%;
+  border-radius: 5px;
   background-color: rgba(255, 226, 199, 0.575);
   float: right;
   margin-right: 3%;
@@ -833,5 +834,7 @@ label {
   border-radius: 5px;
   font-weight: bolder;
   cursor: pointer;
+  color: #fd7d1bdc;
+  box-shadow: 0px 0px 3px rgb(154, 154, 154);
 }
 </style>
