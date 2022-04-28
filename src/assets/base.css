@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ffffff;
+  --vt-c-orange: rgba(253, 125, 27, 0.863);
+  --vt-c-white: rgb(255, 251, 248);
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
 
@@ -32,7 +34,17 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
-
+  --el-color-primary: var(--vt-c-orange) !important;
+  --el-color-primary-light-1: rgba(252, 134, 44, 0.863) !important;
+    --el-color-primary-light-2: rgba(252, 134, 44, 0.815) !important;
+    --el-color-primary-light-3: rgba(252, 134, 44, 0.863) !important;
+    --el-color-primary-light-4: rgba(252, 134, 44, 0.863) !important;
+    --el-color-primary-light-5: rgba(253, 172, 111, 0.863) !important;
+    --el-color-primary-light-6: rgba(249, 193, 151, 0.863) !important;
+    --el-color-primary-light-7: rgba(255, 222, 207, 0.863) !important;
+    --el-color-primary-light-8: rgba(254, 231, 213, 0.863) !important;
+    --el-color-primary-light-9: #fff4ec  !important;
+    --el-color-primary-dark-2: rgba(250, 126, 32, 0.863) !important;
   --section-gap: 160px;
 }
 
@@ -41,20 +53,26 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  position: relative;
   font-weight: normal;
 }
 
 body {
   min-height: 100vh;
   color: var(--color-text);
-  background: var(--color-background);
+  background: var(--color-background-soft);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: poppins;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+h1 {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+}
+nav .el-input:nth-child(1) {
+  padding: 0;
 }
