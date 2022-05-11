@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import Api from "@/services/api";
+
 export default {
-  Login(credantials) {
-    return Api().post("/admin/login", credantials);
-  },
-  signup(credantials) {
-    return Api().post("/admin/signup", credantials , {
+ Allpurshases(credantials) {
+
+  return Api().get("/payment/purchases",{
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
-  })}
+  })
+  },
 }

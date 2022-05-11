@@ -10,7 +10,10 @@ import AddAdmin from "../components/AddAdmin.vue";
 import AddEvent from "../components/AddEvent.vue";
 import AddPartner from "../components/AddPartner.vue";
 import Dashboard from "../components/DashBoard.vue";
-
+import UsersList from "../components/UsersList.vue"
+import AddCodePromo from "../components/AddCodePromo.vue";
+import CodesPromo from "../components/CodesPromo.vue";
+import PurshasesList from "../components/Purshases.vue"
 function CheckLogin(to, from, next) {
   var isAuthenticated = false;
   if (localStorage.getItem("LoggedUser")) isAuthenticated = true;
@@ -33,6 +36,7 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       children: [
+        { path: "Users" ,component : UsersList},
         { path: "Event", name: "event", component: EventDetail },
         { path: "EventList", component: EventList },
         { path: "AddCategory", component: AddCategory },
@@ -40,6 +44,10 @@ const router = createRouter({
         { path: "AddAdmin", component: AddAdmin },
         { path: "Category", component: Category },
         { path: "AddEvent", component: AddEvent },
+        { path: "Purshases", component: PurshasesList},
+
+        { path: "AddCodePromo", component: AddCodePromo },
+        { path: "CodePromoList", component: CodesPromo },
         { path: "", component: Dashboard },
       ],
       beforeEnter: CheckLogin,
