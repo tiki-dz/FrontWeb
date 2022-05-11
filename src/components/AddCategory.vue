@@ -147,6 +147,7 @@ export default {
           message: "categorie ajouter ",
           type: "success",
         });
+        this.reset();
         console.log(response.data);
       } catch (error) {
         console.log(error);

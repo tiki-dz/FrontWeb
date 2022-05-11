@@ -21,15 +21,15 @@ export default {
         let response = await categoryService.deleteCat(idCategory);
         console.log(response.data.data);
         ElNotification({
-          title: "supprimer avec succees",
-          message: "categorie supprimer ",
+          title: "Succès",
+          message: "Categorie supprimée avec succès ",
           type: "success",
         });
         location.reload();
       } catch (error) {
         ElNotification({
-          title: "impossible de supprimer",
-          message: "Erreur ",
+          title: "Echec",
+          message: "Impossible de supprimer ",
           type: "error",
         });
       }

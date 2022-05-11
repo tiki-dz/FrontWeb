@@ -23,7 +23,7 @@
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="addEvent()">
-                    Ajouter Evenement
+                    Ajouter Événement
                   </button></el-col
                 >
               </el-row>
@@ -35,7 +35,7 @@
     <el-row>
       <el-col :span="24">
         <el-scrollbar max-height="80vh">
-          <h1>Evenements</h1>
+          <h1>Événements</h1>
           <br />
           <el-row style="padding-left: 2%">
             <el-col

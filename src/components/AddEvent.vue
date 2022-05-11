@@ -400,7 +400,7 @@ export default {
         formData.append("name", this.event.name);
         formData.append("organiser", this.event.organizer);
         formData.append("description", this.event.desc);
-        formData.append("price", 1233);
+        formData.append("price", 23 + Math.floor(Math.random() * 1000));
         formData.append("justForWomen", false);
         formData.append("startDate", this.event.date[0]);
         formData.append("endDate", this.event.date[1]);

@@ -49,12 +49,12 @@ export default {
           });
           ElNotification({
             title: "Succès",
-            message: "Utilisateur créé avec succès ",
+            message: "Admin créé avec succès ",
             type: "success",
           });
           console.log(response.data);
         } else {
-          this.error = "problem in confirmation of the git fepassword";
+          this.error = "Problem in confirmation of the git fepassword";
         }
       } catch (error) {
         ElNotification({

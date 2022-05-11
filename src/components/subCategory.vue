@@ -114,9 +114,9 @@ export default {
     };
   },
   methods: {
-    AddSubCategories() {
+    async AddSubCategories() {
       try {
-        const response = categoryService.AddSubCategory({
+        const response = await categoryService.AddSubCategory({
           idCategory: this.$route.params.id,
           name: this.forms.name,
           description: this.forms.description,
@@ -128,6 +128,8 @@ export default {
           message: "categorie ajouter ",
           type: "success",
         });
+        this.reset();
+
         console.log(response.data);
       } catch (error) {
         ElNotification({

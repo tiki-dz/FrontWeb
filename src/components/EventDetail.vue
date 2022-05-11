@@ -13,7 +13,7 @@
                     <el-breadcrumb-item
                       :to="{ path: '/home/EventList' }"
                       style="color: aliceblue"
-                      >Evenements</el-breadcrumb-item
+                      >Événements</el-breadcrumb-item
                     >
                     <el-breadcrumb-item
                       ><a href="/home/Event" style="color: aliceblue"
@@ -83,7 +83,7 @@
                 <el-col :span="17">
                   <!-- body form  -->
                   <el-row>
-                    <label for="name">Nom d'évenement</label>
+                    <label for="name">Nom d'événement</label>
                     <el-input
                       v-model="event.name"
                       name="name"

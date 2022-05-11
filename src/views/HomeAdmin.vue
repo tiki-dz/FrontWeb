@@ -90,14 +90,14 @@ export default {
             <router-link to="/home/CategoryList">
               <el-menu-item index="5">
                 <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
-                <span>Categories</span>
+                <span>Catégories</span>
               </el-menu-item>
             </router-link>
 
             <router-link to="/home/EventList">
               <el-menu-item index="6">
                 <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
-                <span>Evenements</span>
+                <span>Événements</span>
               </el-menu-item>
             </router-link>
 
