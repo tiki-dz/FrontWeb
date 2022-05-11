@@ -47,10 +47,17 @@ export default {
             @close="handleClose"
             @select="handleSelect"
           >
+            
             <router-link to="/home">
-              <el-menu-item index="1">
+              <el-menu-item index="2">
                 <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
                 <span>Accueil</span>
+              </el-menu-item>
+            </router-link>
+            <router-link to="/home/users">
+              <el-menu-item index="1">
+                <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
+                <span>Utilisateurs</span>
               </el-menu-item>
             </router-link>
             <el-sub-menu index="2">
@@ -60,23 +67,47 @@ export default {
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddAdmin">
-                  <el-menu-item index="2-1">Ajouter</el-menu-item>
+                  <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
+                    >Ajouter</el-menu-item
+                  >
                 </router-link>
               </el-menu-item-group>
             </el-sub-menu>
             <el-sub-menu index="3">
+              <template #title>
+                <i class="fa fa-percent"></i>&nbsp;&nbsp;&nbsp;
+                <span>Codes Promo</span>
+              </template>
+              <el-menu-item-group>
+                <router-link to="/home/AddCodePromo">
+                  <el-menu-item index="3-1" @click="activeTab = 'ItemView'"
+                    >Ajouter</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <router-link to="/home/CodePromoList">
+                  <el-menu-item index="3-2" @click="activeTab = 'ItemView'"
+                    >Tous les codes</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+            </el-sub-menu>
+            <el-sub-menu index="4">
               <template #title>
                 <i class="fa-solid fa-handshake-simple"></i>&nbsp;&nbsp;
                 <span> Partenaires</span>
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddPartner">
-                  <el-menu-item index="3-1">Ajouter </el-menu-item>
+                  <el-menu-item index="4-1" @click="activeTab = 'AddPartenaire'"
+                    >Ajouter</el-menu-item
+                  >
                 </router-link>
               </el-menu-item-group>
             </el-sub-menu>
             <router-link to="/home/Client">
-              <el-sub-menu index="4">
+              <el-sub-menu index="5">
                 <template #title>
                   <i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;
                   <span>Clients</span>
@@ -95,13 +126,19 @@ export default {
             </router-link>
 
             <router-link to="/home/EventList">
-              <el-menu-item index="6">
+              <el-menu-item index="7">
                 <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
                 <span>Événements</span>
               </el-menu-item>
             </router-link>
+            <router-link to="/home/Purshases">
+              <el-menu-item index="8">
+                <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
+                <span>Achats</span>
+              </el-menu-item>
+            </router-link>
 
-            <el-menu-item index="7" id="deconnexion" @click="logout">
+            <el-menu-item index="9" id="deconnexion" @click="logout">
               <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
               <span>Déconnexion</span>
             </el-menu-item>
@@ -178,5 +215,8 @@ a {
 }
 .leftCol .el-card {
   margin: 4%;
+}
+.el-input__prefix{
+  height: 80%;
 }
 </style>

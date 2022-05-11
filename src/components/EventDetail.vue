@@ -25,16 +25,6 @@
                 <template> </template>
 
                 <el-col :span="12">
-                  <el-input
-                    v-model="search"
-                    placeholder="Chercher un id,nom ou utilisateur"
-                  >
-                    <template #prefix>
-                      <el-icon class="el-input__icon"
-                        ><i class="fa fa-search"></i
-                      ></el-icon>
-                    </template>
-                  </el-input>
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="addEvent()">
