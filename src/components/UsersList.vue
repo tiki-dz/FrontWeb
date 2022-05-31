@@ -44,7 +44,7 @@ export default {
       
       let users = await usersService.AllUsers({
         page: pageNumber - 1 <=  0 ? 0 : pageNumber-1,
-        size: "10",
+        size: "14",
         search : this.search, 
         filter : this.filter, 
       });
@@ -155,7 +155,7 @@ this.Allusers[i].state  =true
                   </el-input>
                 </el-col>
                 <el-col :span="4">
-                  <button type="button" id="add" @click="searchUser()">
+                  <button type="button" id="add" @click="searchUser">
                     Search for a user
                   </button></el-col
                 >
@@ -173,7 +173,7 @@ this.Allusers[i].state  =true
         </el-col>
 
         <el-col :span="10" >
-            <el-select :change="updateFilter()"  v-model="filter" style="margin: 0px ; padding : 0px" class="m-4" placeholder="Select" size="large" >
+            <el-select :change="updateFilter"  v-model="filter" style="margin: 0px ; padding : 0px" class="m-4" placeholder="Select" size="large" >
                     <el-col :span="8" ></el-col>  
 
     <el-option

@@ -1,6 +1,31 @@
 
 
 <template>
+      <el-row style="margin-bottom: 10px; margin-top: 10px">
+      <!-- total columns is 24 -->
+      <el-col :span="24">
+        <el-card class="header">
+          <div class="card card-frame col-4">
+            <div class="card-body">
+              <el-row>
+                <el-col :span="8" class="path">
+                  <el-breadcrumb separator="/">
+                    <el-breadcrumb-item style="color: aliceblue"
+                      >Code promo</el-breadcrumb-item
+                    >
+                    <el-breadcrumb-item
+                      ><a href="/home/AddCodePromo" style="color: aliceblue"
+                        >Ajouter un code promo</a
+                      ></el-breadcrumb-item
+                    ></el-breadcrumb
+                  >
+                </el-col>
+              </el-row>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   <el-card>
     <template #header>
       <div class="card-header">

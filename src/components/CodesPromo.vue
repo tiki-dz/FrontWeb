@@ -119,7 +119,16 @@ export default {
         label="Date fin"
         width="270px"
       ></el-table-column>
-      <el-table-column>
+       <el-table-column
+        sortable
+        prop="use"
+        label="utilisable"
+        width="270px"
+      ></el-table-column>
+      <el-table-column
+             label="action"
+         width="200px"
+      >
         <template #default="scope">
           <el-button type="danger" @click="supprimer(scope.row.idCodePromo)"
             >Supprimer</el-button
