@@ -9,7 +9,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 export default defineConfig({
   server: {
     host: "127.0.0.1",
-    port: 8090,
+    port: 8099,
     proxy: {
       "/home/api/admin/signup": {
         target: "http://127.0.0.1:5001",
