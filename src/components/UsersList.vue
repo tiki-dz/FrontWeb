@@ -6,9 +6,18 @@ export default {
   name: "UsersList",
   data() {
     return {
+      sendNotification : false,
+      currentEmail: "", 
       currentPage: 1,
+      state : "",
+      titre: "",
+      description:"",
       Allusers: [],
       pages: 1,
+      currentEmailToNotify : "", 
+      centerDialogVisibleActivate : false,
+      centerDialogVisibleDeactivate : false,
+      centerDialogVisible : false,
       pageSize: 14,
       totalPages : 1,
       totalItems : 0, 
@@ -40,6 +49,38 @@ export default {
     this.handleCurrentChange(1);
   },
   methods: {
+    showNotifyPopUp(email) {
+      this.currentEmailToNotify=  email; 
+       this.sendNotification = true;
+    }, 
+    clickActivate(email,state) {
+      this.currentEmail = email ; 
+      this.centerDialogVisibleActivate = true;  
+      this.state =  state; 
+    },
+   async sendNotifToOneUser() {
+             this.sendNotification = false;
+         let notification = await usersService.sendNotifToOneUser({
+       title: this.titre, 
+        body: this.description, 
+        email : this.currentEmailToNotify, 
+      });
+     if(notification.status == 200) {
+      this.titre = ""; 
+      this.description = ""; 
+             ElNotification({
+                title: "Succées",
+                message: "Notification envoyé avec succées",
+                type: "success",
+              });
+    return; 
+     }
+    }, 
+     clickDeactivate(email,state)  {
+      this.currentEmail = email ; 
+      this.centerDialogVisibleDeactivate = true;  
+      this.state =  state; 
+    },
     async handleCurrentChange(pageNumber) {
       
       let users = await usersService.AllUsers({
@@ -81,6 +122,7 @@ this.Allusers[i].state  =true
       this.totalItems = users.data.totalItems;
     },
     async activer(email,state)  {
+    this.centerDialogVisibleActivate = false;  
  let result = await usersService.toogleAccount({
         email : email,
         state : state, 
@@ -90,23 +132,23 @@ this.Allusers[foundIndex].state = !state;
  if(result.status == 200) {
        ElNotification({
                 title: "Succées",
-                message: "Compte desactivé avec succées",
+                message: "Compte activé avec succées",
                 type: "success",
               });
     }
     },
  async   desactiver(email,state) {
+    this.centerDialogVisibleDeactivate = false;  
       let result = await usersService.toogleAccount({
         email : email,
         state : state, 
       })
       var foundIndex = this.Allusers.findIndex(x => x.email == email);
 this.Allusers[foundIndex].state = !state;
-
    if(result.status == 200) {
        ElNotification({
                 title: "Succées",
-                message: "Compte activé avec succées",
+                message: "Compte desactivé avec succées",
                 type: "success",
               });
     }
@@ -134,7 +176,77 @@ this.Allusers[i].state  =true
 };
 </script>
 <template>
-   
+  <el-dialog
+    v-model="sendNotification"
+    title="Notifier un utilisateur"
+    width="60%"
+    destroy-on-close
+    center
+  >
+  <el-input
+style="width:80%"
+    v-model="titre"
+    maxlength="10"
+    placeholder="Please input"
+    show-word-limit
+    type="text"
+  />
+  <div style="margin: 20px 0" />
+  
+  <el-input
+    v-model="description"
+    maxlength="30"
+    placeholder="Please input"
+    show-word-limit
+    type="textarea"
+  />
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="sendNotification = false">Annuler</el-button>
+        <el-button type="primary" :disabled="description.length == 0 || titre.length== 0"  @click="this.sendNotifToOneUser()"
+          >Envoyer</el-button
+        >
+      </span>
+    </template>
+  </el-dialog>
+  <el-dialog
+    v-model="centerDialogVisibleActivate"
+    title="Alerte"
+    width="30%"
+    destroy-on-close
+    center
+  >
+    <span
+      >Alerte:étes vous sur de vouloir activer ce compte</span
+    >
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="centerDialogVisibleActivate = false">Non</el-button>
+        <el-button type="primary" @click="activer(this.currentEmail,this.state)"
+          >Oui</el-button
+        >
+      </span>
+    </template>
+  </el-dialog>
+    <el-dialog
+    v-model="centerDialogVisibleDeactivate"
+    title="Alert"
+    width="30%"
+    destroy-on-close
+    center
+  >
+    <span
+      >Alert: étes vous sur de vouloir désactiver ce compte</span
+    >
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="centerDialogVisibleDeactivate = false">Non</el-button>
+        <el-button type="primary" @click="desactiver(this.currentEmail,this.state)"
+          >Oui</el-button
+        >
+      </span>
+    </template>
+  </el-dialog>
     <el-row style="margin-bottom: 10px; margin-top: 10px">
       <!-- total columns is 24 -->
       <el-col :span="24">
@@ -190,19 +302,26 @@ this.Allusers[i].state  =true
     <el-table :data="Allusers" style="width: 100%;margin-left:20px" >
       <el-table-column sortable prop="User.idUser" label="#" width="100px"></el-table-column>
       <el-table-column  sortable prop="email" label="Email" width="270px"></el-table-column>
-      <el-table-column  sortable prop="User.firstName" label="Prénom" width="270px"></el-table-column>
-      <el-table-column sortable prop="User.lastName" label="Nom" width="270px"></el-table-column>
-
-        <el-table-column sortable prop="User.type" label="Type" width="270px"></el-table-column>
-      <el-table-column sortable prop="etat" label="etat" width="270px"> 
+      <el-table-column  sortable prop="User.firstName" label="Prénom" width="220px"></el-table-column>
+      <el-table-column sortable prop="User.lastName" label="Nom" width="220px"></el-table-column>
+        <el-table-column sortable prop="User.type" label="Type" width="100px"></el-table-column>
+      <el-table-column sortable prop="etat" label="Action" width="370px"> 
         <template #default="scope">
-         <p> {{scope.index}}</p>
+          <el-row>
+            <div style="margin-right:10px">
+  <p> {{scope.index}}</p>
           <div v-if="scope.row.state">
-    <el-button type="warning" :id="scope.row.email" @click="activer(scope.row.email,scope.row.state)">Désactiver</el-button>
+    <el-button type="warning" :id="scope.row.email" @click="clickDeactivate(scope.row.email,scope.row.state)">Désactiver</el-button>
           </div>
      <div v-else>    
-    <el-button type="success" @click="desactiver(scope.row.email,scope.row.state)">Activer</el-button>
+    <el-button type="success" @click="clickActivate(scope.row.email,scope.row.state)">Activer</el-button>
     </div>
+    </div>
+        <el-button  @click="showNotifyPopUp(scope.row.email)" >Notifier</el-button>
+
+          </el-row>
+       
+  
       </template>
     </el-table-column>
     </el-table>

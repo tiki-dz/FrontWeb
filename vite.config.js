@@ -29,7 +29,7 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
-       "admin/client/activate": {
+      "admin/client/activate": {
         target: "http://127.0.0.1:5001",
         changeOrigin: true,
         secure: false,
@@ -47,13 +47,13 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
-       "/home/api/admin": {
+      "/home/api/admin": {
         target: "http://127.0.0.1:5001",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
-     
+
       "/home/api": {
         target: "http://127.0.0.1:5002",
         changeOrigin: true,
@@ -71,6 +71,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+    
 
       "/api": {
         target: "http://127.0.0.1:5001",

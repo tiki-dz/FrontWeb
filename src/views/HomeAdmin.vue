@@ -1,6 +1,5 @@
 <script>
 import { ElNotification } from "element-plus/es";
-
 export default {
   data() {
     return {
@@ -29,7 +28,6 @@ export default {
   },
 };
 </script>
-
 <template>
   <el-row>
     <el-col :span="4">
@@ -38,7 +36,6 @@ export default {
         <el-scrollbar height="fill" class="leftCol">
           <img src="../assets/logoo.png" class="logo" />
           <el-divider />
-
           <el-menu
             active-text-color="#ffd04b"
             default-active="2"
@@ -47,7 +44,6 @@ export default {
             @close="handleClose"
             @select="handleSelect"
           >
-            
             <router-link to="/home">
               <el-menu-item index="2">
                 <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
@@ -117,14 +113,18 @@ export default {
                 </el-menu-item-group>
               </el-sub-menu>
             </router-link>
-
             <router-link to="/home/CategoryList">
               <el-menu-item index="5">
                 <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
                 <span>Catégories</span>
               </el-menu-item>
             </router-link>
-
+               <router-link to="/home/notification">
+              <el-menu-item index="6">
+                <i class="fa-solid fa-clock"></i>&nbsp;&nbsp;
+                <span>Notifications</span>
+              </el-menu-item>
+            </router-link>
             <router-link to="/home/EventList">
               <el-menu-item index="7">
                 <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
