@@ -17,13 +17,16 @@ export default {
     };
   },
   mounted: function () {
-    this.handleCurrentChange(1);
+    this.handleCurrentChange(0);
   },
   methods: {
     async handleCurrentChange(pageNumber) {
-      let purshases = await purshasesList.Allpurshases();
+      let purshases = await purshasesList.Allpurshases(pageNumber);
       console.log(purshasesList);
-      this.Allpur = purshases.data.data;
+      this.Allpur = purshases.data.data.achats;
+
+      this.totalPages = purshases.data.data.totalPages;
+      this.totalItems = purshases.data.data.totalItems;
     },
   },
 };
@@ -70,16 +73,23 @@ export default {
         label="#"
         width="100px"
       ></el-table-column>
-      <el-table-column
+             <el-table-column
         sortable
-        prop="idClient"
-        label="idClient"
+        prop="client.lastName"
+        label="Nom"
         width="270px"
       ></el-table-column>
       <el-table-column
         sortable
-        prop="idEvent"
-        label="idEvent"
+        prop="client.firstName"
+        label="Prénom"
+        width="270px"
+      ></el-table-column>
+    
+      <el-table-column
+        sortable
+        prop="event.name"
+        label="Evénement"
         width="270px"
       ></el-table-column>
       <el-table-column
@@ -95,14 +105,14 @@ export default {
         width="270px"
       >
         <template #default="scope">
-          <p>{{ scope.row.MultipleTickets.length + 1 }}</p>
+          <p>{{ scope.row.nbTickets }}</p>
         </template>
       </el-table-column>
     </el-table>
     <br />
     <el-pagination
       @current-change="handleCurrentChange"
-      :page-size="14"
+      :page-size="10"
       background
       layout="prev, pager, next"
       :total="totalItems"

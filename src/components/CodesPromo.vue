@@ -25,6 +25,7 @@ export default {
         size: "3",
         search: this.search,
       });
+      console.log(this.codes + "éé");
       this.Allcodes = codes.data.data.codes;
       this.totalPages = codes.data.data.totalPages;
       this.totalItems = codes.data.data.totalItems;

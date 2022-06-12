@@ -7,6 +7,8 @@ export default {
     let page= credantials.page
     let size= credantials.size
     let search = credantials.search
+    console.log(
+      "/admin/codepromo?page=" + page + "&size=" + size + "&search=" + search);
   return Api().get("/admin/codepromo?page="+page+"&size="+size+"&search="+search,{
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
