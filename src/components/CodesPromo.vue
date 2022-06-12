@@ -1,5 +1,7 @@
 <script scope>
 import codesService from "../services/codeService";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "CodesPromo",
   data() {
@@ -18,13 +20,19 @@ export default {
     this.handleCurrentChange(1);
   },
   methods: {
+    
     async handleCurrentChange(pageNumber) {
-      console.log("wow");
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let codes = await codesService.AllCodes({
         page: pageNumber - 1 <= 0 ? 0 : pageNumber - 1,
         size: "3",
         search: this.search,
       });
+      loading.close()
       console.log(this.codes + "éé");
       this.Allcodes = codes.data.data.codes;
       this.totalPages = codes.data.data.totalPages;

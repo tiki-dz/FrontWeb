@@ -2,6 +2,8 @@
 <script scope>
 
 import usersService from "../services/usersService";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "UsersList",
   data() {
@@ -82,13 +84,18 @@ export default {
       this.state =  state; 
     },
     async handleCurrentChange(pageNumber) {
-      
+           const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let users = await usersService.AllUsers({
         page: pageNumber - 1 <=  0 ? 0 : pageNumber-1,
         size: "14",
         search : this.search, 
         filter : this.filter, 
       });
+      loading.close()
       this.Allusers =     users.data.clients;
         for(var i =  0 ; i< this.Allusers.length  ; i++) {
        if(this.Allusers[i].state ==  1) {
@@ -101,6 +108,11 @@ this.Allusers[i].state  =true;
       this.totalItems = users.data.totalItems;
     },
      async searchUser() {
+               const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       console.log('wow');
       this.currentPage = 1;
       let users = await usersService.AllUsers({
@@ -109,6 +121,7 @@ this.Allusers[i].state  =true;
        search: this.search, 
         filter : this.filter, 
       });
+      loading.close();
 
       this.Allusers =     users.data.clients;
       for(var i =  0 ; i< this.Allusers.length  ; i++) {
@@ -154,13 +167,18 @@ this.Allusers[foundIndex].state = !state;
     }
     },
   async   updateFilter() {
-    console.log("update filter")
+            const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
        let users = await usersService.AllUsers({
         page: 0,
         size: "14",
        search: this.search, 
        filter : this.filter, 
       });
+      loading.close();
             this.Allusers =     users.data.clients;
       for(var i =  0 ; i< this.Allusers.length  ; i++) {
        if(this.Allusers[i].state ==  1) {
