@@ -1,5 +1,7 @@
 <script scope>
 import purshasesList from "../services/purshasesService";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "PurshasesList",
   data() {
@@ -21,9 +23,16 @@ export default {
   },
   methods: {
     async handleCurrentChange(pageNumber) {
-      let purshases = await purshasesList.Allpurshases();
-      console.log(purshasesList);
-      this.Allpur = purshases.data.data;
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      let purchases = await purshasesList.Allpurshases();
+      console.log('pppppppppp',purchases);
+      this.Allpur = purchases.data.data.achats;
+      console.log('pppppppppp',this.Allpur);
+      loading.close()
     },
   },
 };
@@ -37,7 +46,13 @@ export default {
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path"> </el-col>
+                <el-col :span="6" class="path"> 
+                  <el-breadcrumb separator="/">
+                    <el-breadcrumb-item style="color: aliceblue"
+                      >Achats</el-breadcrumb-item
+                    >
+                  </el-breadcrumb>
+                </el-col>
                 <el-col :span="12">
                   <el-input
                     v-model="search"
@@ -63,7 +78,7 @@ export default {
     </el-row>
     <br />
     <br />
-    <el-table :data="Allpur" style="width: 100%; margin-left: 20px">
+    <el-table :data="Allpur" style="width: 100%; padding-left: 20px">
       <el-table-column
         sortable
         prop="idPurchase"

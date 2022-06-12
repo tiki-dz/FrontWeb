@@ -9,7 +9,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 export default defineConfig({
   server: {
     host: "127.0.0.1",
-    port: 8099,
+    port: 8090,
     proxy: {
       "/home/api/admin/signup": {
         target: "http://127.0.0.1:5001",
@@ -42,6 +42,12 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
       "/home/api/admin/category": {
+        target: "http://127.0.0.1:5002",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
+      "/home/api/admin/Category": {
         target: "http://127.0.0.1:5002",
         changeOrigin: true,
         secure: false,

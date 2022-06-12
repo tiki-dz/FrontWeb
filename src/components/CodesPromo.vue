@@ -1,5 +1,8 @@
 <script scope>
 import codesService from "../services/codeService";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
+
 export default {
   name: "CodesPromo",
   data() {
@@ -20,14 +23,21 @@ export default {
   methods: {
     async handleCurrentChange(pageNumber) {
       console.log("wow");
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let codes = await codesService.AllCodes({
         page: pageNumber - 1 <= 0 ? 0 : pageNumber - 1,
         size: "3",
         search: this.search,
       });
       this.Allcodes = codes.data.data.codes;
-      this.totalPages = codes.data.data.totalPages;
+      console.log("wow", this.Allcodes);
+      this.totalPages = codes.data.totalPages;
       this.totalItems = codes.data.data.totalItems;
+      loading.close()
     },
     async searchCode() {
       console.log("wow");
@@ -63,7 +73,13 @@ export default {
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path"> Codes Promos </el-col>
+                <el-col :span="6" class="path"> 
+                  <el-breadcrumb separator="/">
+                    <el-breadcrumb-item style="color: aliceblue"
+                      >Promotions</el-breadcrumb-item
+                    >
+                  </el-breadcrumb>
+                </el-col>
                 <el-col :span="12">
                   <el-input
                     v-model="search"
@@ -78,7 +94,7 @@ export default {
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="searchCode()">
-                    Search for a code promo
+                    Rechercher
                   </button></el-col
                 >
               </el-row>
@@ -88,7 +104,7 @@ export default {
       </el-col>
     </el-row>
     <el-row> </el-row>
-    <el-table :data="Allcodes" style="width: 100%; margin-left: 20px">
+    <el-table :data="Allcodes" style="width: 100%; padding-left: 20px">
       <el-table-column
         sortable
         prop="idCodePromo"

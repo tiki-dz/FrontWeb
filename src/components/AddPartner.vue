@@ -101,15 +101,15 @@ export default {
     <!-- nav bar  -->
     <el-row style="margin-bottom: 10px; margin-top: 10px">
       <!-- total columns is 24 -->
-      <el-col :span="24">
+      <el-col :span="24" >
         <el-card class="header">
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path">
+                <el-col :span="10" class="path">
                   <el-breadcrumb separator="/">
                     <el-breadcrumb-item style="color: aliceblue"
-                      >Partenaires</el-breadcrumb-item
+                      >Utilisateurs</el-breadcrumb-item
                     >
                     <el-breadcrumb-item
                       ><a href="/home/AddPartner" style="color: aliceblue"

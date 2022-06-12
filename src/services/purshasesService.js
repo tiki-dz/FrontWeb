@@ -2,7 +2,7 @@
 import Api from "@/services/api";
 
 export default {
- Allpurshases(credantials) {
+ Allpurshases() {
 
   return Api().get("/payment/purchases",{
       headers: {
