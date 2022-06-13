@@ -13,5 +13,8 @@ export default {
     return Api().post("/payment/purchase", credantials , {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
-  })}
+  })},
+  cities() {
+    return Api().get('/autre/cities')
+  }
 }
