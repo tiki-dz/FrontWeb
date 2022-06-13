@@ -26,10 +26,13 @@
         </el-card>
       </el-col>
     </el-row>
-  <el-card>
+<h1>Promotions</h1>
+
+    <el-card style="margin: 20px; border-radius: 20px">
+
     <template #header>
       <div class="card-header">
-        <span>Envoyer une notification a tous les utilisateurs</span>
+        <span>Envoyer une notification à tous les utilisateurs</span>
       </div>
     </template>
   <el-form

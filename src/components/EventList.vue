@@ -8,7 +8,13 @@
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path"> </el-col>
+                <el-col :span="6" class="path">
+                  <el-breadcrumb separator="/">
+                    <el-breadcrumb-item style="color: aliceblue"
+                      >Evenements</el-breadcrumb-item
+                    ></el-breadcrumb
+                  >
+                </el-col>
                 <el-col :span="12">
                   <el-input
                     v-model="search"
@@ -50,8 +56,8 @@
                 @click="showEvent(index)"
               >
                 <template #header>
-                  <span v-if="event.name.length < 20">{{ event.name }}</span>
-                  <span v-else>{{ event.name.substring(0, 19) }} ..</span>
+                  <span v-if="event.name.length < 18">{{ event.name }}</span>
+                  <span v-else>{{ event.name.substring(0, 17) }} ..</span>
                 </template>
                 <img :src="event.eventImage" class="image" />
                 <div style="padding: 14px">
@@ -59,14 +65,13 @@
                     <ul>
                       <li>
                         <time class="time"
-                          >{{ event.startDate.split("T")[0] }} &nbsp;
-                          10:00</time
+                          >{{ event.startDate.split("T")[0] }} &nbsp;10:00</time
                         >
                       </li>
                       <br />
                       <li>
                         <time class="time"
-                          >{{ event.endDate.split("T")[0] }} &nbsp; 17:00</time
+                          >{{ event.endDate.split("T")[0] }} &nbsp;17:00</time
                         >
                       </li>
                     </ul>
@@ -101,6 +106,8 @@
 
 <script>
 import eventService from "../services/eventService";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "EventDetail",
   data() {
@@ -116,6 +123,11 @@ export default {
   },
   methods: {
     async handleCurrentChange(pageNumber) {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let events = await eventService.AllEvents({
         page: pageNumber - 1,
         size: this.pageSize,
@@ -123,17 +135,25 @@ export default {
       this.Allevents = events.data.events;
       this.pages = events.data.totalItems;
       console.log(this.pages);
+      loading.close()
+
     },
     showEvent(event) {
       sessionStorage.setItem(
         "currentEvent",
         JSON.stringify(this.Allevents[JSON.stringify(event)])
       );
-
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       this.$router.push({
         name: "event",
         params: { id: JSON.stringify(event) },
       });
+            loading.close()
+
     },
     addEvent() {
       this.$router.push("/home/AddEvent");
@@ -144,7 +164,7 @@ export default {
 
 <style scoped>
 .time {
-  font-size: 13px;
+  font-size: 12px;
   color: rgb(170, 125, 125);
 }
 .bottom {
@@ -159,6 +179,7 @@ export default {
 }
 .bottom ul li {
   text-align: center;
+  font-size: 13px
 }
 .button {
   padding: 0;

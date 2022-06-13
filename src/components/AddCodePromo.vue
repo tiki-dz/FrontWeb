@@ -8,14 +8,14 @@
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="8" class="path">
+                <el-col :span="10" class="path">
                   <el-breadcrumb separator="/">
                     <el-breadcrumb-item style="color: aliceblue"
-                      >Code promo</el-breadcrumb-item
+                      >Promotions</el-breadcrumb-item
                     >
                     <el-breadcrumb-item
                       ><a href="/home/AddCodePromo" style="color: aliceblue"
-                        >Ajouter un code promo</a
+                        >Ajouter une promotion</a
                       ></el-breadcrumb-item
                     ></el-breadcrumb
                   >
@@ -26,10 +26,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-scrollbar max-height="80vh">
   <el-card>
     <template #header>
       <div class="card-header">
-        <span>Ajouter un code promo</span>
+        <span><h1> Ajouter une promotion</h1></span>
       </div>
     </template>
   <el-form
@@ -115,6 +118,9 @@ v-model="ruleForm.use"
     </el-form-item>
   </el-form>
   </el-card>
+   </el-scrollbar>
+      </el-col>
+    </el-row>
 </template>
 
 <style scoped></style>

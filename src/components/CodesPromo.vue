@@ -32,11 +32,12 @@ export default {
         size: "3",
         search: this.search,
       });
-      loading.close()
       console.log(this.codes + "éé");
       this.Allcodes = codes.data.data.codes;
-      this.totalPages = codes.data.data.totalPages;
+      console.log("wow", this.Allcodes);
+      this.totalPages = codes.data.totalPages;
       this.totalItems = codes.data.data.totalItems;
+      loading.close()
     },
     async searchCode() {
       console.log("wow");
@@ -72,7 +73,13 @@ export default {
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path"> Codes Promos </el-col>
+                <el-col :span="6" class="path"> 
+                  <el-breadcrumb separator="/">
+                    <el-breadcrumb-item style="color: aliceblue"
+                      >Promotions</el-breadcrumb-item
+                    >
+                  </el-breadcrumb>
+                </el-col>
                 <el-col :span="12">
                   <el-input
                     v-model="search"
@@ -87,7 +94,7 @@ export default {
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="searchCode()">
-                    Search for a code promo
+                    Rechercher
                   </button></el-col
                 >
               </el-row>
@@ -97,7 +104,10 @@ export default {
       </el-col>
     </el-row>
     <el-row> </el-row>
-    <el-table :data="Allcodes" style="width: 100%; margin-left: 20px">
+     <h1>Promotions</h1>
+
+    <el-card style="margin: 20px; border-radius: 20px">
+    <el-table :data="Allcodes" style="width: 100%; padding-left: 20px">
       <el-table-column
         sortable
         prop="idCodePromo"
@@ -153,6 +163,7 @@ export default {
       layout="prev, pager, next"
       :total="totalItems"
     />
+    </el-card>
   </div>
 </template>
 <style>

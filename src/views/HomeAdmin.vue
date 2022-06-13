@@ -30,7 +30,7 @@ export default {
 </script>
 <template>
   <el-row>
-    <el-col :span="4">
+    <el-col :span="5">
       <!-- side menu  -->
       <aside>
         <el-scrollbar height="fill" class="leftCol">
@@ -50,13 +50,36 @@ export default {
                 <span>Accueil</span>
               </el-menu-item>
             </router-link>
-            <router-link to="/home/users">
-              <el-menu-item index="1">
+            <el-sub-menu index="1">
+              <template #title>
+                
                 <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
                 <span>Utilisateurs</span>
-              </el-menu-item>
-            </router-link>
-            <el-sub-menu index="2">
+              </template>
+              <el-menu-item-group>
+                <router-link to="/home/users">
+                  <el-menu-item index="1-1" @click="activeTab = 'ItemView'"
+                    >Tous</el-menu-item
+                  ></router-link
+                >
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <router-link to="/home/AddAdmin">
+                  <el-menu-item index="1-2" @click="activeTab = 'ItemView'"
+                    >Ajouter Administrateur</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <router-link to="/home/AddPartner">
+                  <el-menu-item index="4-1" @click="activeTab = 'AddPartenaire'"
+                    >Ajouter Partenaire</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+            </el-sub-menu>
+
+            <!-- <el-sub-menu index="2">
               <template #title>
                 <i class="fa-solid fa-users-gear"></i>&nbsp;&nbsp;
                 <span> Administrateurs</span>
@@ -68,28 +91,28 @@ export default {
                   >
                 </router-link>
               </el-menu-item-group>
-            </el-sub-menu>
+            </el-sub-menu> -->
             <el-sub-menu index="3">
               <template #title>
                 <i class="fa fa-percent"></i>&nbsp;&nbsp;&nbsp;
-                <span>Codes Promo</span>
+                <span>Promotions</span>
               </template>
               <el-menu-item-group>
-                <router-link to="/home/AddCodePromo">
+                <router-link to="/home/CodePromoList">
                   <el-menu-item index="3-1" @click="activeTab = 'ItemView'"
-                    >Ajouter</el-menu-item
+                    >Tous </el-menu-item
                   >
                 </router-link>
               </el-menu-item-group>
               <el-menu-item-group>
-                <router-link to="/home/CodePromoList">
+                <router-link to="/home/AddCodePromo">
                   <el-menu-item index="3-2" @click="activeTab = 'ItemView'"
-                    >Tous les codes</el-menu-item
+                    >Ajouter une promotion</el-menu-item
                   >
                 </router-link>
               </el-menu-item-group>
             </el-sub-menu>
-            <el-sub-menu index="4">
+            <!-- <el-sub-menu index="4">
               <template #title>
                 <i class="fa-solid fa-handshake-simple"></i>&nbsp;&nbsp;
                 <span> Partenaires</span>
@@ -101,8 +124,8 @@ export default {
                   >
                 </router-link>
               </el-menu-item-group>
-            </el-sub-menu>
-            <router-link to="/home/Client">
+            </el-sub-menu> -->
+            <!-- <router-link to="/home/Client">
               <el-sub-menu index="5">
                 <template #title>
                   <i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;
@@ -112,7 +135,8 @@ export default {
                   <el-menu-item index="4-1"></el-menu-item>
                 </el-menu-item-group>
               </el-sub-menu>
-            </router-link>
+            </router-link> -->
+
             <router-link to="/home/CategoryList">
               <el-menu-item index="5">
                 <i class="fa-solid fa-shapes"></i>&nbsp;&nbsp;
@@ -146,7 +170,7 @@ export default {
         </el-scrollbar>
       </aside>
     </el-col>
-    <el-col :span="20" class="padding">
+    <el-col :span="19" class="padding">
       <router-view :key="$route.fullPath" />
     </el-col>
   </el-row>
@@ -216,7 +240,7 @@ a {
 .leftCol .el-card {
   margin: 4%;
 }
-.el-input__prefix{
+.el-input__prefix {
   height: 80%;
 }
 </style>

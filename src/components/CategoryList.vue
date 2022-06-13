@@ -1,6 +1,8 @@
 <script scope>
 import categoryService from "../services/categoryService";
 import { ElNotification } from "element-plus";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 
 export default {
   name: "ItemView",
@@ -36,6 +38,11 @@ export default {
     },
 
     async getCategories(pageNumber) {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let response = await categoryService.getCategories({
         page: pageNumber,
         size: this.pageSize,
@@ -43,6 +50,7 @@ export default {
       this.categories = response.data.data.category;
       this.pages = response.data.data.totalPages * 12;
       console.log(this.pages);
+      loading.close()
       //console.log(this.categories);
     },
 
@@ -57,7 +65,7 @@ export default {
     },
   },
   created() {
-    this.getCategories();
+    this.getCategories(1);
   },
 };
 </script>
