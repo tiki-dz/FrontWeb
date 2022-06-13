@@ -7,6 +7,8 @@ export default {
   name: "ItemView",
   data() {
     return {
+      options: [
+        ],
       ruleForm: {
         search: "",
         firstName: "",
@@ -32,8 +34,19 @@ export default {
       ],
     };
   },
-
+mounted: function () {
+    this.handleCurrentChange();
+  },
+    
   methods: {
+    async handleCurrentChange() {
+      let city = await authService.cities();
+
+      for (let index = 0; index < city.data.data.length; index++) {
+        const element = city.data.data[index];
+        this.options.push ({value: element.name, label: element.name});
+      }
+    },
     async signup() {
       try {
         if (this.ruleForm.password == this.ruleForm.password2) {
@@ -199,11 +212,19 @@ export default {
                     ></el-option> </el-select
                 ></el-col>
                 <el-col :span="5">
-                  <el-input
-                    id="city"
-                    v-model="ruleForm.city"
-                    placeholder="ville"
-                  ></el-input>
+                   <el-select
+                      id="city"
+                      v-model="ruleForm.city"
+                      placeholder="ville"
+                      filterable
+                    >
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                    </el-select>
                 </el-col>
               </el-row>
               <br />

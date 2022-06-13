@@ -7,6 +7,7 @@ export default {
   name: "AddPartenaire",
   data() {
     return {
+      options: [],
       ruleForm: {
         search: "",
         firstName: "",
@@ -54,8 +55,16 @@ export default {
       ],
     };
   },
-
+  
   methods: {
+    async handleCurrentChange() {
+      let city = await authService.cities();
+
+      for (let index = 0; index < city.data.data.length; index++) {
+        const element = city.data.data[index];
+        this.options.push({value: element.name, label: element.name});
+      }
+    },
     async signup() {
       try {
         if (this.ruleForm.password == this.ruleForm.password2) {
@@ -149,6 +158,7 @@ export default {
                   ><el-input
                     v-model="ruleForm.firstName"
                     placeholder="Prenom"
+                    @focus="handleCurrentChange"
                     required
                   ></el-input>
                   <div class="invalid-feedback"></div
@@ -226,11 +236,20 @@ export default {
                     ></el-option> </el-select
                 ></el-col>
                 <el-col :span="5">
-                  <el-input
+                  <el-select
                     id="city"
                     v-model="ruleForm.city"
                     placeholder="ville"
-                  ></el-input>
+                    filterable
+                    class="input-field"
+                  >
+                  <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
                 </el-col>
               </el-row>
               <br />
