@@ -13,7 +13,11 @@ import subCategory from "../components/subCategory.vue";
 import SubList from "../components/SubList.vue";
 
 import Dashboard from "../components/DashBoard.vue";
-
+import UsersList from "../components/UsersList.vue"
+import AddCodePromo from "../components/AddCodePromo.vue";
+import CodesPromo from "../components/CodesPromo.vue";
+import PurshasesList from "../components/Purshases.vue"
+import  SendNotification  from "../components/SendNotification.vue";
 function CheckLogin(to, from, next) {
   var isAuthenticated = false;
   if (localStorage.getItem("LoggedUser")) isAuthenticated = true;
@@ -36,6 +40,7 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       children: [
+        { path: "Users", component: UsersList },
         { path: "Event", name: "event", component: EventDetail },
         { path: "EventList", component: EventList },
         { path: "AddCategory", component: AddCategory },
@@ -44,9 +49,14 @@ const router = createRouter({
         { path: "AddEvent", component: AddEvent },
         { path: "CategoryList", component: CategoryList },
         { path: "EventList", component: EventList },
+        { path: "notification", component: SendNotification },
         { path: "subCategory", name: "subCategory", component: subCategory },
         { path: "SubList/:idCategory", component: SubList },
 
+        { path: "Purshases", component: PurshasesList },
+
+        { path: "AddCodePromo", component: AddCodePromo },
+        { path: "CodePromoList", component: CodesPromo },
         { path: "", component: Dashboard },
       ],
       beforeEnter: CheckLogin,

@@ -1,6 +1,5 @@
 <script>
 import { ElNotification } from "element-plus/es";
-
 export default {
   data() {
     return {
@@ -29,16 +28,14 @@ export default {
   },
 };
 </script>
-
 <template>
   <el-row>
-    <el-col :span="4">
+    <el-col :span="5">
       <!-- side menu  -->
       <aside>
         <el-scrollbar height="fill" class="leftCol">
           <img src="../assets/logoo.png" class="logo" />
           <el-divider />
-
           <el-menu
             active-text-color="#ffd04b"
             default-active="2"
@@ -48,35 +45,88 @@ export default {
             @select="handleSelect"
           >
             <router-link to="/home">
-              <el-menu-item index="1">
+              <el-menu-item index="2">
                 <i class="fa-solid fa-gauge"></i>&nbsp;&nbsp;
                 <span>Accueil</span>
               </el-menu-item>
             </router-link>
-            <el-sub-menu index="2">
+            <el-sub-menu index="1">
+              <template #title>
+                
+                <i class="fa-solid fa-user"></i>&nbsp;&nbsp;
+                <span>Utilisateurs</span>
+              </template>
+              <el-menu-item-group>
+                <router-link to="/home/users">
+                  <el-menu-item index="1-1" @click="activeTab = 'ItemView'"
+                    >Tous</el-menu-item
+                  ></router-link
+                >
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <router-link to="/home/AddAdmin">
+                  <el-menu-item index="1-2" @click="activeTab = 'ItemView'"
+                    >Ajouter Administrateur</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <router-link to="/home/AddPartner">
+                  <el-menu-item index="4-1" @click="activeTab = 'AddPartenaire'"
+                    >Ajouter Partenaire</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+            </el-sub-menu>
+
+            <!-- <el-sub-menu index="2">
               <template #title>
                 <i class="fa-solid fa-users-gear"></i>&nbsp;&nbsp;
                 <span> Administrateurs</span>
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddAdmin">
-                  <el-menu-item index="2-1">Ajouter</el-menu-item>
+                  <el-menu-item index="2-1" @click="activeTab = 'ItemView'"
+                    >Ajouter</el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+            </el-sub-menu> -->
+            <el-sub-menu index="3">
+              <template #title>
+                <i class="fa fa-percent"></i>&nbsp;&nbsp;&nbsp;
+                <span>Promotions</span>
+              </template>
+              <el-menu-item-group>
+                <router-link to="/home/CodePromoList">
+                  <el-menu-item index="3-1" @click="activeTab = 'ItemView'"
+                    >Tous </el-menu-item
+                  >
+                </router-link>
+              </el-menu-item-group>
+              <el-menu-item-group>
+                <router-link to="/home/AddCodePromo">
+                  <el-menu-item index="3-2" @click="activeTab = 'ItemView'"
+                    >Ajouter une promotion</el-menu-item
+                  >
                 </router-link>
               </el-menu-item-group>
             </el-sub-menu>
-            <el-sub-menu index="3">
+            <!-- <el-sub-menu index="4">
               <template #title>
                 <i class="fa-solid fa-handshake-simple"></i>&nbsp;&nbsp;
                 <span> Partenaires</span>
               </template>
               <el-menu-item-group>
                 <router-link to="/home/AddPartner">
-                  <el-menu-item index="3-1">Ajouter </el-menu-item>
+                  <el-menu-item index="4-1" @click="activeTab = 'AddPartenaire'"
+                    >Ajouter</el-menu-item
+                  >
                 </router-link>
               </el-menu-item-group>
-            </el-sub-menu>
-            <router-link to="/home/Client">
-              <el-sub-menu index="4">
+            </el-sub-menu> -->
+            <!-- <router-link to="/home/Client">
+              <el-sub-menu index="5">
                 <template #title>
                   <i class="fa-solid fa-users-line"></i>&nbsp;&nbsp;
                   <span>Clients</span>
@@ -85,7 +135,7 @@ export default {
                   <el-menu-item index="4-1"></el-menu-item>
                 </el-menu-item-group>
               </el-sub-menu>
-            </router-link>
+            </router-link> -->
 
             <router-link to="/home/CategoryList">
               <el-menu-item index="5">
@@ -93,15 +143,26 @@ export default {
                 <span>Catégories</span>
               </el-menu-item>
             </router-link>
-
-            <router-link to="/home/EventList">
+               <router-link to="/home/notification">
               <el-menu-item index="6">
+                <i class="fa-solid fa-clock"></i>&nbsp;&nbsp;
+                <span>Notifications</span>
+              </el-menu-item>
+            </router-link>
+            <router-link to="/home/EventList">
+              <el-menu-item index="7">
                 <i class="fa-solid fa-calendar-check"></i>&nbsp;&nbsp;
                 <span>Événements</span>
               </el-menu-item>
             </router-link>
+            <router-link to="/home/Purshases">
+              <el-menu-item index="8">
+                <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
+                <span>Achats</span>
+              </el-menu-item>
+            </router-link>
 
-            <el-menu-item index="7" id="deconnexion" @click="logout">
+            <el-menu-item index="9" id="deconnexion" @click="logout">
               <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;
               <span>Déconnexion</span>
             </el-menu-item>
@@ -109,7 +170,7 @@ export default {
         </el-scrollbar>
       </aside>
     </el-col>
-    <el-col :span="20" class="padding">
+    <el-col :span="19" class="padding">
       <router-view :key="$route.fullPath" />
     </el-col>
   </el-row>
@@ -178,5 +239,8 @@ a {
 }
 .leftCol .el-card {
   margin: 4%;
+}
+.el-input__prefix {
+  height: 80%;
 }
 </style>

@@ -35,7 +35,7 @@ export default {
   getSubCategories(credantials) {
     console.log(credantials)
     let id=credantials
-    return Api().get("/admin/Category/"+id+"/subCategory/" , {
+    return Api().get("/admin/Category/"+id+"/subCategory" , {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })},

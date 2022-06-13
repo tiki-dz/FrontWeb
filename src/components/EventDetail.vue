@@ -24,18 +24,7 @@
                 </el-col>
                 <template> </template>
 
-                <el-col :span="12">
-                  <el-input
-                    v-model="search"
-                    placeholder="Chercher un id,nom ou utilisateur"
-                  >
-                    <template #prefix>
-                      <el-icon class="el-input__icon"
-                        ><i class="fa fa-search"></i
-                      ></el-icon>
-                    </template>
-                  </el-input>
-                </el-col>
+                <el-col :span="12"> </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="addEvent()">
                     Ajouter évenement
@@ -125,6 +114,38 @@
                       required
                       :disabled="!modifying"
                     ></el-input>
+                  </el-row>
+                  <el-row>
+                    <label for="type">Audience</label>
+                    <el-select
+                      @click="getCategories"
+                      v-model="event.type"
+                      name="type"
+                      class="m-2"
+                      placeholder="Selectionner une catégorie"
+                      size="large"
+                      :disabled="!modifying"
+                    >
+                      <el-option
+                        v-for="item in optionsTypes"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      />
+                    </el-select>
+                  </el-row>
+                  <el-row>
+                    <label for="price">Prix</label>
+                    <el-input-number
+                      name="price"
+                      v-model="event.price"
+                      :min="50"
+                      :max="10000000"
+                      controls-position="right"
+                      size="large"
+                      required
+                      :disabled="!modifying"
+                    />
                   </el-row>
                   <el-row>
                     <label for="url">URL</label>
@@ -402,6 +423,8 @@
 import eventService from "../services/eventService";
 import { ElNotification } from "element-plus/es";
 import("element-plus/es/components/notification/style/css");
+import { ElLoading } from "element-plus";
+
 import $ from "jquery";
 export default {
   name: "EventDetail",
@@ -411,6 +434,8 @@ export default {
         name: "",
         organizer: "",
         desc: "",
+        type: "",
+        price: "",
         date: [],
         capacity: "",
         addr: "",
@@ -421,6 +446,16 @@ export default {
       },
       eventCopy: {},
       EventDetail: [],
+      optionsTypes: [
+        {
+          value: true,
+          label: "Femmes seulement",
+        },
+        {
+          value: false,
+          label: "Hommes et Femmes",
+        },
+      ],
       optionsCategories: [],
       optionsSubCategories: [],
       optionsTags: [],
@@ -445,6 +480,11 @@ export default {
       this.dialogVisible = true;
     },
     async save() {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       this.modifying = false;
       let equalTags =
         JSON.stringify(this.event.tags) === JSON.stringify(this.eventCopy.tags);
@@ -559,6 +599,8 @@ export default {
             formData.append("startDate", this.event.date[0]);
             formData.append("endDate", this.event.date[1]);
             formData.append("ticketNb", this.event.capacity);
+            formData.append("price", this.event.price);
+            formData.append("justForWomen", this.event.type);
             formData.append("address", this.event.addr);
             formData.append("category", this.event.category);
             console.log("this.event.category" + this.event.category);
@@ -574,6 +616,7 @@ export default {
               id: this.EventDetail.idEvent,
             });
             console.log(event.data);
+            loading.close();
             if (event.data.success == false) {
               this.cancel();
               ElNotification({
@@ -582,6 +625,7 @@ export default {
                 type: "error",
               });
             } else {
+              loading.close();
               ElNotification({
                 title: "Succès",
                 message: "Evenement mis à jours ",
@@ -599,6 +643,7 @@ export default {
           });
         }
       } else {
+        loading.close();
         ElNotification({
           title: "Saved Successfully",
           message: "No modification ",
@@ -607,6 +652,11 @@ export default {
       }
     },
     async getCategories() {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let response = await eventService.getCategories();
       let categories = response.data.data;
       this.optionsCategories = [];
@@ -616,6 +666,7 @@ export default {
           label: categories.category[i].name,
         });
       }
+      loading.close();
       console.log(response.data);
       console.log(this.optionsCategories);
     },
@@ -628,6 +679,11 @@ export default {
           type: "error",
         });
       } else {
+        const loading = ElLoading.service({
+          lock: true,
+          text: "Chargement",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
         let response = await eventService.getSubCategories(idCategory);
         console.log(this.optionsSubCategories);
         let subcategories = response.data.data;
@@ -638,6 +694,7 @@ export default {
             label: subcategories.rows[i].name,
           });
         }
+        loading.close();
         console.log(response.data);
         console.log(this.optionsSubCategories);
       }
@@ -695,6 +752,8 @@ export default {
     this.event.date[0] = this.EventDetail.startDate;
     this.event.date[1] = this.EventDetail.endDate;
     this.event.capacity = this.EventDetail.ticketNb;
+    this.event.price = this.EventDetail.price;
+    this.event.type = this.EventDetail.justForWomen;
     this.event.addr = this.EventDetail.address;
     this.event.urls = this.EventDetail.externalUrls;
     for (let i = 0; i < this.EventDetail.Tags.length; i++) {

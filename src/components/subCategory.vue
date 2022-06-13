@@ -96,7 +96,8 @@ import { ref } from "vue";
 
 import categoryService from "../services/categoryService";
 import { ElNotification } from "element-plus";
-
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "AddSubCategory",
   data() {
@@ -116,13 +117,18 @@ export default {
   methods: {
     async AddSubCategories() {
       try {
+        const loading = ElLoading.service({
+          lock: true,
+          text: "Chargement",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
         const response = await categoryService.AddSubCategory({
           idCategory: this.$route.params.id,
           name: this.forms.name,
           description: this.forms.description,
           icon: this.forms.icon,
         });
-
+        loading.close();
         ElNotification({
           title: "Ajouter  avec succees",
           message: "categorie ajouter ",

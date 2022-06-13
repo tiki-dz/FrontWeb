@@ -1,6 +1,8 @@
 <script scope>
 import categoryService from "../services/categoryService";
 import { ElNotification } from "element-plus";
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 
 export default {
   name: "ItemView",
@@ -43,11 +45,17 @@ export default {
     },
 
     async getSubCategories(idCategory) {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       console.log(idCategory);
       let response = await categoryService.getSubCategories(idCategory);
       this.subCategories = response.data.data.rows;
       this.name = this.subCategories[0].Category.name;
       console.log(this.subcategories);
+      loading.close()
     },
     addSubCategory() {
       this.$router.push({ name: "subCategory", params: { id: this.url } });

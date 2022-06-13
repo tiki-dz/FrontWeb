@@ -2,11 +2,13 @@
 import authService from "../services/authService";
 //import { Search } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
-
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "AddPartenaire",
   data() {
     return {
+      options: [],
       ruleForm: {
         search: "",
         firstName: "",
@@ -56,6 +58,20 @@ export default {
   },
 
   methods: {
+    async handleCurrentChange() {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
+      let city = await authService.cities();
+      this.options = [];
+      for (let index = 0; index < city.data.data.length; index++) {
+        const element = city.data.data[index];
+        this.options.push({ value: element.name, label: element.name });
+      }
+      loading.close();
+    },
     async signup() {
       try {
         if (this.ruleForm.password == this.ruleForm.password2) {
@@ -93,6 +109,9 @@ export default {
       }
     },
   },
+  created() {
+    this.handleCurrentChange();
+  },
 };
 </script>
 
@@ -106,10 +125,10 @@ export default {
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path">
+                <el-col :span="10" class="path">
                   <el-breadcrumb separator="/">
                     <el-breadcrumb-item style="color: aliceblue"
-                      >Partenaires</el-breadcrumb-item
+                      >Utilisateurs</el-breadcrumb-item
                     >
                     <el-breadcrumb-item
                       ><a href="/home/AddPartner" style="color: aliceblue"
@@ -149,6 +168,7 @@ export default {
                   ><el-input
                     v-model="ruleForm.firstName"
                     placeholder="Prenom"
+                    @focus="handleCurrentChange"
                     required
                   ></el-input>
                   <div class="invalid-feedback"></div
@@ -226,11 +246,20 @@ export default {
                     ></el-option> </el-select
                 ></el-col>
                 <el-col :span="5">
-                  <el-input
+                  <el-select
                     id="city"
                     v-model="ruleForm.city"
                     placeholder="ville"
-                  ></el-input>
+                    filterable
+                    class="input-field"
+                  >
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
                 </el-col>
               </el-row>
               <br />

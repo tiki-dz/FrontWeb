@@ -113,6 +113,38 @@
                     ></el-input>
                   </el-row>
                   <el-row>
+                    <label for="type">Audience</label>
+                    <el-select
+                      @click="getCategories"
+                      v-model="event.type"
+                      name="type"
+                      class="m-2"
+                      placeholder="Selectionner une catégorie"
+                      size="large"
+                      :disabled="!modifying"
+                    >
+                      <el-option
+                        v-for="item in optionsTypes"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      />
+                    </el-select>
+                  </el-row>
+                  <el-row>
+                    <label for="price">Prix</label>
+                    <el-input-number
+                      name="price"
+                      v-model="event.price"
+                      :min="50"
+                      :max="10000000"
+                      controls-position="right"
+                      size="large"
+                      required
+                      :disabled="!modifying"
+                    />
+                  </el-row>
+                  <el-row>
                     <label for="url">URL</label>
 
                     <el-input
@@ -353,6 +385,7 @@
 import eventService from "../services/eventService";
 import { ElNotification } from "element-plus/es";
 import("element-plus/es/components/notification/style/css");
+import { ElLoading } from "element-plus";
 
 export default {
   name: "EventDetail",
@@ -365,11 +398,23 @@ export default {
         date: "",
         capacity: "",
         addr: "",
+        type: "",
+        price: "",
         tags: [],
         urls: "",
         category: "",
         subcategory: [],
       },
+      optionsTypes: [
+        {
+          value: true,
+          label: "Femmes seulement",
+        },
+        {
+          value: false,
+          label: "Hommes et Femmes",
+        },
+      ],
       optionsCategories: [],
       optionsSubCategories: [],
       optionsTags: [],
@@ -396,12 +441,17 @@ export default {
     },
     async save() {
       try {
+        const loading = ElLoading.service({
+          lock: true,
+          text: "Chargement",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
         let formData = new FormData();
         formData.append("name", this.event.name);
         formData.append("organiser", this.event.organizer);
         formData.append("description", this.event.desc);
-        formData.append("price", 23 + Math.floor(Math.random() * 1000));
-        formData.append("justForWomen", false);
+        formData.append("price", this.event.price);
+        formData.append("justForWomen", this.event.type);
         formData.append("startDate", this.event.date[0]);
         formData.append("endDate", this.event.date[1]);
         formData.append("ticketNb", this.event.capacity);
@@ -414,6 +464,7 @@ export default {
         formData.append("ticketImage", this.ticketList[0].raw);
         formData.append("outherImage", this.otherList[0].raw);
         const event = await eventService.Add(formData);
+        loading.close();
         console.log(this.fileList);
 
         console.log(event.data);
@@ -442,6 +493,11 @@ export default {
       }
     },
     async getCategories() {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let response = await eventService.getCategories();
       let categories = response.data.data;
       this.optionsCategories = [];
@@ -451,6 +507,7 @@ export default {
           label: categories.category[i].name,
         });
       }
+      loading.close();
       console.log(response.data);
       console.log(this.optionsCategories);
     },
@@ -463,6 +520,11 @@ export default {
           type: "error",
         });
       } else {
+        const loading = ElLoading.service({
+          lock: true,
+          text: "Chargement",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
         let response = await eventService.getSubCategories(idCategory);
         console.log(this.optionsSubCategories);
         let subcategories = response.data.data;
@@ -473,6 +535,8 @@ export default {
             label: subcategories.rows[i].name,
           });
         }
+        loading.close();
+
         console.log(response.data);
         console.log(this.optionsSubCategories);
       }
