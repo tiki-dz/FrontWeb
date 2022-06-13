@@ -269,7 +269,7 @@ export default {
 
       let response = await statsService.userStats();
       loading.close();
-      this.val = response.data.data[0];
+      this.val = response.data.data[response.data.data.length-1];
       this.genderData.datasets[1].data=[this.val.manClient];
       this.genderData.datasets[0].data=[this.val.womenClient];
       this.activeData.datasets[0].data=[this.val.activatedClient];
