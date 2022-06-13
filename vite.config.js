@@ -53,6 +53,12 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
+      "/home/api/admin/Category": {
+        target: "http://127.0.0.1:5002",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
        "/home/api/admin": {
         target: "http://127.0.0.1:5001",
         changeOrigin: true,
