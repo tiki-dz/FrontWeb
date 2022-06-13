@@ -27,7 +27,7 @@
         />
       </div>
     </el-card>
-    
+
     <el-card style="max-width: 23%">
       <div>
         <Bar
@@ -42,6 +42,7 @@
 <script>
 import { Bar } from "vue-chartjs";
 import statsService from "../services/statsService";
+import { ElLoading } from "element-plus";
 
 import {
   Chart as ChartJS,
@@ -68,7 +69,7 @@ export default {
   components: { Bar },
   data() {
     return {
-      // gender 
+      // gender
       genderData: {
         labels: [""],
         datasets: [
@@ -80,7 +81,7 @@ export default {
           { label: "hommes", data: [3094] },
         ],
       },
-       sexeOptions: {
+      sexeOptions: {
         plugins: {
           legend: {
             position: "bottom",
@@ -162,7 +163,7 @@ export default {
           },
         },
       },
-     //type
+      //type
 
       typeData: {
         labels: [""],
@@ -210,8 +211,8 @@ export default {
           },
         },
       },
-// atat partenaire
- activPartnerOptions: {
+      // atat partenaire
+      activPartnerOptions: {
         responsive: true,
         plugins: {
           legend: {
@@ -269,16 +270,15 @@ export default {
 
       let response = await statsService.userStats();
       loading.close();
-      this.val = response.data.data[response.data.data.length-1];
-      this.genderData.datasets[1].data=[this.val.manClient];
-      this.genderData.datasets[0].data=[this.val.womenClient];
-      this.activeData.datasets[0].data=[this.val.activatedClient];
-      this.activeData.datasets[1].data=[this.val.deactivatedClient];
-      this.typeData.datasets[1].data=[this.val.totalPartner];
-      this.typeData.datasets[0].data=[this.val.totalClient];
-      this.partnerData.datasets[0].data=[this.val.activatedPartner];
-      this.partnerData.datasets[1].data=[this.val.deactivatedPartner];
-
+      this.val = response.data.data[response.data.data.length - 1];
+      this.genderData.datasets[1].data = [this.val.manClient];
+      this.genderData.datasets[0].data = [this.val.womenClient];
+      this.activeData.datasets[0].data = [this.val.activatedClient];
+      this.activeData.datasets[1].data = [this.val.deactivatedClient];
+      this.typeData.datasets[1].data = [this.val.totalPartner];
+      this.typeData.datasets[0].data = [this.val.totalClient];
+      this.partnerData.datasets[0].data = [this.val.activatedPartner];
+      this.partnerData.datasets[1].data = [this.val.deactivatedPartner];
     },
   },
   created() {

@@ -3,7 +3,7 @@
     <h1 style="font-size: 38px; padding-top: 10px">Acceuil</h1>
     <br />
     <div>
-      <BarChart ></BarChart>
+      <BarChart></BarChart>
       <div style="display: block">
         <line-chart-purchase></line-chart-purchase>
       </div>

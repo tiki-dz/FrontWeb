@@ -2,7 +2,8 @@
 import authService from "../services/authService";
 //import { Search } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
-
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
 export default {
   name: "AddPartenaire",
   data() {
@@ -58,12 +59,18 @@ export default {
 
   methods: {
     async handleCurrentChange() {
+      const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let city = await authService.cities();
       this.options = [];
       for (let index = 0; index < city.data.data.length; index++) {
         const element = city.data.data[index];
         this.options.push({ value: element.name, label: element.name });
       }
+      loading.close();
     },
     async signup() {
       try {
@@ -102,9 +109,9 @@ export default {
       }
     },
   },
-  created(){
-    this.handleCurrentChange()
-  }
+  created() {
+    this.handleCurrentChange();
+  },
 };
 </script>
 

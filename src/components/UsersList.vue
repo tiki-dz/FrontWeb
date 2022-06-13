@@ -2,6 +2,8 @@
 import usersService from "../services/usersService";
 import "element-plus/es/components/loading/style/css";
 import { ElLoading } from "element-plus";
+import { ElNotification } from "element-plus/es";
+
 export default {
   name: "UsersList",
   data() {

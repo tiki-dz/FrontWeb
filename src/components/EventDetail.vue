@@ -24,8 +24,7 @@
                 </el-col>
                 <template> </template>
 
-                <el-col :span="12">
-                </el-col>
+                <el-col :span="12"> </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="addEvent()">
                     Ajouter évenement
@@ -424,6 +423,8 @@
 import eventService from "../services/eventService";
 import { ElNotification } from "element-plus/es";
 import("element-plus/es/components/notification/style/css");
+import { ElLoading } from "element-plus";
+
 import $ from "jquery";
 export default {
   name: "EventDetail",
@@ -433,8 +434,8 @@ export default {
         name: "",
         organizer: "",
         desc: "",
-        type:"",
-        price:"",
+        type: "",
+        price: "",
         date: [],
         capacity: "",
         addr: "",
@@ -599,7 +600,7 @@ export default {
             formData.append("endDate", this.event.date[1]);
             formData.append("ticketNb", this.event.capacity);
             formData.append("price", this.event.price);
-        formData.append("justForWomen", this.event.type);
+            formData.append("justForWomen", this.event.type);
             formData.append("address", this.event.addr);
             formData.append("category", this.event.category);
             console.log("this.event.category" + this.event.category);
@@ -615,7 +616,7 @@ export default {
               id: this.EventDetail.idEvent,
             });
             console.log(event.data);
-            loading.close()
+            loading.close();
             if (event.data.success == false) {
               this.cancel();
               ElNotification({
@@ -624,7 +625,7 @@ export default {
                 type: "error",
               });
             } else {
-              loading.close()
+              loading.close();
               ElNotification({
                 title: "Succès",
                 message: "Evenement mis à jours ",
@@ -642,7 +643,7 @@ export default {
           });
         }
       } else {
-        loading.close()
+        loading.close();
         ElNotification({
           title: "Saved Successfully",
           message: "No modification ",
@@ -665,7 +666,7 @@ export default {
           label: categories.category[i].name,
         });
       }
-      loading.close()
+      loading.close();
       console.log(response.data);
       console.log(this.optionsCategories);
     },
@@ -679,10 +680,10 @@ export default {
         });
       } else {
         const loading = ElLoading.service({
-        lock: true,
-        text: "Chargement",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+          lock: true,
+          text: "Chargement",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
         let response = await eventService.getSubCategories(idCategory);
         console.log(this.optionsSubCategories);
         let subcategories = response.data.data;
@@ -693,7 +694,7 @@ export default {
             label: subcategories.rows[i].name,
           });
         }
-        loading.close()
+        loading.close();
         console.log(response.data);
         console.log(this.optionsSubCategories);
       }

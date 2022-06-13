@@ -25,6 +25,7 @@
 <script>
 import { Line } from "vue-chartjs";
 import statsService from "../services/statsService";
+import { ElLoading } from "element-plus";
 
 import {
   Chart as ChartJS,
@@ -242,18 +243,17 @@ export default {
 
       let response = await statsService.purchaseStats();
       this.val = response.data.data;
-      console.log("length",this.val.length)
-      this.incomeData.datasets[0].data=[]
-      this.purchaseData.datasets[0].data=[]
+      console.log("length", this.val.length);
+      this.incomeData.datasets[0].data = [];
+      this.purchaseData.datasets[0].data = [];
       for (let i = this.val.length; i < 30; i++) {
-        this.incomeData.datasets[0].data.push(0) ;
-        this.purchaseData.datasets[0].data.push(0) ;
+        this.incomeData.datasets[0].data.push(0);
+        this.purchaseData.datasets[0].data.push(0);
       }
       for (let i = 0; i < this.val.length; i++) {
-        this.incomeData.datasets[0].data.push(this.val[i].income) ;
-        this.purchaseData.datasets[0].data.push(this.val[i].totalPurchase) ;
+        this.incomeData.datasets[0].data.push(this.val[i].income);
+        this.purchaseData.datasets[0].data.push(this.val[i].totalPurchase);
       }
-      
 
       loading.close();
     },

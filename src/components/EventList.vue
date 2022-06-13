@@ -135,8 +135,7 @@ export default {
       this.Allevents = events.data.events;
       this.pages = events.data.totalItems;
       console.log(this.pages);
-      loading.close()
-
+      loading.close();
     },
     showEvent(event) {
       sessionStorage.setItem(
@@ -152,8 +151,7 @@ export default {
         name: "event",
         params: { id: JSON.stringify(event) },
       });
-        loading.close()
-
+      loading.close();
     },
     addEvent() {
       this.$router.push("/home/AddEvent");
@@ -179,7 +177,7 @@ export default {
 }
 .bottom ul li {
   text-align: center;
-  font-size: 13px
+  font-size: 13px;
 }
 .button {
   padding: 0;

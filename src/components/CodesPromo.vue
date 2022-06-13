@@ -2,6 +2,8 @@
 import codesService from "../services/codeService";
 import "element-plus/es/components/loading/style/css";
 import { ElLoading } from "element-plus";
+import { ElNotification } from "element-plus/es";
+
 export default {
   name: "CodesPromo",
   data() {
@@ -20,7 +22,6 @@ export default {
     this.handleCurrentChange(1);
   },
   methods: {
-    
     async handleCurrentChange(pageNumber) {
       const loading = ElLoading.service({
         lock: true,
@@ -37,7 +38,7 @@ export default {
       console.log("wow", this.Allcodes);
       this.totalPages = codes.data.totalPages;
       this.totalItems = codes.data.data.totalItems;
-      loading.close()
+      loading.close();
     },
     async searchCode() {
       console.log("wow");
@@ -55,6 +56,7 @@ export default {
       let codes = await codesService.deleteCodePromo(id);
       var foundIndex = this.Allcodes.findIndex((x) => x.idCodePromo == id);
       this.Allcodes.splice(foundIndex, 1);
+      console.log(codes);
       ElNotification({
         title: "Succées",
         message: "Code promo supprimé avec succés",
@@ -73,7 +75,7 @@ export default {
           <div class="card card-frame col-4">
             <div class="card-body">
               <el-row>
-                <el-col :span="6" class="path"> 
+                <el-col :span="6" class="path">
                   <el-breadcrumb separator="/">
                     <el-breadcrumb-item style="color: aliceblue"
                       >Promotions</el-breadcrumb-item
@@ -104,65 +106,62 @@ export default {
       </el-col>
     </el-row>
     <el-row> </el-row>
-     <h1>Promotions</h1>
+    <h1>Promotions</h1>
 
     <el-card style="margin: 20px; border-radius: 20px">
-    <el-table :data="Allcodes" style="width: 100%; padding-left: 20px">
-      <el-table-column
-        sortable
-        prop="idCodePromo"
-        label="#"
-        width="100px"
-      ></el-table-column>
-      <el-table-column
-        sortable
-        prop="name"
-        label="Nom"
-        width="270px"
-      ></el-table-column>
-      <el-table-column
-        sortable
-        prop="value"
-        label="Valeur"
-        width="270px"
-      ></el-table-column>
-      <el-table-column
-        sortable
-        prop="startTime"
-        label="Date début"
-        width="270px"
-      ></el-table-column>
-      <el-table-column
-        sortable
-        prop="endTime"
-        label="Date fin"
-        width="270px"
-      ></el-table-column>
-       <el-table-column
-        sortable
-        prop="use"
-        label="utilisable"
-        width="270px"
-      ></el-table-column>
-      <el-table-column
-             label="action"
-         width="200px"
-      >
-        <template #default="scope">
-          <el-button type="danger" @click="supprimer(scope.row.idCodePromo)"
-            >Supprimer</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
-    <br />
-    <el-pagination
-      @current-change="handleCurrentChange"
-      :page-size="3"
-      background
-      layout="prev, pager, next"
-      :total="totalItems"
-    />
+      <el-table :data="Allcodes" style="width: 100%; padding-left: 20px">
+        <el-table-column
+          sortable
+          prop="idCodePromo"
+          label="#"
+          width="100px"
+        ></el-table-column>
+        <el-table-column
+          sortable
+          prop="name"
+          label="Nom"
+          width="270px"
+        ></el-table-column>
+        <el-table-column
+          sortable
+          prop="value"
+          label="Valeur"
+          width="270px"
+        ></el-table-column>
+        <el-table-column
+          sortable
+          prop="startTime"
+          label="Date début"
+          width="270px"
+        ></el-table-column>
+        <el-table-column
+          sortable
+          prop="endTime"
+          label="Date fin"
+          width="270px"
+        ></el-table-column>
+        <el-table-column
+          sortable
+          prop="use"
+          label="utilisable"
+          width="270px"
+        ></el-table-column>
+        <el-table-column label="action" width="200px">
+          <template #default="scope">
+            <el-button type="danger" @click="supprimer(scope.row.idCodePromo)"
+              >Supprimer</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+      <br />
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :page-size="3"
+        background
+        layout="prev, pager, next"
+        :total="totalItems"
+      />
     </el-card>
   </div>
 </template>

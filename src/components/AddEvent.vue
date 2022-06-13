@@ -385,6 +385,7 @@
 import eventService from "../services/eventService";
 import { ElNotification } from "element-plus/es";
 import("element-plus/es/components/notification/style/css");
+import { ElLoading } from "element-plus";
 
 export default {
   name: "EventDetail",
@@ -441,10 +442,10 @@ export default {
     async save() {
       try {
         const loading = ElLoading.service({
-        lock: true,
-        text: "Chargement",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+          lock: true,
+          text: "Chargement",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
         let formData = new FormData();
         formData.append("name", this.event.name);
         formData.append("organiser", this.event.organizer);
@@ -463,7 +464,7 @@ export default {
         formData.append("ticketImage", this.ticketList[0].raw);
         formData.append("outherImage", this.otherList[0].raw);
         const event = await eventService.Add(formData);
-        loading.close()
+        loading.close();
         console.log(this.fileList);
 
         console.log(event.data);
@@ -492,7 +493,7 @@ export default {
       }
     },
     async getCategories() {
-       const loading = ElLoading.service({
+      const loading = ElLoading.service({
         lock: true,
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
@@ -506,7 +507,7 @@ export default {
           label: categories.category[i].name,
         });
       }
-      loading.close()
+      loading.close();
       console.log(response.data);
       console.log(this.optionsCategories);
     },
@@ -520,10 +521,10 @@ export default {
         });
       } else {
         const loading = ElLoading.service({
-        lock: true,
-        text: "Chargement",
-        background: "rgba(0, 0, 0, 0.7)",
-      });
+          lock: true,
+          text: "Chargement",
+          background: "rgba(0, 0, 0, 0.7)",
+        });
         let response = await eventService.getSubCategories(idCategory);
         console.log(this.optionsSubCategories);
         let subcategories = response.data.data;
@@ -534,7 +535,7 @@ export default {
             label: subcategories.rows[i].name,
           });
         }
-        loading.close()
+        loading.close();
 
         console.log(response.data);
         console.log(this.optionsSubCategories);

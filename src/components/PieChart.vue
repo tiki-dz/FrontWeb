@@ -14,6 +14,7 @@
 <script>
 import { Doughnut } from "vue-chartjs";
 import statsService from "../services/statsService";
+import { ElLoading } from "element-plus";
 
 import {
   Chart as ChartJS,
@@ -138,11 +139,11 @@ export default {
       let response = await statsService.cityStats();
       let val = response.data.data;
       console.log(val);
-      this.wilayaData.labels=[]
-      this.wilayaData.datasets[0].data=[]
+      this.wilayaData.labels = [];
+      this.wilayaData.datasets[0].data = [];
       for (let i = 0; i < val.length; i++) {
         this.wilayaData.labels.push(val[i].name);
-        this.wilayaData.datasets[0].data.push(val[i].nbUser)
+        this.wilayaData.datasets[0].data.push(val[i].nbUser);
       }
       loading.close();
     },
