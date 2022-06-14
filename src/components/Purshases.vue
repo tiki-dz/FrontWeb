@@ -24,11 +24,13 @@ export default {
   methods: {
     async handleCurrentChange(pageNumber) {
       const loading = ElLoading.service({
+              const loading = ElLoading.service({
         lock: true,
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
       });
       let purshases = await purshasesList.Allpurshases(pageNumber);
+       loading.close();
       console.log(purshasesList);
       this.Allpur = purshases.data.data.achats;
 
