@@ -74,6 +74,11 @@ export default {
           console.log(response.data);
         } else {
           this.error = "Problem in confirmation of the git fepassword";
+          ElNotification({
+            title: "Echec",
+            message: "Mot de passes différents",
+            type: "error",
+          });
         }
       } catch (error) {
         ElNotification({
@@ -228,7 +233,7 @@ export default {
                       v-for="item in options"
                       :key="item.value"
                       :label="item.label"
-                      :value="item.value"
+                      :value="item.label"
                     />
                   </el-select>
                 </el-col>
