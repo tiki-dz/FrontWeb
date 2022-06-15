@@ -70,28 +70,29 @@ v-model="ruleForm.use"
 
         <el-form-item label="Date début" prop="startTime">
           <el-date-picker
-          format="YYYY-MM-DD"
+       
+              format="YYYY/MM/DD"
+           value-format="YYYY-MM-DD"
             v-model="ruleForm.startTime"
+
             type="date"
             placeholder="Choisir la date"
             style="width: 100%"
           />
         </el-form-item>
- 
-
-
-
-
         <el-form-item label="Heure début" prop="startHour">
           <el-time-picker
             v-model="ruleForm.startHour"
             placeholder="Choisir l'heure"
             style="width: 100%"
+            format="HH:mm"
+           value-format="HH:mm:ss"
           />
         </el-form-item>
         <el-form-item label="Date fin" prop="endTime">
           <el-date-picker
-                   format="YYYY-MM-DD"
+            format="YYYY/MM/DD"
+           value-format="YYYY-MM-DD"
             v-model="ruleForm.endTime"
             type="date"
             placeholder="Choisir la date"
@@ -105,6 +106,8 @@ v-model="ruleForm.use"
             v-model="ruleForm.endHour"
             placeholder="Choisir l'heure"
             style="width: 100%"
+                   format="HH:mm"
+           value-format="HH:mm:ss"
           />
         </el-form-item>
     <el-form-item>
@@ -122,7 +125,6 @@ v-model="ruleForm.use"
       </el-col>
     </el-row>
 </template>
-
 <style scoped></style>
 <script lang="ts" setup>
 import codeService from "../services/codeService";
@@ -171,7 +173,7 @@ const rules = reactive<FormRules>({
   ],
   startHour: [
     {
-    
+  
       required: true,
       message: 'Vous devez entrer l"heure de début',
 
@@ -186,9 +188,8 @@ const rules = reactive<FormRules>({
   ],
   endHour: [
     {
-      type: 'date',
       required: true,
-      message: 'Vous devez entrer le nombre d"utilisation',
+      message: 'Vous devez entrer l"heure de la fin',
 
     },
   ],
@@ -205,8 +206,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       console.log(  {
   name: ruleForm.name,
   value: ruleForm.value,
-  startTime: "2022-12-12 12:00",
- endTime: "2022-12-14 12:00",
+  startTime: ruleForm.startTime, 
+ endTime: ruleForm.endTime , 
+ startHour : ruleForm.startHour,
+ endHour : ruleForm.endHour,
 });
 let loading
 try {
@@ -220,8 +223,8 @@ try {
         name: ruleForm.name,
         value: ruleForm.value,
         use : ruleForm.use,
-        startTime: "2022-12-12 12:00",
-      endTime: "2022-12-14 12:00",
+        startTime: ruleForm.startTime + " " +  ruleForm.startHour,
+      endTime: ruleForm.endTime + " " +  ruleForm.endHour,
 
       });
       loading.close()
