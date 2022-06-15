@@ -138,6 +138,8 @@ export default {
 
         console.log(response.data);
       } catch (error) {
+                loading.close();
+
         ElNotification({
           title: "Erreur d'ajout",
           message: "Veuillez réessayer ",

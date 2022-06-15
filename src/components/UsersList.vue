@@ -137,7 +137,7 @@ export default {
       this.totalItems = users.data.totalItems;
     },
     async activer(email, state) {
-            const loading = ElLoading.service({
+      const loading = ElLoading.service({
         lock: true,
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
@@ -160,7 +160,7 @@ export default {
     },
     async desactiver(email, state) {
       this.centerDialogVisibleDeactivate = false;
-            const loading = ElLoading.service({
+      const loading = ElLoading.service({
         lock: true,
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
@@ -304,7 +304,7 @@ export default {
               <el-col :span="12">
                 <el-input
                   v-model="search"
-                  placeholder="Chercher un email de l'utilisateur"
+                  placeholder="Chercher un email d'utilisateur"
                 >
                   <template #prefix>
                     <el-icon class="el-input__icon"
@@ -313,11 +313,11 @@ export default {
                   </template>
                 </el-input>
               </el-col>
-               <el-col :span="4">
+              <el-col :span="4">
                 <button type="button" id="add" @click="searchUser()">
-                  Search for a user
+                  Rechercher
                 </button></el-col
-              > 
+              >
             </el-row>
           </div>
         </div>

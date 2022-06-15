@@ -16,7 +16,7 @@
                   >
                 </el-col>
                 <el-col :span="12">
-                  <el-input
+                  <!-- <el-input
                     v-model="search"
                     placeholder="Chercher un id,nom ou utilisateur"
                   >
@@ -25,7 +25,7 @@
                         ><i class="fa fa-search"></i
                       ></el-icon>
                     </template>
-                  </el-input>
+                  </el-input> -->
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="addEvent()">

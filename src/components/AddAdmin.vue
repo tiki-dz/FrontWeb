@@ -66,6 +66,7 @@ export default {
             city: this.ruleForm.city,
             phoneNumber: this.ruleForm.phoneNumber,
           });
+          location.reload()
           ElNotification({
             title: "Succès",
             message: "Admin créé avec succès ",

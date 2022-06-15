@@ -34,7 +34,7 @@ export default {
       <!-- side menu  -->
       <aside>
         <el-scrollbar height="fill" class="leftCol">
-          <img src="../assets/logoo.png" class="logo" />
+          <img src="../assets/logo.png" class="logo" />
           <el-divider />
           <el-menu
             active-text-color="#ffd04b"
@@ -191,9 +191,9 @@ aside {
   padding: 0px 10px;
 }
 .logo {
-  width: 40%;
+  width: 80%;
   height: 10%;
-  margin: 16% auto;
+  margin: 6% auto;
   display: flex;
 }
 .menuItem {

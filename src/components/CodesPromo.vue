@@ -85,7 +85,7 @@ export default {
                 <el-col :span="12">
                   <el-input
                     v-model="search"
-                    placeholder="Chercher un code promo"
+                    placeholder="Chercher une promotion"
                   >
                     <template #prefix>
                       <el-icon class="el-input__icon"
@@ -155,6 +155,7 @@ export default {
       </el-table>
       <br />
       <el-pagination
+        style="margin-left: 36%"
         @current-change="handleCurrentChange"
         :page-size="3"
         background
