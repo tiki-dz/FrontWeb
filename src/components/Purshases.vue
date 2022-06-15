@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     async handleCurrentChange(pageNumber) {
-      const loading = ElLoading.service({
+   
               const loading = ElLoading.service({
         lock: true,
         text: "Chargement",

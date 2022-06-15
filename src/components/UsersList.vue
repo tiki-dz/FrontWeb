@@ -83,6 +83,7 @@ export default {
       this.centerDialogVisibleDeactivate = true;
       this.state = state;
     },
+
     async handleCurrentChange(pageNumber) {
       const loading = ElLoading.service({
         lock: true,
@@ -136,11 +137,17 @@ export default {
       this.totalItems = users.data.totalItems;
     },
     async activer(email, state) {
+            const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       this.centerDialogVisibleActivate = false;
       let result = await usersService.toogleAccount({
         email: email,
         state: state,
       });
+      loading.close();
       var foundIndex = this.Allusers.findIndex((x) => x.email == email);
       this.Allusers[foundIndex].state = !state;
       if (result.status == 200) {
@@ -153,10 +160,16 @@ export default {
     },
     async desactiver(email, state) {
       this.centerDialogVisibleDeactivate = false;
+            const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
       let result = await usersService.toogleAccount({
         email: email,
         state: state,
       });
+      loading.close();
       var foundIndex = this.Allusers.findIndex((x) => x.email == email);
       this.Allusers[foundIndex].state = !state;
       if (result.status == 200) {
@@ -205,8 +218,7 @@ export default {
     <el-input
       style="width: 80%"
       v-model="titre"
-      maxlength="10"
-      placeholder="Please input"
+      placeholder="Entrer le titre"
       show-word-limit
       type="text"
     />
@@ -214,8 +226,7 @@ export default {
 
     <el-input
       v-model="description"
-      maxlength="30"
-      placeholder="Please input"
+      placeholder="Entrer la description"
       show-word-limit
       type="textarea"
     />
@@ -302,11 +313,11 @@ export default {
                   </template>
                 </el-input>
               </el-col>
-              <!-- <el-col :span="4">
+               <el-col :span="4">
                 <button type="button" id="add" @click="searchUser()">
                   Search for a user
                 </button></el-col
-              > -->
+              > 
             </el-row>
           </div>
         </div>
@@ -322,7 +333,7 @@ export default {
 
     <el-col :span="10">
       <el-select
-        :change="updateFilter"
+        @change="updateFilter"
         v-model="filter"
         style="margin: 0px; padding: 0px"
         class="m-4"

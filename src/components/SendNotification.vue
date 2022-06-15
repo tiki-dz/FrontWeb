@@ -26,7 +26,7 @@
         </el-card>
       </el-col>
     </el-row>
-<h1>Promotions</h1>
+<h1>Notification</h1>
 
     <el-card style="margin: 20px; border-radius: 20px">
 
@@ -67,7 +67,7 @@
 import userService from "../services/usersService";
 import { reactive, ref } from 'vue'
 import { ElNotification, FormInstance, FormRules } from 'element-plus'
-
+import { ElLoading } from "element-plus";
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
@@ -97,14 +97,23 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   description: ruleForm.description,
 
 });
+const loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
 try {
+
+
 var resp = await  userService.sendNotifToAll(
       {
   title: ruleForm.titre,
   body: ruleForm.description,
   topic: 'all', 
 });
-console.log(resp);
+
+
+loading.close(); 
     if(resp.status == 200) {
        ElNotification({
                 title: "Succées",
@@ -116,6 +125,7 @@ console.log(resp);
     }
       
 }catch(e) {
+
       ElNotification({
                 title: "Erreur",
                 message: "Erreur",
