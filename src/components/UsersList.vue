@@ -302,11 +302,11 @@ export default {
                   </template>
                 </el-input>
               </el-col>
-              <!-- <el-col :span="4">
+              <el-col :span="4">
                 <button type="button" id="add" @click="searchUser()">
                   Search for a user
                 </button></el-col
-              > -->
+              >
             </el-row>
           </div>
         </div>

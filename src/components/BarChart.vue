@@ -282,6 +282,14 @@ export default {
     },
   },
   created() {
+    this.genderData.datasets[1].data = 0;
+    this.genderData.datasets[0].data = 0;
+    this.activeData.datasets[0].data = 0;
+    this.activeData.datasets[1].data = 0;
+    this.typeData.datasets[1].data = 0;
+    this.typeData.datasets[0].data = 0;
+    this.partnerData.datasets[0].data = 0;
+    this.partnerData.datasets[1].data = 0;
     console.log("child", this.stats);
     this.handleCurrentChange();
   },
