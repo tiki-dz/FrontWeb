@@ -33,7 +33,7 @@ export default {
         size: "3",
         search: this.search,
       });
-      console.log(this.codes + "éé");
+
       this.Allcodes = codes.data.data.codes;
       console.log("wow", this.Allcodes);
       this.totalPages = codes.data.totalPages;
@@ -41,13 +41,13 @@ export default {
       loading.close();
     },
     async searchCode() {
-      console.log("wow");
       this.currentPage = 1;
       let codes = await codesService.AllCodes({
         page: 0,
         size: "3",
         search: this.search,
       });
+      console.log(codes);
       this.Allcodes = codes.data.codes;
       this.totalPages = codes.data.totalPages;
       this.totalItems = codes.data.totalItems;
@@ -95,7 +95,7 @@ export default {
                   </el-input>
                 </el-col>
                 <el-col :span="4">
-                  <button type="button" id="add" @click="searchCode()">
+                  <button  id="add" @click="searchCode">
                     Rechercher
                   </button></el-col
                 >
@@ -107,7 +107,6 @@ export default {
     </el-row>
     <el-row> </el-row>
     <h1>Promotions</h1>
-
     <el-card style="margin: 20px; border-radius: 20px">
       <el-table :data="Allcodes" style="width: 100%; padding-left: 20px">
         <el-table-column

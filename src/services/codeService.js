@@ -13,7 +13,7 @@ export default {
     let search = credantials.search
     console.log(
       "/admin/codepromo?page=" + page + "&size=" + size + "&search=" + search);
-  return Api().get("/admin/codepromo?page="+page+"&size="+size+"&search="+search,{
+  return Api().get("/admin/codepromo?page="+page+"&size="+size+"&name="+search,{
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   } )
