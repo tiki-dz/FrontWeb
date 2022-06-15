@@ -27,7 +27,7 @@
                 <el-col :span="12">
                   <el-input
                     v-model="search"
-                    placeholder="Chercher un id,nom ou utilisateur"
+                    placeholder="Chercher un id, un nom d'utilisateur"
                   >
                     <template #prefix>
                       <el-icon class="el-input__icon"

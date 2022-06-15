@@ -54,19 +54,24 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
+      // "/home/api/admin": {
+      //   target: "http://127.0.0.1:5001",
+      //   changeOrigin: true,
+      //   secure: false,
+      //   rewrite: (path) => path.replace(/^\/home/, ""),
+      // },
       "/home/api/admin/Category": {
         target: "http://127.0.0.1:5002",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
-      "/home/api/admin": {
-        target: "http://127.0.0.1:5001",
+      "/api/admin/subCategory":{
+        target: "http://127.0.0.1:5002",
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/home/, ""),
       },
-
       "/home/api": {
         target: "http://127.0.0.1:5002",
         changeOrigin: true,
@@ -84,6 +89,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+
       "/api/statistic": {
         target: "http://127.0.0.1:5004",
         changeOrigin: true,

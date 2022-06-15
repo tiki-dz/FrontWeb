@@ -215,16 +215,16 @@ try {
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
       });
-var resp = await  codeService.CreateCodePromo(
-      {
-  name: ruleForm.name,
-  value: ruleForm.value,
-  use : ruleForm.use,
-  startTime: "2022-12-12 12:00",
- endTime: "2022-12-14 12:00",
+      var resp = await  codeService.CreateCodePromo(
+            {
+        name: ruleForm.name,
+        value: ruleForm.value,
+        use : ruleForm.use,
+        startTime: "2022-12-12 12:00",
+      endTime: "2022-12-14 12:00",
 
-});
-loading.close()
+      });
+      loading.close()
 
     if(resp.status == 200) {
      location.reload()  

@@ -62,7 +62,7 @@ export default {
                 <el-col :span="12">
                   <el-input
                     v-model="search"
-                    placeholder="Rechercher un email de l'utilisateur"
+                    placeholder="Rechercher un email d'utilisateur"
                   >
                     <template #prefix>
                       <el-icon class="el-input__icon"
