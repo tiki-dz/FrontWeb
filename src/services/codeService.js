@@ -1,7 +1,11 @@
 import Api from "@/services/api";
 export default {
   CreateCodePromo(credantials) {
-    return Api().post("/admin/codepromo", credantials);
+    return Api().post("/admin/codepromo", credantials, {
+      headers: {
+        "x-access-token": localStorage.getItem("LoggedUser"),
+      },
+    });
   },
   AllCodes(credantials) {
     let page= credantials.page

@@ -28,13 +28,17 @@ export default {
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
       });
-      let purshases = await purshasesList.Allpurshases(pageNumber);
-      console.log(purshasesList);
-      this.Allpur = purshases.data.data.achats;
+      try {
+        let purshases = await purshasesList.Allpurshases(pageNumber);
+        console.log(purshasesList);
+        this.Allpur = purshases.data.data.achats;
+        loading.close();
 
-      this.totalPages = purshases.data.data.totalPages;
-      this.totalItems = purshases.data.data.totalItems;
-      loading.close();
+        this.totalPages = purshases.data.data.totalPages;
+        this.totalItems = purshases.data.data.totalItems;
+      } catch (error) {
+        loading.close();
+      }
     },
   },
 };
@@ -58,7 +62,7 @@ export default {
                 <el-col :span="12">
                   <el-input
                     v-model="search"
-                    placeholder="Chercher un email de l'utilisateur"
+                    placeholder="Rechercher un email de l'utilisateur"
                   >
                     <template #prefix>
                       <el-icon class="el-input__icon"
@@ -69,7 +73,7 @@ export default {
                 </el-col>
                 <el-col :span="4">
                   <button type="button" id="add" @click="searchUser()">
-                    rechercher achat
+                    Rechercher
                   </button></el-col
                 >
               </el-row>
@@ -135,8 +139,8 @@ export default {
     </el-card>
   </div>
 </template>
-<style>
-.el-input__prefix {
-  height: 80%;
+<style scoped>
+.el-input .el-input__icon {
+  margin-top: 0px;
 }
 </style>

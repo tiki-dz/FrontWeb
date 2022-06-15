@@ -156,6 +156,7 @@ export default {
       </el-table>
       <br />
       <el-pagination
+        style="margin-left: 36%"
         @current-change="handleCurrentChange"
         :page-size="3"
         background

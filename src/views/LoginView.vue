@@ -80,7 +80,7 @@ export default {
       <el-col :span="8" class="right_col">
         <div class="transparent">
           <el-card class="form">
-            <img src="../assets/logoo.png" class="logoLogin" />
+            <img src="../assets/logo.png" class="logoLogin" />
             <p class="welcome">Bienvenu , ADMIN!</p>
             <br />
             <form @submit.prevent="login" class="login">
@@ -125,7 +125,7 @@ export default {
   z-index: 4;
 }
 .form {
-  background-color: rgba(32, 31, 31, 0.973);
+  background-color: rgba(29, 29, 29, 0.467);
   height: 80vh;
   display: table-cell;
   vertical-align: middle;
@@ -194,8 +194,8 @@ export default {
 }
 
 .logoLogin {
-  width: 25%;
-  height: 20%;
+  width: 65%;
+  height: 40%;
   margin: 0 auto;
   display: flex;
   margin-bottom: 10%;

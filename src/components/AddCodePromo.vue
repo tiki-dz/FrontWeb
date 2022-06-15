@@ -114,7 +114,7 @@ v-model="ruleForm.use"
       <el-button type="primary" @click="submitForm(ruleFormRef)"
         >Créer</el-button
       >
-      <el-button @click="resetForm(ruleFormRef)">Supprimer</el-button>
+      <el-button @click="resetForm(ruleFormRef)">Réinitialiser</el-button>
     </el-form-item>
   </el-form>
   </el-card>
@@ -128,7 +128,9 @@ v-model="ruleForm.use"
 import codeService from "../services/codeService";
 import { reactive, ref } from 'vue'
 import { ElNotification, FormInstance, FormRules } from 'element-plus'
-
+import "element-plus/es/components/loading/style/css";
+import { ElLoading } from "element-plus";
+import { Loading } from "element-plus/es/components/loading/src/service";
 const formSize = ref('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive({
@@ -206,7 +208,13 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   startTime: "2022-12-12 12:00",
  endTime: "2022-12-14 12:00",
 });
+let loading
 try {
+   loading = ElLoading.service({
+        lock: true,
+        text: "Chargement",
+        background: "rgba(0, 0, 0, 0.7)",
+      });
 var resp = await  codeService.CreateCodePromo(
       {
   name: ruleForm.name,
@@ -216,9 +224,11 @@ var resp = await  codeService.CreateCodePromo(
  endTime: "2022-12-14 12:00",
 
 });
+loading.close()
 
     if(resp.status == 200) {
-       ElNotification({
+     location.reload()  
+     ElNotification({
                 title: "Succées",
                 message: "Code promo ajouté avec succés",
                 type: "success",
@@ -226,6 +236,7 @@ var resp = await  codeService.CreateCodePromo(
     }
       
 }catch(e) {
+  loading.close()
       ElNotification({
                 title: "Erreur",
                 message: "Ce Code existe déja",

@@ -90,11 +90,11 @@ export default {
                   </el-breadcrumb>
                 </el-col>
                 <el-col :span="12">
-                  <el-input
+                  <el-input  
                     v-model="search"
-                    placeholder="Chercher un id,nom ou utilisateur"
+                    placeholder="Chercher un id, nom ou utilisateur"
                   >
-                    <template #prefix>
+                    <template #prefix >
                       <el-icon class="el-input__icon"
                         ><i class="fa fa-search"></i
                       ></el-icon>
@@ -170,7 +170,7 @@ export default {
     </el-row>
   </nav>
 </template>
-<style scoped>
+<style scoped >
 #add {
   color: #fd7d1bdc;
   cursor: pointer;
@@ -185,4 +185,6 @@ export default {
 .categories .el-col {
   text-align: center;
 }
+.el-input .el-input__icon {
+margin-top: 5px;}
 </style>

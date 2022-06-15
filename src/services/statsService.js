@@ -22,5 +22,26 @@ purchaseStats() {
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })
+},
+updateUserStats() {
+  console.log("updating")
+  return Api().get("/statistic/update",{
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })
+},
+updateCitiesStats() {
+  console.log("updating")
+  return Api().get("/autre/cities",{
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })
+},
+updatePurchaseStats() {
+  console.log("updating")
+  return Api().get("/autre/cities",{
+      headers: {
+        'x-access-token': localStorage.getItem("LoggedUser")}
+  })
 }
 }
