@@ -15,8 +15,8 @@ export default {
   },
 
   methods: {
-    route(id) {
-      this.$router.push("/home/subList/" + id);
+    route(id,name) {
+      this.$router.push({name: "subList", params:{idCategory:id, name:name}} ) ;
     },
     async deleteCtegory(idCategory) {
       try {
@@ -144,7 +144,7 @@ export default {
                 <el-button
                   type="primary"
                   plain
-                  @click="route(categorie.idCategory)"
+                  @click="route(categorie.idCategory, categorie.name)"
                   >Détaills</el-button
                 >
               </el-col>

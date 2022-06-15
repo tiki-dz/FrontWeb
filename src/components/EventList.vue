@@ -65,13 +65,17 @@
                     <ul>
                       <li>
                         <time class="time"
-                          >{{ event.startDate.split("T")[0] }} &nbsp;10:00</time
+                          >{{ event.startDate.split("T")[0] }} &nbsp;{{
+                            event.startDate.split("T")[1].substring(0, 5)
+                          }}</time
                         >
                       </li>
                       <br />
                       <li>
                         <time class="time"
-                          >{{ event.endDate.split("T")[0] }} &nbsp;17:00</time
+                          >{{ event.endDate.split("T")[0] }} &nbsp;{{
+                            event.endDate.split("T")[1].substring(0, 5)
+                          }}</time
                         >
                       </li>
                     </ul>

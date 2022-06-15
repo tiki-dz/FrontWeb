@@ -89,7 +89,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-
+      "/api/statistic/update": {
+        target: "http://127.0.0.1:5001",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/home/, ""),
+      },
       "/api/statistic": {
         target: "http://127.0.0.1:5004",
         changeOrigin: true,

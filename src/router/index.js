@@ -51,7 +51,7 @@ const router = createRouter({
         { path: "EventList", component: EventList },
         { path: "notification", component: SendNotification },
         { path: "subCategory", name: "subCategory", component: subCategory },
-        { path: "SubList/:idCategory", component: SubList },
+        { path: "SubList",name:"subList", component: SubList },
 
         { path: "Purshases", component: PurshasesList },
 

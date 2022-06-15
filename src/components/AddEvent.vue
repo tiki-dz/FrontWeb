@@ -174,7 +174,7 @@
                       v-model="event.date"
                       type="datetimerange"
                       format="YYYY/MM/DD"
-                      value-format="YYYY-MM-DD"
+                      value-format="YYYY-MM-DD HH:mm:ss"
                       start-placeholder="Date de début"
                       end-placeholder="Date de fin"
                       :disabledDate="disabledDateF"
@@ -440,8 +440,9 @@ export default {
       this.dialogVisible = true;
     },
     async save() {
+      let loading;
       try {
-        const loading = ElLoading.service({
+        loading = ElLoading.service({
           lock: true,
           text: "Chargement",
           background: "rgba(0, 0, 0, 0.7)",
@@ -485,6 +486,8 @@ export default {
           });
         }
       } catch (error) {
+        loading.close();
+
         ElNotification({
           title: "Echec",
           message: "Verifier les champs ",
@@ -498,7 +501,9 @@ export default {
         text: "Chargement",
         background: "rgba(0, 0, 0, 0.7)",
       });
-      let response = await eventService.getCategories();
+      try {
+         let response = await eventService.getCategories();
+      loading.close();
       let categories = response.data.data;
       this.optionsCategories = [];
       for (let i = 0; i < categories.totalItems; i++) {
@@ -507,25 +512,34 @@ export default {
           label: categories.category[i].name,
         });
       }
-      loading.close();
+      } catch (error) {
+        loading.close()
+      }
+     
+
+      
       console.log(response.data);
       console.log(this.optionsCategories);
     },
     async getSubCategories(idCategory) {
       console.log(idCategory);
-      if (idCategory == "") {
+      let loading
+      try {
+         if (idCategory == "") {
         ElNotification({
           title: "Category Not selected",
           message: "Please select a category first ! ",
           type: "error",
         });
       } else {
-        const loading = ElLoading.service({
+         loading = ElLoading.service({
           lock: true,
           text: "Chargement",
           background: "rgba(0, 0, 0, 0.7)",
         });
         let response = await eventService.getSubCategories(idCategory);
+                loading.close();
+
         console.log(this.optionsSubCategories);
         let subcategories = response.data.data;
         this.optionsSubCategories = [];
@@ -535,12 +549,16 @@ export default {
             label: subcategories.rows[i].name,
           });
         }
-        loading.close();
 
         console.log(response.data);
         console.log(this.optionsSubCategories);
       }
-    },
+    
+      } catch (error) {
+                        loading.close();
+
+      }
+     },
     async getTags(eventName) {
       if (eventName !== "") {
         this.optionsTags = [{ value: eventName, label: "#" + eventName }];

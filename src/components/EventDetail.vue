@@ -154,6 +154,7 @@
                       name="url"
                       v-model="event.urls"
                       placeholder="Lien d'evenement ou de la societé"
+                      :disabled="!modifying"
                     >
                       <template #prepend>Http://</template>
                     </el-input>
@@ -177,7 +178,7 @@
                       v-model="event.date"
                       type="datetimerange"
                       format="YYYY/MM/DD"
-                      value-format="YYYY-MM-DD"
+                      value-format="YYYY-MM-DD HH:mm:ss"
                       start-placeholder="Date de début"
                       end-placeholder="Date de fin"
                       :disabledDate="disabledDateF"
@@ -592,6 +593,7 @@ export default {
           }
           //otherinfos update
           if (!equal) {
+            // console.log("date",this.event.date[0])
             let formData = new FormData();
             formData.append("name", this.event.name);
             formData.append("organiser", this.event.organizer);

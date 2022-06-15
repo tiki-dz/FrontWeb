@@ -53,9 +53,11 @@ export default {
       console.log(idCategory);
       let response = await categoryService.getSubCategories(idCategory);
       this.subCategories = response.data.data.rows;
-      this.name = this.subCategories[0].Category.name;
+      if (this.subCategories.length > 0) {
+        this.name = this.subCategories[0].Category.name;
+      }
       console.log(this.subcategories);
-      loading.close()
+      loading.close();
     },
     addSubCategory() {
       this.$router.push({ name: "subCategory", params: { id: this.url } });
@@ -63,6 +65,8 @@ export default {
   },
   created() {
     this.url = this.$route.params.idCategory;
+    console.log(this.$route.params)
+    this.name = this.$route.params.name;
     this.getSubCategories(this.url);
   },
 };
@@ -99,7 +103,7 @@ export default {
                 <el-col :span="12">
                   <el-input
                     v-model="search"
-                    placeholder="Chercher un id,nom ou utilisateur"
+                    placeholder="Chercher un id, un nom d'utilisateur"
                   >
                     <template #prefix>
                       <el-icon class="el-input__icon"
@@ -184,5 +188,6 @@ export default {
   text-align: center;
 }
 .el-input .el-input__icon {
-margin-top: 5px;}
+  margin-top: 5px;
+}
 </style>
