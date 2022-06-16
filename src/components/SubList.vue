@@ -64,9 +64,23 @@ export default {
     },
   },
   created() {
-    this.url = this.$route.params.idCategory;
-    console.log(this.$route.params)
-    this.name = this.$route.params.name;
+    if (
+      !this.$route.params.idCategory &&
+      localStorage.getItem("Category") != null
+    ) {
+      let x=JSON.parse(localStorage.getItem("Category"))
+      console.log(x.idCategory)
+      this.url = x.idCategory;
+      this.name = x.name;
+    } else if (this.$route.params.idCategory) {
+      this.url = this.$route.params.idCategory;
+      console.log(this.$route.params);
+      this.name = this.$route.params.name;
+      localStorage.setItem("Category",JSON.stringify({idCategory:this.url,name:this.name}))
+    }else{
+             this.$router.push("/home/SubList");
+    }
+
     this.getSubCategories(this.url);
   },
 };
@@ -91,7 +105,7 @@ export default {
                     >
                     <el-breadcrumb-item
                       ><router-link
-                        :to="'/home/subList/' + url"
+                        :to="'/home/subList/'"
                         style="color: aliceblue"
                         >N° {{ url }} : {{ name }}</router-link
                       ></el-breadcrumb-item

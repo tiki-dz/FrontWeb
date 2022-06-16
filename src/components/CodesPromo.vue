@@ -33,8 +33,16 @@ export default {
         size: "3",
         search: this.search,
       });
-
+      let x, y;
       this.Allcodes = codes.data.data.codes;
+      for (let i = 0; i < this.Allcodes.length; i++) {
+        x = this.Allcodes[i].startTime;
+        y = this.Allcodes[i].endTime;
+        this.Allcodes[i].startTime =
+          x.split("T")[0] + " à " + x.split("T")[1].substring(0, 5);
+        this.Allcodes[i].endTime =
+          y.split("T")[0] + " à " + y.split("T")[1].substring(0, 5);
+      }
       console.log("wow", this.Allcodes);
       this.totalPages = codes.data.totalPages;
       this.totalItems = codes.data.data.totalItems;
@@ -95,7 +103,7 @@ export default {
                   </el-input>
                 </el-col>
                 <el-col :span="4">
-                  <button  id="add" @click="searchCode">
+                  <button id="add" @click="searchCode">
                     Rechercher
                   </button></el-col
                 >

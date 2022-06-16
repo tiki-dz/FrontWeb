@@ -17,10 +17,10 @@
                     >
                     <el-breadcrumb-item
                       ><router-link
-                        :to="'/home/subList/' + $route.params.id"
+                        :to="'/home/subList/'"
                         style="color: aliceblue"
                       >
-                        Catégorie N° {{ $route.params.id }}</router-link
+                        Catégorie N° {{ id }}</router-link
                       >
                     </el-breadcrumb-item>
                     <el-breadcrumb-item
@@ -102,6 +102,7 @@ export default {
   name: "AddSubCategory",
   data() {
     return {
+      id:"",
       forms: {
         name: "",
         description: "",
@@ -116,14 +117,15 @@ export default {
   },
   methods: {
     async AddSubCategories() {
+      let loading
       try {
-        const loading = ElLoading.service({
+         loading = ElLoading.service({
           lock: true,
           text: "Chargement",
           background: "rgba(0, 0, 0, 0.7)",
         });
         const response = await categoryService.AddSubCategory({
-          idCategory: this.$route.params.id,
+          idCategory: this.id,
           name: this.forms.name,
           description: this.forms.description,
           icon: this.forms.icon,
@@ -161,6 +163,14 @@ export default {
       console.log(index, row);
     },
   },
+  created(){
+    if(localStorage.getItem("idCtegory2")!=null && !this.$route.params.id ){
+      this.id=JSON.parse(localStorage.getItem("idCtegory2"))
+    }else{
+      this.id=this.$route.params.id
+      localStorage.setItem("idCtegory2",JSON.stringify(this.id))
+    }
+  }
 };
 </script>
 <style>
