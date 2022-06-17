@@ -119,7 +119,7 @@ export default {
       currentPage: 1,
       Allevents: [],
       pages: 1,
-      pageSize: 12,
+      pageSize: 100,
     };
   },
   mounted: function () {
@@ -137,6 +137,7 @@ export default {
         size: this.pageSize,
       });
       this.Allevents = events.data.events;
+      console.log(this.Allevents)
       this.pages = events.data.totalItems;
       console.log(this.pages);
       loading.close();

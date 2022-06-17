@@ -10,7 +10,7 @@ export default {
   AllEvents(credantials) {
     let page= credantials.page
     let size= credantials.size
-  return Api().get("/admin/event?page="+page+"&size="+size, credantials )
+  return Api().get("/admin/event2?page="+page+"&size="+size, credantials )
   },
   Update(credantials) {
     let id=credantials.id;

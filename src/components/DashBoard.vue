@@ -53,12 +53,12 @@ export default {
         });
         await statsService.updateUserStats();
         await statsService.updateCitiesStats();
-        // await statsService.updatePurchaseStats();
-                loading.close();
+        await statsService.updatePurchaseStats();
+          loading.close();
           location.reload()
         ElNotification({
           title: "Succées",
-          message: "Code promo ajouté avec succés",
+          message: "Mise à jour terminé",
           type: "success",
         });
 

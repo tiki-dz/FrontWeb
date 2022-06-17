@@ -39,7 +39,7 @@ updateCitiesStats() {
 },
 updatePurchaseStats() {
   console.log("updating")
-  return Api().get("/autre/cities",{
+  return Api().get("/update/statistic/update",{
       headers: {
         'x-access-token': localStorage.getItem("LoggedUser")}
   })
